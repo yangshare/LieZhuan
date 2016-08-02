@@ -1,0 +1,238 @@
+{
+	"second/taskPush.html": {
+		"resources": [
+			"css/feedback.css",
+			"js/mui.picker.min.js",
+			"css/mui.picker.min.css",
+			"js/feedback.js",
+			"image/iconfont-tianjia.png",
+			"js/mui.min.js",
+			"css/iconfont.css",
+			"css/mui.css",
+			"fonts/mui.ttf",
+			"fonts/iconfont.ttf"
+		],
+		"refer": []
+	},
+	"second/pyq.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"image/header.jpg",
+			"image/yuantiao.jpg",
+			"js/mui.pullToRefresh.js",
+			"js/my/imgSlider.js",
+			"image/shuijiao.jpg",
+			"image/muwu.jpg",
+			"js/mui.pullToRefresh.material.js",
+			"image/cbd.jpg",
+			"css/mui.css",
+			"js/jquery.js",
+			"js/mui.min.js",
+			"css/iconfont.css",
+			"fonts/iconfont.ttf",
+			"image/2242324_163256494905_2.jpg",
+			"second/pyq/myTopics.html",
+			"second/pyq/search.html"
+		],
+		"refer": [
+			"second/pyq/myTopics.html",
+			"second/pyq/search.html"
+		]
+	},
+	"second/info.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/iconfont.css",
+			"image/header.jpg",
+			"css/mui.css",
+			"second/info/setting.html",
+			"second/info/ability.html",
+			"second/info/myInfo.html",
+			"second/info/myTaskPush.html",
+			"second/info/myMoney.html"
+		],
+		"refer": [
+			"second/info/setting.html",
+			"second/info/ability.html",
+			"second/info/myInfo.html",
+			"second/info/myTaskPush.html",
+			"second/info/myMoney.html"
+		]
+	},
+	"second/taskHome.html": {
+		"resources": [
+			"image/yuantiao.jpg",
+			"js/mui.pullToRefresh.js",
+			"js/my/imgSlider.js",
+			"image/shuijiao.jpg",
+			"image/2242324_163256494905_2.jpg",
+			"image/muwu.jpg",
+			"js/mui.pullToRefresh.material.js",
+			"js/jquery.js",
+			"js/mui.min.js",
+			"css/iconfont.css",
+			"css/mui.css",
+			"fonts/iconfont.ttf"
+		],
+		"refer": []
+	},
+	"second/taskRecords.html": {
+		"resources": [
+			"image/cbd.jpg",
+			"image/yuantiao.jpg",
+			"js/mui.pullToRefresh.js",
+			"js/my/imgSlider.js",
+			"image/shuijiao.jpg",
+			"image/muwu.jpg",
+			"js/mui.min.js",
+			"js/mui.pullToRefresh.material.js",
+			"css/iconfont.css",
+			"css/mui.css",
+			"js/jquery.js",
+			"fonts/iconfont.ttf",
+			"image/2242324_163256494905_2.jpg"
+		],
+		"refer": []
+	},
+	"login.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"image/LOGO.png",
+			"css/mui.css",
+			"reg.html",
+			"forget.html"
+		],
+		"refer": [
+			"menu.html",
+			"reg.html",
+			"forget.html"
+		]
+	},
+	"menu.html": {
+		"resources": [
+			"second/taskRecords.html",
+			"css/iconfont.css",
+			"fonts/iconfont.ttf",
+			"js/mui.min.js",
+			"css/mui.css",
+			"second/taskHome.html"
+		],
+		"refer": [
+			"second/taskPush.html",
+			"second/info.html",
+			"second/pyq.html",
+			"second/taskHome.html",
+			"second/taskRecords.html",
+			"login.html"
+		]
+	},
+	"reg.html": {
+		"resources": [
+			"login.html",
+			"image/header.jpg",
+			"css/iconfont.css",
+			"fonts/iconfont.ttf"
+		],
+		"refer": [
+			"login.html"
+		]
+	},
+	"forget.html": {
+		"resources": [
+			"login.html",
+			"css/iconfont.css",
+			"fonts/iconfont.ttf",
+			"js/mui.min.js",
+			"css/mui.css"
+		],
+		"refer": [
+			"login.html"
+		]
+	},
+	"second/info/ability.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/iconfont.css",
+			"image/header.jpg",
+			"fonts/iconfont.ttf",
+			"css/mui.css",
+			"second/info.html",
+			"second/info/image/dinghua.png"
+		],
+		"refer": [
+			"second/info.html"
+		]
+	},
+	"second/info/setting.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"js/mui.min.js",
+			"css/iconfont.css",
+			"fonts/iconfont.ttf",
+			"css/mui.css",
+			"second/info.html"
+		],
+		"refer": [
+			"second/info.html"
+		]
+	},
+	"second/info/myInfo.html": {
+		"resources": [
+			"js/mui.min.js",
+			"css/iconfont.css",
+			"image/header.jpg",
+			"fonts/iconfont.ttf",
+			"css/mui.css",
+			"image/LOGO.png",
+			"image/LZ1.png",
+			"second/info.html",
+			"fonts/mui.ttf"
+		],
+		"refer": [
+			"second/info.html"
+		]
+	},
+	"second/info/myTaskPush.html": {
+		"resources": [
+			"second/info.html"
+		],
+		"refer": [
+			"second/info.html"
+		]
+	},
+	"second/info/myMoney.html": {
+		"resources": [
+			"fonts/mui.ttf",
+			"second/info.html",
+			"js/mui.min.js",
+			"css/iconfont.css",
+			"fonts/iconfont.ttf",
+			"css/mui.css",
+			"js/mui.pullToRefresh.js",
+			"js/my/imgSlider.js",
+			"image/2242324_163256494905_2.jpg",
+			"js/mui.pullToRefresh.material.js",
+			"js/jquery.js"
+		],
+		"refer": [
+			"second/info.html"
+		]
+	},
+	"second/pyq/myTopics.html": {
+		"resources": [
+			"second/pyq.html"
+		],
+		"refer": [
+			"second/pyq.html"
+		]
+	},
+	"second/pyq/search.html": {
+		"resources": [
+			"second/pyq.html"
+		],
+		"refer": [
+			"second/pyq.html"
+		]
+	}
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>猎赚</title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<style type="text/css">
+			.mui-content {
+				margin: 0px 10px;
+			}
+			
+			.login-logo {
+				text-align: center;
+			}
+			
+			.login-logo img {
+				margin: 25px;
+				width: 50%;
+			}
+			
+			.mui-input-row input {
+				border: 0px;
+				border-bottom: 1px #D6D6D7 solid;
+			}
+			
+			.mui-input-row a {
+				color: #8f8f94;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<br />
+			<div class="login-logo">
+				<img src="image/LOGO.png" />
+			</div>
+			<h5>账号USERNAME</h5>
+			<div class="mui-input-row">
+
+				<input type="tel" id="account" class="mui-input-clear" placeholder="手机号" maxlength="11" />
+			</div>
+			<h5>密码PASSWORD</h5>
+			<div class="mui-input-row">
+				<input type="text" id="password" class="mui-input-password" placeholder="考号或者学号后6位" />
+			</div>
+			<br />
+			<button id="login" type="button" class="mui-btn  mui-btn-block" style="background-color: #50D2C2;border: 0px;color: white;padding: 8px;font-size: 16px;">登录</button>
+			<br />
+			<div class="mui-input-row">
+				<a href="forget.html">忘记密码？</a>
+				<a href="reg.html" style="float: right;">激活注册</a>
+			</div>
+			<br />
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			(function($, doc) {
+				$.init();
+				$.plusReady(function() {
+					doc.getElementById("login").addEventListener("tap", function() {
+						
+						plus.webview.open("menu.html"); // 显示窗口
+						//打开新页面关闭当前页面清理栈
+						var ws = plus.webview.currentWebview();
+						plus.webview.close(ws);
+						
+					});
+					//返回键，退出应用
+					var backButtonPress = 0;
+					$.back = function(event) {
+						backButtonPress++;
+						if(backButtonPress > 1) {
+							plus.runtime.quit();
+						} else {
+							plus.nativeUI.toast('再按一次退出应用');
+						}
+						setTimeout(function() {
+							backButtonPress = 0;
+						}, 1000);
+						return false;
+					};
+				});
+			}(mui, document));
+		</script>
+	</body>
+
+</html>
