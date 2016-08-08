@@ -92,7 +92,7 @@
 
 			<div id="dieTime" class="mui-input-row" style="white-space: nowrap;" hidden="hidden">
 				<label>任务完成时限：<h6>超过时限，任务下架，任务失败</h6></label>
-				
+
 			</div>
 			<div id="chooseTime" class="mui-content-padded" hidden="hidden">
 				<button id='pickTimeBtn' class="mui-btn mui-btn-block" style="background-color:  #4FD2C2;">
@@ -110,7 +110,7 @@
 			</div>
 			<br />
 			<div class="mui-content-padded">
-				<button id='submit' class="mui-btn  mui-btn-block" style="padding: 10px;">发布任务</button>
+				<button id='submitTask' class="mui-btn  mui-btn-block" style="padding: 10px;">发布任务</button>
 			</div>
 
 		</div>
@@ -172,7 +172,31 @@
 				document.getElementById("dieTime").removeAttribute("hidden");
 				document.getElementById("chooseTime").removeAttribute("hidden");
 			});
+
+			//发布任务
+			mui("#submitTask")[0].addEventListener("tap", function() {
+				console.log("" + mui(".feedback")[0].innerHTML);
+			});
 		</script>
 	</body>
 
 </html>
+
+<!--<div id="image-list" class="row image-list">
+	<div class="image-item" style="background-image: url(file:///storage/emulated/0/Android/data/io.dcloud.HBuilder/.HBuilder/apps/HBuilder/doc/Screenshot_2016-03-23-19-14-15.png);">
+		<div class="image-close">X</div>
+		<div class="file" id="image-1"></div>
+	</div>
+	<div class="image-item" style="background-image: url(file:///storage/emulated/0/Android/data/io.dcloud.HBuilder/.HBuilder/apps/HBuilder/doc/_37_37646_20151112200325.jpg);">
+		<div class="image-close">X</div>
+		<div class="file" id="image-2"></div>
+	</div>
+	<div class="image-item" style="background-image: url(file:///storage/emulated/0/Android/data/io.dcloud.HBuilder/.HBuilder/apps/HBuilder/doc/%E8%8D%89%E8%8E%93.jpg);">
+		<div class="image-close">X</div>
+		<div class="file" id="image-3"></div>
+	</div>
+	<div class="image-item space">
+		<div class="image-close">X</div>
+		<div class="file" id="image-4"></div>
+	</div>
+</div>-->

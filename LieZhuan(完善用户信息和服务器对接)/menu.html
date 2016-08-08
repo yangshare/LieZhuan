@@ -16,7 +16,9 @@
 
 	<body>
 		<!--底部选项卡-->
+
 		<nav class="mui-bar mui-bar-tab">
+			
 			<a class="mui-tab-item" href="second/taskHome.html">
 				<span class="mui-icon iconfont icon-renwudating">
 					<!--任务大厅-->
@@ -27,8 +29,7 @@
 					<!--猎圈-->
 				</span>
 			</a>
-			
-			
+
 			<a class="mui-tab-item " href="second/taskPush.html">
 				<span class="mui-icon iconfont icon-tianjia">
 					<!--任务发布-->
@@ -53,9 +54,15 @@
 			//设置默认打开首页显示的子页序号；
 			var Index = 0;
 			//把子页的路径写在数组里面
-			var subpages = ['second/taskHome.html', 'second/pyq.html', 'second/taskPush.html','second/taskRecords.html','second/info.html'];
+			var subpages = ['second/taskHome.html', 'second/pyq.html', 'second/taskPush.html', 'second/taskRecords.html', 'second/info.html'];
+			//等待窗口
+			var wt=null;
 			//所有的plus-*方法写在mui.plusReady中或者后面。
 			mui.plusReady(function() {
+				wt = plus.nativeUI.showWaiting("拼老命加载...");
+				setTimeout(function() {
+					wt.close();
+				}, 1000);
 				//获取当前页面所属的Webview窗口对象
 				var self = plus.webview.currentWebview();
 				for(var i = 0; i < 5; i++) {
@@ -74,6 +81,7 @@
 					}
 					//将webview对象填充到窗口
 					self.append(sub);
+
 				}
 			});
 			//当前激活选项
@@ -98,9 +106,9 @@
 			//自定义返回函数，返回时隐藏当前选项卡，显示上一次活跃的选项卡页面；
 			var first = null;
 			mui.back = function() {
-			
+
 				plus.webview.open("login.html"); // 显示窗口
-					//打开新页面关闭当前页面清理栈
+				//打开新页面关闭当前页面清理栈
 				var ws = plus.webview.currentWebview();
 				plus.webview.close(ws);
 

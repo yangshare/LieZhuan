@@ -32,11 +32,13 @@
 			"fonts/iconfont.ttf",
 			"image/2242324_163256494905_2.jpg",
 			"second/pyq/myTopics.html",
-			"second/pyq/search.html"
+			"second/pyq/search.html",
+			"second/pyq/topics.html"
 		],
 		"refer": [
 			"second/pyq/myTopics.html",
-			"second/pyq/search.html"
+			"second/pyq/search.html",
+			"second/pyq/topics.html"
 		]
 	},
 	"second/info.html": {
@@ -101,7 +103,10 @@
 			"image/LOGO.png",
 			"css/mui.css",
 			"reg.html",
-			"forget.html"
+			"forget.html",
+			"js/my/app.js",
+			"menu.html",
+			"js/my/variable.js"
 		],
 		"refer": [
 			"menu.html",
@@ -116,7 +121,9 @@
 			"fonts/iconfont.ttf",
 			"js/mui.min.js",
 			"css/mui.css",
-			"second/taskHome.html"
+			"second/taskHome.html",
+			"second/info.html",
+			"login.html"
 		],
 		"refer": [
 			"second/taskPush.html",
@@ -132,7 +139,11 @@
 			"login.html",
 			"image/header.jpg",
 			"css/iconfont.css",
-			"fonts/iconfont.ttf"
+			"fonts/iconfont.ttf",
+			"js/mui.min.js",
+			"css/mui.css",
+			"js/my/variable.js",
+			"fonts/mui.ttf"
 		],
 		"refer": [
 			"login.html"
@@ -144,7 +155,8 @@
 			"css/iconfont.css",
 			"fonts/iconfont.ttf",
 			"js/mui.min.js",
-			"css/mui.css"
+			"css/mui.css",
+			"fonts/mui.ttf"
 		],
 		"refer": [
 			"login.html"
@@ -171,7 +183,8 @@
 			"css/iconfont.css",
 			"fonts/iconfont.ttf",
 			"css/mui.css",
-			"second/info.html"
+			"second/info.html",
+			"js/my/variable.js"
 		],
 		"refer": [
 			"second/info.html"
@@ -187,7 +200,8 @@
 			"image/LOGO.png",
 			"image/LZ1.png",
 			"second/info.html",
-			"fonts/mui.ttf"
+			"fonts/mui.ttf",
+			"js/my/variable.js"
 		],
 		"refer": [
 			"second/info.html"
@@ -213,7 +227,8 @@
 			"js/my/imgSlider.js",
 			"image/2242324_163256494905_2.jpg",
 			"js/mui.pullToRefresh.material.js",
-			"js/jquery.js"
+			"js/jquery.js",
+			"js/my/variable.js"
 		],
 		"refer": [
 			"second/info.html"
@@ -233,6 +248,36 @@
 		],
 		"refer": [
 			"second/pyq.html"
+		]
+	},
+	"second/pyq/topics.html": {
+		"resources": [
+			"second/pyq.html"
+		],
+		"refer": [
+			"second/pyq.html"
+		]
+	},
+	"beecloud.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.css",
+			"js/beecloud.js"
+		],
+		"refer": []
+	},
+	"demo.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"image/LOGO.png",
+			"css/mui.css",
+			"js/my/app.js",
+			"menu.html"
+		],
+		"refer": [
+			"menu.html"
 		]
 	}
 }

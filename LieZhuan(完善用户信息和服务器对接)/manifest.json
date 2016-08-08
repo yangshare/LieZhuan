@@ -103,7 +103,9 @@
 		},
 		"NativeObj": {
 			"description": "原生对象"
-		},"Share":{}
+		},
+		"Share": {},
+		"Payment": {}
 	},
 	"plus": {
 		"splashscreen": {
@@ -112,7 +114,21 @@
 		},
 		"runmode": "liberate",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
 		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保留给应用签名，暂不使用*/
-		"distribute": {"plugins":{"share":{"qq":{"appid":"1105508825","description":"QQ分享"}}},
+		"distribute": {
+			"plugins": {
+				"payment": {
+					"alipay": {
+						"description": "阿里支付",
+						"scheme": ""
+					}
+				},
+				"share": {
+					"qq": {
+						"appid": "1105508825",
+						"description": "QQ分享"
+					}
+				}
+			},
 			"apple": {
 				"appid": "",/*iOS应用标识，苹果开发网站申请的appid，如io.dcloud.HelloH5*/
 				"mobileprovision": "",/*iOS应用打包配置文件*/
@@ -261,7 +277,8 @@
 					"fonts/iconfont.ttf",
 					"image/2242324_163256494905_2.jpg",
 					"second/pyq/myTopics.html",
-					"second/pyq/search.html"
+					"second/pyq/search.html",
+					"second/pyq/topics.html"
 				],
 				"refer": [],
 				"priority": 0
@@ -325,11 +342,12 @@
 					"image/LOGO.png",
 					"css/mui.css",
 					"reg.html",
-					"forget.html"
+					"forget.html",
+					"js/my/app.js",
+					"menu.html",
+					"js/my/variable.js"
 				],
-				"refer": [
-					"menu.html"
-				],
+				"refer": [],
 				"priority": 0
 			},
 			"menu.html": {
@@ -339,13 +357,13 @@
 					"fonts/iconfont.ttf",
 					"js/mui.min.js",
 					"css/mui.css",
-					"second/taskHome.html"
+					"second/taskHome.html",
+					"second/info.html",
+					"login.html"
 				],
 				"refer": [
 					"second/taskPush.html",
-					"second/info.html",
-					"second/pyq.html",
-					"login.html"
+					"second/pyq.html"
 				],
 				"priority": 0
 			},
@@ -369,7 +387,8 @@
 					"css/iconfont.css",
 					"fonts/iconfont.ttf",
 					"css/mui.css",
-					"second/info.html"
+					"second/info.html",
+					"js/my/variable.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -384,7 +403,8 @@
 					"image/LOGO.png",
 					"image/LZ1.png",
 					"second/info.html",
-					"fonts/mui.ttf"
+					"fonts/mui.ttf",
+					"js/my/variable.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -408,7 +428,8 @@
 					"js/my/imgSlider.js",
 					"image/2242324_163256494905_2.jpg",
 					"js/mui.pullToRefresh.material.js",
-					"js/jquery.js"
+					"js/jquery.js",
+					"js/my/variable.js"
 				],
 				"refer": [],
 				"priority": 0
@@ -418,7 +439,11 @@
 					"css/iconfont.css",
 					"image/header.jpg",
 					"fonts/iconfont.ttf",
-					"login.html"
+					"login.html",
+					"js/mui.min.js",
+					"css/mui.css",
+					"js/my/variable.js",
+					"fonts/mui.ttf"
 				],
 				"refer": [],
 				"priority": 0
@@ -429,7 +454,8 @@
 					"js/mui.min.js",
 					"css/iconfont.css",
 					"fonts/iconfont.ttf",
-					"css/mui.css"
+					"css/mui.css",
+					"fonts/mui.ttf"
 				],
 				"refer": [],
 				"priority": 0
@@ -445,6 +471,35 @@
 			"second/pyq/search.html": {
 				"resources": [
 					"second/pyq.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"second/pyq/topics.html": {
+				"resources": [
+					"second/pyq.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"beecloud.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"css/mui.css",
+					"js/beecloud.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"demo.html": {
+				"resources": [
+					"js/mui.min.js",
+					"fonts/mui.ttf",
+					"image/LOGO.png",
+					"css/mui.css",
+					"js/my/app.js",
+					"menu.html"
 				],
 				"refer": [],
 				"priority": 0
@@ -467,5 +522,5 @@
 			]
 		}
 	},
-	"unpackage":[]
+	"unpackage": []
 }

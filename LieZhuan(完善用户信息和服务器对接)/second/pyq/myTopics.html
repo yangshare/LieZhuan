@@ -122,7 +122,7 @@
 
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-icon iconfont icon-ui mui-pull-left" style="color: white;"></a>
-			<h1 class="mui-title">赏金口袋</h1>
+			<h1 class="mui-title">我的话题</h1>
 		</header>
 		<div class="mui-content" style="margin-top: 3px;">
 			<!--图片轮播-->
@@ -178,11 +178,18 @@
 				<!--选项卡-->
 				<div id="sliderSegmentedControl" class="mui-segmented-control mui-segmented-control-inverted">
 					<a class="mui-control-item" href="#item1mobile">
-						<span class="mui-icon iconfont icon-shangjinkoudai" style="border: 0px;"></span>
+						我的话题
+					</a>
+					<a class="mui-control-item" href="#item2mobile">
+						与我相关
+					</a>
+					<a class="mui-control-item" href="#item3mobile">
+						我的关注
 					</a>
 				</div>
 				<!--END选项卡-->
 
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
 				<!--选项-->
 				<div class="mui-slider-group">
 					<!--个人任务-->
@@ -191,24 +198,43 @@
 							<div id="personalTask" class="mui-scroll">
 								<ul class="mui-table-view">
 									<li class="mui-table-view-cell mui-media">
-										<div class="mui-card" style="margin: 5px;">
-											<div style="width: 100%;height: 10px;background-color: #50D2C2;"></div>
-											<br />
-											<div id="" style="text-align: center;">
-
-												2016.7
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="../../image/yuantiao.jpg">
+											<div class="mui-media-body">
+												静静的看这个世界，最后终于疯了
+												<p class="mui-ellipsis">
+													<span class="mui-icon iconfont icon-chakan">1024</span> &nbsp;
+													<span class="mui-icon iconfont icon-huifu">526</span> &nbsp;
+													<span class="mui-icon iconfont icon-shizhong">2016.7.16</span>
+												</p>
 											</div>
-											<br />
-											<div style="padding: 15px;">
-												<span style="float: left;border-right: 1px gainsboro solid;width: 50%;">收入：￥100</span>
-												<span style="float: right;">支出：￥100</span>
+										</a>
+									</li>
+									<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="../../image/shuijiao.jpg">
+											<div class="mui-media-body">
+												能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？
+												<p class="mui-ellipsis">
+													<span class="mui-icon iconfont icon-chakan">1024</span> &nbsp;
+													<span class="mui-icon iconfont icon-huifu">526</span> &nbsp;
+													<span class="mui-icon iconfont icon-shizhong">2016.7.16</span>
+												</p>
 											</div>
-											<br />
-											<br />
-											<div style="width: 100%;height: 10px;background-color: #50D2C2;"></div>
-
-										</div>
-										<br />
+										</a>
+									</li>
+									<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="../../image/muwu.jpg">
+											<div class="mui-media-body">
+												想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.
+												<p class="mui-ellipsis">
+													<span class="mui-icon iconfont icon-chakan">1024</span> &nbsp;
+													<span class="mui-icon iconfont icon-huifu">526</span> &nbsp;
+													<span class="mui-icon iconfont icon-shizhong">2016.7.16</span>
+												</p>
+											</div>
+										</a>
 									</li>
 								</ul>
 
@@ -216,6 +242,36 @@
 						</div>
 					</div>
 					<!--END个人任务-->
+					<!--=======================================================================================-->
+					<!--团队任务-->
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div id="teamTask" class="mui-scroll">
+								<ul class="mui-table-view">
+								</ul>
+								<div class="mui-loading">
+									<div class="mui-spinner"></div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!--END团队任务-->
+					<!--=======================================================================================-->
+					<!--特殊任务-->
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll3" class="mui-scroll-wrapper">
+							<div id="specialTask" class="mui-scroll">
+								<ul class="mui-table-view">
+								</ul>
+								<div class="mui-loading">
+									<div class="mui-spinner"></div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!--END特殊任务-->
 				</div>
 
 				<!--END选项-->
@@ -231,12 +287,12 @@
 			mui.init({
 				swipeBack: false
 			});
-			mui.plusReady(function() {
+
+			mui.ready(function() {
 				//返回上页
 				mui.back = function(event) {
 					goBack();
 				};
-
 				//下拉刷新，上拉加载
 
 				//阻尼系数
@@ -293,7 +349,7 @@
 						li = document.createElement('li');
 						li.className = 'mui-table-view-cell mui-media';
 						//							li.innerHTML = '第' + (index + 1) + '个选项卡子项-' + (length + (reverse ? (count - i) : (i + 1)));
-						li.innerHTML = '<div class="mui-card" style="margin:5px"><div style="width:100%;height:10px;background-color:#50D2C2"></div><br><div id="" style="text-align:center">2016.7</div><br><div style="padding:15px"><span style="float:left;border-right:1px #dcdcdc solid;width:50%">收入：￥100</span> <span style="float:right">支出：￥100</span></div><br><br><div style="width:100%;height:10px;background-color:#50D2C2"></div></div><br/>';
+						li.innerHTML = '<a href="javascript:;"><img class="mui-media-object mui-pull-right" src="../../image/muwu.jpg"><div class="mui-media-body">想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.<p class="mui-ellipsis"><span class="mui-icon iconfont icon-chakan">1024</span> &nbsp; <span class="mui-icon iconfont icon-huifu">526</span> &nbsp; <span class="mui-icon iconfont icon-shizhong">2016.7.16</span></p></div></a>';
 						fragment.appendChild(li);
 					}
 					return fragment;
@@ -302,7 +358,27 @@
 				mui('.mui-scroll-wrapper').scroll({
 					indicators: true //是否显示滚动条
 				});
-
+				var html2 = '<li class="mui-table-view-cell mui-media"><a href="javascript:;"><img class="mui-media-object mui-pull-right" src="../../image/muwu.jpg"><div class="mui-media-body">想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.<p class="mui-ellipsis"><span class="mui-icon iconfont icon-chakan">1024</span> &nbsp; <span class="mui-icon iconfont icon-huifu">526</span> &nbsp; <span class="mui-icon iconfont icon-shizhong">2016.7.16</span></p></div></a></li>';
+				var html3 = '<li class="mui-table-view-cell mui-media"><a href="javascript:;"><img class="mui-media-object mui-pull-right" src="../../image/muwu.jpg"><div class="mui-media-body">想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.<p class="mui-ellipsis"><span class="mui-icon iconfont icon-chakan">1024</span> &nbsp; <span class="mui-icon iconfont icon-huifu">526</span> &nbsp; <span class="mui-icon iconfont icon-shizhong">2016.7.16</span></p></div></a></li>';
+				var item2 = document.getElementById('item2mobile');
+				var item3 = document.getElementById('item3mobile');
+				document.getElementById('slider').addEventListener('slide', function(e) {
+					if(e.detail.slideNumber === 1) {
+						if(item2.querySelector('.mui-loading')) {
+							setTimeout(function() {
+								item2.querySelector('.mui-table-view').innerHTML = html2;
+								item2.querySelector('.mui-loading').remove();
+							}, 500);
+						}
+					} else if(e.detail.slideNumber === 2) {
+						if(item3.querySelector('.mui-loading')) {
+							setTimeout(function() {
+								item3.querySelector('.mui-table-view').innerHTML = html3;
+								item3.querySelector('.mui-loading').remove();
+							}, 500);
+						}
+					}
+				});
 			});
 
 			//监听上划事件
@@ -315,13 +391,13 @@
 				$("#imgSlider").slideDown("fast");
 				$("#slider").css("margin-top", "30%");
 			});
-
+			//返回上级
 			mui(".icon-ui")[0].addEventListener('tap', function() {
 				goBack();
 			});
 
 			function　 goBack() {
-				window.location.href = "../info.html";
+				window.location.href = "../pyq.html";
 			}
 		</script>
 	</body>

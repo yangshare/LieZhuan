@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>猎赚</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.css">
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
+		<style>
+			.mui-content {
+				margin: 0px 10px;
+				margin-top: 30px;
+			}
+			
+			.mui-icon {
+				color: white;
+			}
+			
+			.mui-title {
+				font-family: "微软雅黑";
+				font-weight: bold;
+			}
+			
+			.reg-img {
+				text-align: center;
+			}
+			
+			.reg-img img {
+				position: relative;
+				left: 15px;
+				border-radius: 50px;
+			}
+			
+			.mui-icon-plusempty {
+				width: 30px;
+				height: 30px;
+				border-radius: 30px;
+				background-color: #4CD964;
+				position: relative;
+				top: -70px;
+				left: -20px;
+				color: white;
+				text-align: center;
+				line-height: 28px;
+				font-size: 32px;
+			}
+			
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+				margin: 0;
+				padding: 11px 15px;
+				vertical-align: middle;
+				border-right: 0px;
+				border-bottom: 0px;
+			}
+			
+			.mui-table-view.mui-grid-view .mui-col-xs-4 .mui-media-body {
+				color: white;
+				margin-bottom: 5px;
+				font-family: "幼圆";
+				white-space: nowrap;
+				overflow: visible;
+			}
+			
+			.mui-table-view.mui-grid-view .mui-col-xs-4 span {
+				color: white;
+				font-family: "微软雅黑";
+				font-size: 12px;
+			}
+			
+			.mui-col-xs-6 .mui-icon {
+				color: #333;
+			}
+			
+			.mui-col-xs-6 {
+				border: 1px gainsboro solid;
+			}
+			
+			.mui-table-view.mui-grid-view .mui-col-xs-6 .mui-media-body {
+				font-size: 12px;
+			}
+			
+			#myGrid-9 {
+				border: 3px;
+				border-style: inset;
+			}
+			
+			.mui-input-row label {
+				white-space: nowrap;
+			}
+		</style>
+	</head>
+
+	<body style="background-color: #4FD2C2;">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-ui mui-pull-left" style="color: white;"></a>
+			<h1 class="mui-title">个人资料</h1>
+		</header>
+		<div class="mui-content" style="background-color: #4FD2C2;">
+			<div style="background-color: #4FD2C2;">
+				<div class="reg-img">
+					<a href="#">
+						<img src="../../image/header.jpg" width="100px" height="100px" />
+						<span class="mui-icon mui-icon-plusempty"></span>
+					</a>
+				</div>
+				<!--加号-->
+
+				<!--END头像-->
+				<div style="text-align: center;margin-top: 10px;color: white;">
+					真实姓名
+				</div>
+			</div>
+			<br />
+			<div>
+				<div class="mui-card" style="margin: 0px;">
+					<h6 style="font-style: italic;padding:5px 10px;">
+						点击可修改各项信息<span id="changeInfo" style="float: right;padding:0px 10px;font-size: 16px;">编辑</span>
+					</h6>
+					<div class="mui-input-row">
+						<label>昵称：</label>
+						<input type="text" name="" id="nickname" value="匿名" class="mui-input-clear" />
+					</div>
+					<div class="mui-input-row">
+						<label>所在学校：</label>
+						<input type="text" name="" id="useCollege" value="四川文理学院" class="mui-input-clear" />
+					</div>
+					<div class="mui-input-row">
+						<label>所在院系：</label>
+						<input type="text" name="" id="useDepart" value="计算机学院" class="mui-input-clear" />
+					</div>
+
+					<div class="mui-input-row">
+						<label for="">所在专业：</label>
+						<input type="text" name="" id="useMajor" value="计算机科学与技术" class="mui-input-clear" />
+					</div>
+					<div class="mui-input-row">
+						<label for="">个性签名：</label>
+					</div>
+					<div style="padding: 5px;">
+						<textarea id="useSign" rows="3" style="padding: 5px;" maxlength="50" placeholder="字数上限50"></textarea>
+					</div>
+
+					<div style="width: 100%;height: 5px;background-color: #50D2C2;"></div>
+
+					<div class="mui-input-row">
+						<label>等&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级：</label>
+						<input type="text" name="" id="powLevel" value="100" readonly="readonly" />
+					</div>
+
+					<div class="mui-input-row">
+						<label for="">标签：</label>
+					</div>
+					<div class="mui-input-row">
+						<label>信誉值：</label>
+						<input type="text" name="" id="powCredit" value="100" readonly="readonly" />
+					</div>
+					<div id="powCreditDiv" style="width: 100px;height: 10px;background-color: #A9A9A9;margin: 0px 15px;"></div>
+
+					<div class="mui-input-row">
+						<label>效率值：</label>
+						<input type="text" name="" id="powFast" value="145" readonly="readonly" />
+					</div>
+					<div id="powFastDiv" style="width: 145px;height: 10px;background-color: #A9A9A9;margin: 0px 15px;"></div>
+					
+					<br />
+
+				</div>
+				<br />
+
+				<button class="mui-btn-block" style="border-radius:12px ;font-size: 12px;" onclick="shareSystem()">炫耀一下</button>
+			</div>
+
+		</div>
+
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/my/variable.js" type="text/javascript" charset="utf-8"></script>
+
+		<script>
+			mui.init();
+			var wt = null;
+			mui.plusReady(function() {
+				//返回上页
+				mui.back = function(event) {
+					goBack();
+				};
+
+				mui(".icon-ui")[0].addEventListener('tap', function() {
+					goBack();
+				});
+
+				function　 goBack() {
+					window.location.href = "../info.html";
+				}
+				/*
+				 * 获取用户信息
+				 */
+				mui.ajax(myUrl + 'Hunter/User_giveCurrentUser.action', {
+					data: {},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					beforeSend: function() {
+						wt = plus.nativeUI.showWaiting("拉取数据");
+					},
+					success: function(data) {
+						console.log(JSON.stringify(data));
+						//关闭加载动画
+						wt.close();
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						//						
+						if(data.json != null && data.json != "") {
+
+							if(data.json.User.useNickname != "") {
+								mui('#nickname')[0].value = data.json.User.useNickname;
+							}
+							if(data.json.User.useCollege != "") {
+								mui('#useCollege')[0].value = data.json.User.useCollege;
+							}
+							if(data.json.User.useDepart != "") {
+								mui('#useDepart')[0].value = data.json.User.useDepart;
+							}
+							if(data.json.User.useMajor != "") {
+								mui('#useMajor')[0].value = data.json.User.useMajor;
+							}
+							if(data.json.User.useSign != "") {
+								mui('#useSign')[0].value = data.json.User.useSign;
+							}
+						} else {
+							plus.nativeUI.toast("个人信息数据拉取失败");
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//关闭加载动画
+						wt.close();
+						plus.nativeUI.toast("网络异常");
+					}
+				});
+				/*
+				 * 获取用户信誉相关值
+				 */
+				setTimeout(function() {
+					mui.ajax(myUrl + 'Hunter/Power_givePower.action', {
+						data: {},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+
+						success: function(data) {
+							console.log(JSON.stringify(data) + "*信誉");
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							if(data.json.PowerList != null && data.json.PowerList != "") {
+
+								if(data.json.PowerList.powCredit != "") {
+									mui('#powCredit')[0].value = data.json.PowerList.powCredit;
+									
+									mui("#powCreditDiv")[0].style.width=data.json.PowerList.powCredit+"px";
+									
+								}
+								if(data.json.PowerList.powFast != "") {
+									mui('#powFast')[0].value = data.json.PowerList.powFast;
+									mui("#powFastDiv")[0].style.width=data.json.PowerList.powFast+"px";
+								}
+								if(data.json.PowerList.powLevel != "") {
+									mui('#powLevel')[0].value = data.json.PowerList.powLevel;
+								}
+								
+							} else {
+								plus.nativeUI.toast("标签数据拉取失败");
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+
+							plus.nativeUI.toast("网络异常");
+						}
+					});
+				}, 1000);
+
+				/**
+				 * 调用系统分享
+				 * 调用
+				 */
+
+				var shares = null,
+					bhref = false;
+				var Intent = null,
+					File = null,
+					Uri = null,
+					main = null;
+				// H5 plus事件处理
+				function plusReady() {
+					updateSerivces();
+					if(plus.os.name == "Android") {
+						main = plus.android.runtimeMainActivity();
+						Intent = plus.android.importClass("android.content.Intent");
+					}
+				}
+				if(window.plus) {
+					plusReady();
+				} else {
+					document.addEventListener("plusready", plusReady, false);
+				}
+				/**
+				 * 更新分享服务
+				 */
+				function updateSerivces() {
+					plus.share.getServices(function(s) {
+						shares = {};
+						for(var i in s) {
+							var t = s[i];
+							shares[t.id] = t;
+						}
+					}, function(e) {
+						outSet("获取分享服务列表失败：" + e.message);
+					});
+				}
+				/**
+				 * 调用系统分享
+				 * 调用
+				 */
+				shareSystem = function() {
+					if(plus.os.name !== "Android") {
+						plus.nativeUI.alert("此平台暂不支持系统分享功能!");
+						return;
+					}
+					var intent = new Intent(Intent.ACTION_SEND);
+					var sharecontent = "我正在使用猎赚APP，赶紧跟我一起来体验！http://www.7hunter.cn";
+					intent.setType("text/plain");
+					intent.putExtra(Intent.EXTRA_SUBJECT, "猎赚APP");
+					intent.putExtra(Intent.EXTRA_TEXT, sharecontent);
+					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					main.startActivity(Intent.createChooser(intent, "系统分享"));
+				}
+			});
+			var changeInfo = document.getElementById("changeInfo");
+			changeInfo.addEventListener("tap", function() {
+				//				console.log(changeInfo.innerText);
+				if(changeInfo.innerText == "编辑") {
+					changeInfo.innerText = "提交";
+					mui("#nickname")[0].focus();
+				} else {
+					if(changeInfo.innerText == "提交") {
+						console.log(mui("#nickname")[0].value + "," +
+							mui("#useCollege")[0].value + "," +
+							mui("#useDepart")[0].value + "," +
+							mui("#useMajor")[0].value + "," +
+							mui("#useSign")[0].value);
+						//上传修改
+						mui.ajax(myUrl + 'Hunter/User_updateInfo.action', {
+							data: {
+								useNickname: mui("#nickname")[0].value,
+								useCollege: mui("#useCollege")[0].value,
+								useDepart: mui("#useDepart")[0].value,
+								useMajor: mui("#useMajor")[0].value,
+								useSign: mui("#useSign")[0].value
+							},
+							dataType: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							timeout: 10000, //超时时间设置为10秒；
+							beforeSend: function() {
+								wt = plus.nativeUI.showWaiting();
+							},
+							success: function(data) {
+								console.log(JSON.stringify(data));
+								//关闭加载动画
+								wt.close();
+								//服务器返回响应，根据响应结果，分析是否登录成功；
+								if(data.code == 0) {
+									plus.nativeUI.toast(codes[0]);
+									return;
+								}
+								if(data.code == 1) {
+									plus.nativeUI.toast(codes[1]);
+									changeInfo.innerText = "编辑";
+									return;
+								}
+								if(data.code == 2) {
+									plus.nativeUI.toast("昵称已经存在，请更换");
+									return;
+								} else {
+									plus.nativeUI.toast("服务器维护中");
+								}
+
+							},
+							error: function(xhr, type, errorThrown) {
+								//关闭加载动画
+								wt.close();
+								plus.nativeUI.toast("网络异常");
+							}
+						});
+
+					}
+				}
+
+			});
+		</script>
+	</body>
+
+</html>

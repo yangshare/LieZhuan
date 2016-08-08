@@ -14,7 +14,7 @@
 		question: document.getElementById('question'), 
 		contact: document.getElementById('contact'), 
 		imageList: document.getElementById('image-list'),
-		submitBtn: document.getElementById('submit')
+		submitBtn: document.getElementById('submitTask')
 	};
 	var url = 'https://service.dcloud.net.cn/feedback';
 	feedback.files = [];
@@ -56,6 +56,7 @@
 		})
 	};
 	feedback.getFileInputArray = function() {
+		//这句话相当于Array.slice.call(arguments)，目的是将arguments对象的数组提出来转化为数组，arguments本身并不是数组而是对象
 		return [].slice.call(feedback.imageList.querySelectorAll('.file'));
 	};
 	feedback.addFile = function(path) {
@@ -108,7 +109,6 @@
 				}, function(zip) {
 					size += zip.size  
 					console.log("filesize:"+zip.size+",totalsize:"+size);
-					console.log("图片选择成功");
 					if (size > (10*1024*1024)) {
 						return mui.toast('文件超大,请重新选择~');
 					}
@@ -196,27 +196,4 @@
 		});
 	};
 	
-	 //应用评分
-	 mui('.icons').on('tap','i',function(){
-	  	var index = parseInt(this.getAttribute("data-index"));
-	  	var parent = this.parentNode;
-	  	var children = parent.children;
-	  	if(this.classList.contains("mui-icon-star")){
-	  		for(var i=0;i<index;i++){
-  				children[i].classList.remove('mui-icon-star');
-  				children[i].classList.add('mui-icon-star-filled');
-	  		}
-	  	}else{
-	  		for (var i = index; i < 5; i++) {
-	  			children[i].classList.add('mui-icon-star')
-	  			children[i].classList.remove('mui-icon-star-filled')
-	  		}
-	  	}
-	  	starIndex = index;
-  });
-  	//选择快捷输入
-	mui('.mui-popover').on('tap','li',function(e){
-	  document.getElementById("question").value = document.getElementById("question").value + this.children[0].innerHTML;
-	  mui('.mui-popover').popover('toggle')
-	}) 
 })();

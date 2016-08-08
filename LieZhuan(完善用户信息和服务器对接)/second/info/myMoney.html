@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>猎赚</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.css">
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
+
+		<style>
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				z-index: 1;
+			}
+			
+			.mui-bar~.mui-pull-top-tips {
+				top: 24px;
+			}
+			
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden;
+			}
+			
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			
+			.mui-pull-top-tips .mui-pull-loading {
+				/*-webkit-backface-visibility: hidden;
+				-webkit-transition-duration: 400ms;
+				transition-duration: 400ms;*/
+				margin: 0;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 7px;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon.mui-reverse {
+				/*-webkit-transform: rotate(180deg) translateZ(0);*/
+			}
+			
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777;
+			}
+			
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto;
+			}
+			
+			.mui-pull-top-canvas canvas {
+				width: 40px;
+			}
+			
+			.mui-slider-indicator.mui-segmented-control {
+				background-color: #efeff4;
+			}
+			
+			.mui-media img {
+				border-radius: 5px;
+			}
+			
+			.mui-media span {
+				font-size: 14px;
+				margin-top: 12px;
+			}
+			
+			.mui-media-body {
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+			
+			.mui-bar-nav .mui-title {
+				font-family: '微软雅黑';
+				font-weight: bold;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon iconfont icon-ui mui-pull-left" style="color: white;"></a>
+			<h1 class="mui-title">赏金口袋</h1>
+		</header>
+		<div class="mui-content" style="margin-top: 3px;">
+			<!--图片轮播-->
+			<div id="imgSlider" class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../../image/2242324_163256494905_2.jpg">
+						</a>
+					</div>
+					<!-- 第一张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../../image/2242324_163256494905_2.jpg">
+						</a>
+					</div>
+					<!-- 第二张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../../image/2242324_163256494905_2.jpg">
+						</a>
+					</div>
+					<!-- 第三张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../../image/2242324_163256494905_2.jpg">
+						</a>
+					</div>
+					<!-- 第四张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../../image/2242324_163256494905_2.jpg">
+						</a>
+					</div>
+					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../../image/2242324_163256494905_2.jpg">
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
+			<!--END图片轮播-->
+			<div id="slider" class="mui-slider mui-fullscreen" style="margin-top: 30%;">
+
+				<!--选项卡-->
+				<div id="sliderSegmentedControl" class="mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item" href="#item1mobile">
+						<span class="mui-icon iconfont icon-shangjinkoudai" style="border: 0px;"></span>
+					</a>
+				</div>
+				<!--END选项卡-->
+
+				<!--选项-->
+				<div class="mui-slider-group">
+					<!--赏金口袋-->
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div id="personalTask" class="mui-scroll">
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell mui-media">
+										<div class="mui-card" style="margin: 5px;">
+											<div style="width: 100%;height: 10px;background-color: #50D2C2;"></div>
+											<br />
+											<div id="" style="text-align: center;">
+
+												2016.7
+											</div>
+											<br />
+											<div style="padding: 15px;">
+												<span style="float: left;border-right: 1px gainsboro solid;width: 50%;">收入：￥100</span>
+												<span style="float: right;">支出：￥100</span>
+											</div>
+											<br />
+											<br />
+											<div style="width: 100%;height: 10px;background-color: #50D2C2;"></div>
+
+										</div>
+										<br />
+									</li>
+								</ul>
+
+							</div>
+						</div>
+					</div>
+					<!--END赏金口袋-->
+				</div>
+
+				<!--END选项-->
+			</div>
+
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.pullToRefresh.js"></script>
+		<script src="../../js/mui.pullToRefresh.material.js"></script>
+		<script src="../../js/my/imgSlider.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/my/variable.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			mui.init({
+				swipeBack: false
+			});
+			mui.plusReady(function() {
+
+				//下拉刷新，上拉加载
+
+				//阻尼系数
+				var deceleration = mui.os.ios ? 0.003 : 0.0009;
+				mui('.mui-scroll-wrapper').scroll({
+					bounce: false,
+					indicators: true, //是否显示滚动条
+					deceleration: deceleration
+				});
+
+				/**
+				 * 获取前面5条数据初始化页面
+				 * 从服务器拉取
+				 */
+				var wt = null;
+				var curPage = 0; //当前页
+				var maxPage = 0; //总页数
+				//初始化页面
+				getPages(curPage);
+				//剩余页面加载
+				function getPages(page) {
+					mui.ajax(myUrl + 'Hunter/Pay_givePayList.action', {
+					data: {
+						curPage: page
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					beforeSend: function() {
+						wt = plus.nativeUI.showWaiting("拉取数据");
+					},
+					success: function(data) {
+						wt.close();
+						console.log(JSON.stringify(data));
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						var moneyList = data.json.PayList;
+						if(moneyList.length > 0) {
+							var ul = document.querySelector('.mui-table-view');
+							//获取集合长度				
+							if(data.json.size != 0&&data.json.size !=null) {
+								maxPage = data.json.size / 3;
+								ul.innerHTML = "";
+							}
+							var fragment = document.createDocumentFragment(); //创建文档碎片节点
+							var li;
+							for(var i = 0; i < moneyList.length; i++) {
+								li = document.createElement('li');
+								li.className = 'mui-table-view-cell mui-media';
+								li.innerHTML = '<div class="mui-card" style="margin:5px"><div style="width:100%;height:10px;background-color:#50D2C2"></div><br><div style="text-align:center">' + moneyList[i].payTime +
+									'</div><br><div style="padding:15px"><span style="float:left;border-right:1px #dcdcdc solid;width:50%">收入：￥' + moneyList[i].payIn + '</span> <span style="float:right">支出：￥' + moneyList[i].payOut + '</span></div><br><br><div style="width:100%;height:10px;background-color:#50D2C2"></div></div><br>';
+								fragment.appendChild(li);
+							}
+							ul.appendChild(fragment);
+
+						} else {
+							plus.nativeUI.toast("数据拉取失败");
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						wt.close();
+						plus.nativeUI.toast("网络异常");
+					}
+				});
+				}
+
+				//循环初始化所有下拉刷新，上拉加载。
+				mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+					mui(pullRefreshEl).pullToRefresh({
+						down: { //下拉
+							callback: function() {
+								setTimeout(function() {
+									//重新加载页面
+									window.location.reload();
+								}, 1000);
+							}
+						},
+						up: { //上拉
+							callback: function() {
+								var self = this;
+								setTimeout(function() {
+									curPage++;
+									//加载剩余页面
+									getPages(curPage);
+									self.endPullUpToRefresh(curPage > maxPage - 1);//括号内为true就显示没有更多数据
+								}, 1000);
+							}
+						}
+					});
+				});
+
+			});
+			//监听上划事件
+			document.addEventListener("swipeup", function() {
+				$("#imgSlider").slideUp("fast");
+				$("#slider").css("margin-top", "0");
+			});
+			//监听下划事件
+			document.addEventListener("swipedown", function() {
+				$("#imgSlider").slideDown("fast");
+				$("#slider").css("margin-top", "30%");
+			});
+			//返回上页
+			mui.back = function(event) {
+				goBack();
+			};
+			mui(".icon-ui")[0].addEventListener('tap', function() {
+				goBack();
+			});
+
+			function　 goBack() {
+				window.location.href = "../info.html";
+			}
+		</script>
+	</body>
+
+</html>

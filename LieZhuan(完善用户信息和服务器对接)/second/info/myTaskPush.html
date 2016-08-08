@@ -10,8 +10,11 @@
 
 		<link rel="stylesheet" href="../../css/mui.css">
 		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
-
 		<style>
+			/*.mui-control-content {
+				background-color: white;
+				min-height: 500px;
+			}*/
 			
 			.mui-control-content .mui-loading {
 				margin-top: 50px;
@@ -111,11 +114,6 @@
 				white-space: nowrap;
 				text-overflow: ellipsis;
 			}
-			
-			.mui-bar-nav .mui-title {
-				font-family: '微软雅黑';
-				font-weight: bold;
-			}
 		</style>
 	</head>
 
@@ -123,7 +121,7 @@
 
 		<header class="mui-bar mui-bar-nav">
 			<a class="mui-icon iconfont icon-ui mui-pull-left" style="color: white;"></a>
-			<h1 class="mui-title">我的话题</h1>
+			<h1 class="mui-title" style="font-family: '微软雅黑' ;font-weight: bold;">个人发布</h1>
 		</header>
 		<div class="mui-content" style="margin-top: 3px;">
 			<!--图片轮播-->
@@ -179,13 +177,13 @@
 				<!--选项卡-->
 				<div id="sliderSegmentedControl" class="mui-segmented-control mui-segmented-control-inverted">
 					<a class="mui-control-item" href="#item1mobile">
-						我的话题
+						<span class="mui-icon iconfont icon-jinxingzhong" style="border: 0px;"></span>进行
 					</a>
 					<a class="mui-control-item" href="#item2mobile">
-						与我相关
+						<span class="mui-icon iconfont icon-yiwancheng" style="border: 0px;"></span>完成
 					</a>
 					<a class="mui-control-item" href="#item3mobile">
-						我的关注
+						<span class="mui-icon iconfont icon-shibai" style="border: 0px;"></span>失败
 					</a>
 				</div>
 				<!--END选项卡-->
@@ -193,7 +191,6 @@
 				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
 				<!--选项-->
 				<div class="mui-slider-group">
-					<!--个人任务-->
 					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
 						<div id="scroll1" class="mui-scroll-wrapper">
 							<div id="personalTask" class="mui-scroll">
@@ -238,16 +235,14 @@
 										</a>
 									</li>
 								</ul>
-
 							</div>
 						</div>
 					</div>
-					<!--END个人任务-->
-					<!--=======================================================================================-->
-					<!--团队任务-->
 					<div id="item2mobile" class="mui-slider-item mui-control-content">
 						<div id="scroll2" class="mui-scroll-wrapper">
 							<div id="teamTask" class="mui-scroll">
+								<ul class="mui-table-view">
+								</ul>
 								<div class="mui-loading">
 									<div class="mui-spinner"></div>
 								</div>
@@ -255,12 +250,11 @@
 						</div>
 
 					</div>
-					<!--END团队任务-->
-					<!--=======================================================================================-->
-					<!--特殊任务-->
 					<div id="item3mobile" class="mui-slider-item mui-control-content">
 						<div id="scroll3" class="mui-scroll-wrapper">
 							<div id="specialTask" class="mui-scroll">
+								<ul class="mui-table-view">
+								</ul>
 								<div class="mui-loading">
 									<div class="mui-spinner"></div>
 								</div>
@@ -268,7 +262,6 @@
 						</div>
 
 					</div>
-					<!--END特殊任务-->
 				</div>
 
 				<!--END选项-->
@@ -284,14 +277,9 @@
 			mui.init({
 				swipeBack: false
 			});
-			
-			mui.plusReady(function() {
-				//返回上页
-				mui.back = function(event) {
-					goBack();
-				};
-				//下拉刷新，上拉加载
 
+			//下拉刷新，上拉加载
+			(function(mui) {
 				//阻尼系数
 				var deceleration = mui.os.ios ? 0.003 : 0.0009;
 				mui('.mui-scroll-wrapper').scroll({
@@ -299,81 +287,84 @@
 					indicators: true, //是否显示滚动条
 					deceleration: deceleration
 				});
-
-				//循环初始化所有下拉刷新，上拉加载。
-				mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
-					mui(pullRefreshEl).pullToRefresh({
-						down: {
-							callback: function() {
-								var self = this;
-								setTimeout(function() {
-									var ul = self.element.querySelector('.mui-table-view');
-									ul.insertBefore(createFragment(ul, index, 5, true), ul.firstChild);
-									self.endPullDownToRefresh();
-								}, 1000);
+				mui.ready(function() {
+					//循环初始化所有下拉刷新，上拉加载。
+					mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+						mui(pullRefreshEl).pullToRefresh({
+							down: {
+								callback: function() {
+									var self = this;
+									setTimeout(function() {
+										var ul = self.element.querySelector('.mui-table-view');
+										ul.insertBefore(createFragment(ul, index, 5, true), ul.firstChild);
+										self.endPullDownToRefresh();
+									}, 1000);
+								}
+							},
+							up: {
+								callback: function() {
+									var self = this;
+									setTimeout(function() {
+										var ul = self.element.querySelector('.mui-table-view');
+										ul.appendChild(createFragment(ul, index, 5));
+										self.endPullUpToRefresh();
+									}, 1000);
+								}
 							}
-						},
-						up: {
-							callback: function() {
-								var self = this;
-								setTimeout(function() {
-									var ul = self.element.querySelector('.mui-table-view');
-									ul.appendChild(createFragment(ul, index, 5));
-									self.endPullUpToRefresh();
-								}, 1000);
-							}
-						}
+						});
 					});
+					/**
+					 * 向document中添加大量数据是，
+					 * 如果直接添加这些新节点，
+					 * 这个过程非常缓慢，
+					 * 因为每添加一个节点都会调用父节点的appendChild()方法，
+					 * 为了解决这个问题，可以创建一个文档碎片，
+					 * 把所有的新节点附加其上，
+					 * 然后把文档碎片一次性添加到document中。
+					 * @param {Object} ul
+					 * @param {Object} index
+					 * @param {Object} count
+					 * @param {Object} reverse
+					 */
+					var createFragment = function(ul, index, count, reverse) {
+						var length = ul.querySelectorAll('li').length;
+						var fragment = document.createDocumentFragment(); //创建文档碎片节点
+						var li;
+						for(var i = 0; i < count; i++) {
+							li = document.createElement('li');
+							li.className = 'mui-table-view-cell mui-media';
+							//							li.innerHTML = '第' + (index + 1) + '个选项卡子项-' + (length + (reverse ? (count - i) : (i + 1)));
+							li.innerHTML = '<a href="javascript:;"><img class="mui-media-object mui-pull-right" src="../../image/muwu.jpg"><div class="mui-media-body">想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.<p class="mui-ellipsis"><span class="mui-icon iconfont icon-chakan">1024</span> &nbsp; <span class="mui-icon iconfont icon-huifu">526</span> &nbsp; <span class="mui-icon iconfont icon-shizhong">2016.7.16</span></p></div></a>';
+							fragment.appendChild(li);
+						}
+						return fragment;
+					};
 				});
-				/**
-				 * 向document中添加大量数据是，
-				 * 如果直接添加这些新节点，
-				 * 这个过程非常缓慢，
-				 * 因为每添加一个节点都会调用父节点的appendChild()方法，
-				 * 为了解决这个问题，可以创建一个文档碎片，
-				 * 把所有的新节点附加其上，
-				 * 然后把文档碎片一次性添加到document中。
-				 * @param {Object} ul
-				 * @param {Object} index
-				 * @param {Object} count
-				 * @param {Object} reverse
-				 */
-				var createFragment = function(ul, index, count, reverse) {
-					var length = ul.querySelectorAll('li').length;
-					var fragment = document.createDocumentFragment(); //创建文档碎片节点
-					var li;
-					for(var i = 0; i < count; i++) {
-						li = document.createElement('li');
-						li.className = 'mui-table-view-cell mui-media';
-						//							li.innerHTML = '第' + (index + 1) + '个选项卡子项-' + (length + (reverse ? (count - i) : (i + 1)));
-						li.innerHTML = '<a href="javascript:;"><img class="mui-media-object mui-pull-right" src="../../image/muwu.jpg"><div class="mui-media-body">想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.<p class="mui-ellipsis"><span class="mui-icon iconfont icon-chakan">1024</span> &nbsp; <span class="mui-icon iconfont icon-huifu">526</span> &nbsp; <span class="mui-icon iconfont icon-shizhong">2016.7.16</span></p></div></a>';
-						fragment.appendChild(li);
-					}
-					return fragment;
-				};
+			})(mui);
 
-				mui('.mui-scroll-wrapper').scroll({
-					indicators: true //是否显示滚动条
-				});
-				var html2 = '<ul class="mui-table-view"><li class="mui-table-view-cell mui-media"><a href="javascript:;"><img class="mui-media-object mui-pull-right" src="../../image/muwu.jpg"><div class="mui-media-body">想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.<p class="mui-ellipsis"><span class="mui-icon iconfont icon-chakan">1024</span> &nbsp; <span class="mui-icon iconfont icon-huifu">526</span> &nbsp; <span class="mui-icon iconfont icon-shizhong">2016.7.16</span></p></div></a></li></ul>';
-				var html3 = '<ul class="mui-table-view"><li class="mui-table-view-cell mui-media"><a href="javascript:;"><img class="mui-media-object mui-pull-right" src="../../image/muwu.jpg"><div class="mui-media-body">想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.<p class="mui-ellipsis"><span class="mui-icon iconfont icon-chakan">1024</span> &nbsp; <span class="mui-icon iconfont icon-huifu">526</span> &nbsp; <span class="mui-icon iconfont icon-shizhong">2016.7.16</span></p></div></a></li></ul>';
-				var item2 = document.getElementById('item2mobile');
-				var item3 = document.getElementById('item3mobile');
-				document.getElementById('slider').addEventListener('slide', function(e) {
-					if(e.detail.slideNumber === 1) {
-						if(item2.querySelector('.mui-loading')) {
-							setTimeout(function() {
-								item2.querySelector('.mui-scroll').innerHTML = html2;
-							}, 500);
-						}
-					} else if(e.detail.slideNumber === 2) {
-						if(item3.querySelector('.mui-loading')) {
-							setTimeout(function() {
-								item3.querySelector('.mui-scroll').innerHTML = html3;
-							}, 500);
-						}
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true //是否显示滚动条
+			});
+			var html2 = '<li class="mui-table-view-cell mui-media"><a href="javascript:;"><img class="mui-media-object mui-pull-right" src="../../image/muwu.jpg"><div class="mui-media-body">想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.<p class="mui-ellipsis"><span class="mui-icon iconfont icon-chakan">1024</span> &nbsp; <span class="mui-icon iconfont icon-huifu">526</span> &nbsp; <span class="mui-icon iconfont icon-shizhong">2016.7.16</span></p></div></a></li>';
+			var html3 = '<li class="mui-table-view-cell mui-media"><a href="javascript:;"><img class="mui-media-object mui-pull-right" src="../../image/muwu.jpg"><div class="mui-media-body">想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.<p class="mui-ellipsis"><span class="mui-icon iconfont icon-chakan">1024</span> &nbsp; <span class="mui-icon iconfont icon-huifu">526</span> &nbsp; <span class="mui-icon iconfont icon-shizhong">2016.7.16</span></p></div></a></li>';
+			var item2 = document.getElementById('item2mobile');
+			var item3 = document.getElementById('item3mobile');
+			document.getElementById('slider').addEventListener('slide', function(e) {
+				if(e.detail.slideNumber === 1) {
+					if(item2.querySelector('.mui-loading')) {
+						setTimeout(function() {
+							item2.querySelector('.mui-table-view').innerHTML = html2;
+							item2.querySelector('.mui-loading').remove();
+						}, 500);
 					}
-				});
+				} else if(e.detail.slideNumber === 2) {
+					if(item3.querySelector('.mui-loading')) {
+						setTimeout(function() {
+							item3.querySelector('.mui-table-view').innerHTML = html3;
+							item3.querySelector('.mui-loading').remove();
+						}, 500);
+					}
+				}
 			});
 
 			//监听上划事件
@@ -392,8 +383,11 @@
 			});
 
 			function　 goBack() {
-				window.location.href = "../pyq.html";
+				window.location.href = "../info.html";
 			}
+			mui.back = function(event) {
+				goBack();
+			};
 		</script>
 	</body>
 
