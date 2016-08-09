@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta charset="UTF-8" />
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady();
+			var imgsrc = null;
+			var imgName = null;
+			var time=null;
+			// 从相册中选择图片 
+			function galleryImg() {
+				time=new Date().getTime();
+				// 从相册中选择图片
+				console.log("从相册中选择图片:");
+				plus.gallery.pick(function(path) {
+					console.log(path);
+					console.log("文件名：" + path.substr(path.lastIndexOf("/") + 1));
+					imgsrc = path;
+					imgName = time+"_"+path.substr(path.lastIndexOf("/") + 1);
+					compressImage();
+				}, function(e) {
+					console.log("取消选择图片");
+				}, {
+					filter: "image"
+				});
+			}
+			//压缩图片
+			function compressImage() {
+
+				plus.zip.compressImage({
+						src: imgsrc,
+						dst: "_doc/yang/压缩" + imgName,
+						width: "20%",// 缩小到原来的一半
+						quality: 20
+					},
+					function(e) {
+						console.log("反馈" + JSON.stringify(e));
+						alert("Compress success!");
+					},
+					function(error) {
+						alert("Compress error!");
+					});
+			}
+			//缩放图片
+			function zoomImage() {
+				plus.zip.compressImage({
+						src: "_www/a.jpg",
+						dst: "_doc/a.jpg",
+						width: "50%" // 缩小到原来的一半
+					},
+					function() {
+						alert("Compress success!");
+					},
+					function(error) {
+						alert("Compress error!");
+					});
+			}
+			//旋转图片
+			function rotateImage() {
+				plus.zip.compressImage({
+						src: "_www/a.jpg",
+						dst: "_doc/a.jpg",
+						rotate: 90 // 旋转90度
+					},
+					function() {
+						alert("Compress success!");
+					},
+					function(error) {
+						alert("Compress error!");
+					});
+			}
+			//裁剪图片
+			function clipImage() {
+				plus.zip.compressImage({
+						src: "_www/a.jpg",
+						dst: "_doc/a.jpg",
+						clip: {
+							top: "25%",
+							left: "25%",
+							width: "50%",
+							height: "50%"
+						} // 裁剪图片中心区域
+					},
+					function() {
+						alert("Compress success!");
+					},
+					function(error) {
+						alert("Compress error!");
+					});
+			}
+			//格式转换
+			function convertImage() {
+				plus.zip.compressImage({
+						src: "_www/a.jpg",
+						dst: "_doc/a.png",
+						format: "png" // 将jpg转换成png格式
+					},
+					function() {
+
+						alert("Compress success!");
+					},
+					function(error) {
+						alert("Compress error!");
+					});
+			}
+		</script>
+	</head>
+
+	<body>
+		<button onclick="galleryImg()">压缩图片</button><br/>
+		<button onclick="zoomImage()">缩放图片</button><br/>
+		<button onclick="rotateImage()">旋转图片</button><br/>
+		<button onclick="clipImage()">裁剪图片</button><br/>
+		<button onclick="convertImage()">格式转换</button><br/>
+	</body>
+
+</html>

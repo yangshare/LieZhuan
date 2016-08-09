@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>猎赚</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.css">
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
+		<style>
+			.mui-input-row {
+				color: darkgray;
+			}
+			
+			.mui-input-row input {
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				color: darkgray;
+			}
+			
+			.mui-title {
+				font-family: "微软雅黑";
+				font-weight: bold;
+			}
+			
+			header a {
+				color: white;
+			}
+			
+			.mui-table-view:before {
+				background-color: white;
+			}
+			
+			.mui-table-view:after {
+				background-color: white;
+			}
+			
+			.reg-img {
+				text-align: center;
+			}
+			
+			.reg-img img {
+				border-radius: 50px;
+			}
+			
+			.mui-input-row label {
+				white-space: nowrap;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon iconfont icon-ui mui-pull-left"></a>
+			<h1 class="mui-title">能力值</h1>
+		</header>
+		<div class="mui-content">
+			<div style="text-align: center;margin-top: 25px;margin-bottom: -15px;">
+				<img src="image/dinghua.png" width="100%" />
+			</div>
+			<br />
+			<div class="mui-card" style="margin: 5px;">
+				<div style="width: 100%;height: 10px;background-color: #50D2C2;"></div>
+				<div class="mui-input-row">
+					<label>等&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级：</label>
+					<input type="text" name="" id="powLevel" value="100" readonly="readonly" />
+				</div>
+
+				<div class="mui-input-row">
+					<label for="">标签：</label>
+				</div>
+				<div class="mui-input-row">
+					<label>信誉值：</label>
+					<input type="text" name="" id="powCredit" value="100" readonly="readonly" />
+				</div>
+				<div id="powCreditDiv" style="width: 100px;height: 10px;background-color: #A9A9A9;margin: 0px 15px;"></div>
+
+				<div class="mui-input-row">
+					<label>效率值：</label>
+					<input type="text" name="" id="powFast" value="145" readonly="readonly" />
+				</div>
+				<div id="powFastDiv" style="width: 145px;height: 10px;background-color: #A9A9A9;margin: 0px 15px;"></div>
+				<br />
+				<div style="width: 100%;height: 10px;background-color: #50D2C2;"></div>
+
+			</div>
+			<br />
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/my/variable.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			mui.init();
+			mui.plusReady(function() {
+
+				/*
+				 * 获取用户信誉相关值
+				 */
+				var wt = null;
+				mui.ajax(myUrl + 'Hunter/Power_givePower.action', {
+					data: {},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					beforeSend: function() {
+						wt = plus.nativeUI.showWaiting("拉取数据");
+					},
+					success: function(data) {
+						wt.close();
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						if(data.json.PowerList != null && data.json.PowerList != "") {
+
+							if(data.json.PowerList.powCredit != "") {
+								mui('#powCredit')[0].value = data.json.PowerList.powCredit;
+
+								mui("#powCreditDiv")[0].style.width = data.json.PowerList.powCredit + "px";
+
+							}
+							if(data.json.PowerList.powFast != "") {
+								mui('#powFast')[0].value = data.json.PowerList.powFast;
+								mui("#powFastDiv")[0].style.width = data.json.PowerList.powFast + "px";
+							}
+							if(data.json.PowerList.powLevel != "") {
+								mui('#powLevel')[0].value = data.json.PowerList.powLevel;
+							}
+
+						} else {
+							plus.nativeUI.toast("标签数据拉取失败");
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						wt.close();
+						plus.nativeUI.toast("网络异常");
+					}
+				});
+				//返回上页
+				mui.back = function(event) {
+					goBack();
+				};
+				mui(".icon-ui")[0].addEventListener('tap', function() {
+					goBack();
+				});
+
+				function　 goBack() {
+					window.location.href = "../info.html";
+				}
+			});
+		</script>
+	</body>
+
+</html>

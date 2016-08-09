@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>猎赚</title>
+		<link rel="stylesheet" type="text/css" href="../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="../css/feedback.css" />
+		<link rel="stylesheet" type="text/css" href="../css/mui.picker.min.css" />
+
+		<style type="text/css">
+			.mui-content {
+				margin: 0px 5px;
+				margin-top: 20px;
+			}
+			
+			.mui-input-row a {
+				color: #8f8f94;
+			}
+			
+			.reg-img {
+				text-align: center;
+			}
+			
+			.reg-img img {
+				border-radius: 50px;
+			}
+			
+			.mui-btn {
+				background-color: #50D2C2;
+				border: 0px;
+				color: white;
+			}
+			
+			.mui-btn {
+				font-size: 18px;
+				padding: 5px;
+			}
+			
+			.ui-alert {
+				text-align: center;
+				padding: 20px 10px;
+				font-size: 16px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-ui mui-pull-left" style="color: white;"></a>
+			<h1 class="mui-title" style="font-family: '微软雅黑' ;font-weight: bold;">任务发布</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-input-row">
+				<label>任务名称:</label>
+				<input class="mui-input-clear" type="text" id="tasTitle" value="给我p一张图片" maxlength="12" />
+			</div>
+			<div class="mui-input-row">
+				<label>赏&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;金:&nbsp;&nbsp;&nbsp;￥</label>
+				<input class="mui-input-clear" type="number" id="tasPrice" value="100" />
+			</div>
+			<br />
+			<ul class="mui-table-view mui-card" style="margin: 0px 10px;">
+				<li class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#">任务类型</a>
+					<div class="mui-collapse-content">
+						<div class="mui-input-row mui-radio mui-left">
+							<label for="type1" style="color: black;">个人任务</label>
+							<input id="type1" name="tasType" type="radio" value="t1" checked="checked">
+						</div>
+
+						<div class="mui-input-row mui-radio mui-left">
+							<label for="type2" style="color: black;">团队任务</label>
+							<input id="type2" name="tasType" type="radio" value="t2">
+						</div>
+
+						<div class="mui-input-row mui-radio mui-left">
+							<label for="type3" style="color: black;">加急任务</label>
+							<input id="type3" name="tasType" type="radio" value="t3">
+						</div>
+
+					</div>
+				</li>
+			</ul>
+			<div class="mui-input-row">
+				<label style="white-space: nowrap;">任务说明：</label>
+			</div>
+			<div class="mui-input-row" style="margin: 10px;">
+				<textarea id="tasContent" rows="5" placeholder="为了让他猎人更好地完成你的任务，请详细说明！"></textarea>
+			</div>
+			<div class="mui-input-row">
+				<label style="white-space: nowrap;">详细联系方式：</label>
+			</div>
+			<div class="mui-input-row" style="margin: 10px;">
+				<textarea id="tasContact" rows="5" placeholder="为了让他猎人更好地完成你的任务，请详细说明！"></textarea>
+			</div>
+
+			<div id="dieTime" class="mui-input-row" style="white-space: nowrap;" hidden="hidden">
+				<label>任务完成时限：<h6>超过时限，任务下架，任务失败</h6></label>
+
+			</div>
+			<div id="chooseTime" class="mui-content-padded" hidden="hidden">
+				<button id='pickTimeBtn' class="mui-btn mui-btn-block" style="background-color:  #4FD2C2;">
+					选择时间 ...
+				</button>
+				<input type="hidden" name="tasTimeout" id="tasTimeout" value="" />
+			</div>
+			<div id="result"></div>
+
+			<div id="teamNum" hidden="hidden">
+				<h5 class="mui-content-padded">任务需要人数：</h5>
+				<div class="mui-numbox mui-content-padded">
+					<button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
+					<input id="tasRulenum" class="mui-input-numbox" type="number" />
+					<button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
+				</div>
+			</div>
+
+			<div class="mui-input-row">
+				<label style="white-space: nowrap;">附加图片：<h6>图片(选填,总大小10M以下)</h6></label>
+			</div>
+
+			<div class="feedback">
+				<div id="image-list" class="row image-list">
+					<div class="image-item"></div>
+				</div>
+			</div>
+			<br />
+			<div class="mui-content-padded">
+				<button id='submitTask' class="mui-btn  mui-btn-block" style="padding: 10px;">发布任务</button>
+			</div>
+
+		</div>
+		<script src="../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/my/variable.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//mui初始化
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+			mui.plusReady();
+			//等待动画
+			var wt = null;
+
+			//时间选择器（原生）
+			var pickTime = document.getElementById("pickTimeBtn");
+			var tasTimeout = document.getElementById("tasTimeout");
+			pickTime.addEventListener('tap', function() {
+				var dTime = new Date();
+				plus.nativeUI.pickTime(function(e) {
+					var d = e.date;
+					//判断时间选择是否有效
+					if(dTime.getHours() < d.getHours()) {
+						pickTime.innerText = d.getHours() + ":" + d.getMinutes();
+						tasTimeout.value = pickTime.innerText;
+						console.log(tasTimeout.value);
+					} else {
+						if(dTime.getHours() == d.getHours() && dTime.getMinutes() < d.getMinutes()) {
+							pickTime.innerText = d.getHours() + ":" + d.getMinutes();
+							tasTimeout.value = d.getHours() + ":" + d.getMinutes();
+
+						} else {
+							plus.nativeUI.toast("你选择的时间已过去");
+							pickTime.innerText = "选择时间 ...";
+							tasTimeout.value = "";
+
+						}
+
+					}
+
+				}, function(e) {
+					plus.nativeUI.toast("您没有选择时间");
+					pickTime.innerText = "选择时间 ...";
+					tasTimeout.value = "";
+				}, {
+					title: "请选择时间",
+					is24Hour: true,
+					time: dTime,
+				});
+			});
+			var radioValue = "个人";
+			//单选
+			document.querySelectorAll(".mui-radio")[0].addEventListener("tap", function() {
+				document.getElementById("dieTime").hidden = "hidden";
+				document.getElementById("chooseTime").hidden = "hidden";
+				mui("#teamNum")[0].hidden = "hidden";
+				radioValue = "个人";
+			});
+			document.querySelectorAll(".mui-radio")[1].addEventListener("tap", function() {
+				document.getElementById("dieTime").hidden = "hidden";
+				document.getElementById("chooseTime").hidden = "hidden";
+				mui("#teamNum")[0].removeAttribute("hidden");
+				radioValue = "团队";
+			});
+			document.querySelectorAll(".mui-radio")[2].addEventListener("tap", function() {
+				document.getElementById("dieTime").removeAttribute("hidden");
+				document.getElementById("chooseTime").removeAttribute("hidden");
+				mui("#teamNum")[0].hidden = "hidden";
+				radioValue = "加急个人";
+			});
+
+			/*
+			 * 发布任务
+			 */
+			mui("#submitTask")[0].addEventListener("tap", function() {
+				//任务对象
+				var taskInfo = {
+					tasTitle: mui("#tasTitle")[0].value,
+					tasPrice: mui("#tasPrice")[0].value,
+					tasType: radioValue,
+					tasTimeout: mui("#tasTimeout")[0].value,
+					tasRulenum: mui("#tasRulenum")[0].value,
+					tasContent: mui("#tasContent")[0].value,
+					tasContact: mui("#tasContact")[0].value
+				};
+				console.log("taskInfo==" + JSON.stringify(taskInfo));
+				//发送任务到服务端
+				mui.ajax(myUrl + 'Hunter/Task_publishTask.action', {
+					data: taskInfo,
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					beforeSend: function() {
+						wt = plus.nativeUI.showWaiting();
+					},
+					success: function(data) {
+						console.log(JSON.stringify(data));
+						//关闭加载动画
+						wt.close();
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						if(data.code == 0) {
+							plus.nativeUI.toast(codes[0]);
+							return;
+						}
+						if(data.code == 1) {
+							plus.nativeUI.toast(codes[1]);
+							window.location.reload();
+							return;
+						} else {
+							plus.nativeUI.toast("服务器维护中");
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//关闭加载动画
+						wt.close();
+						plus.nativeUI.toast("网络异常");
+					}
+				});
+
+			});
+
+			/**
+			 * 上传头像
+			 */
+			mui("#image-list .image-item")[0].addEventListener("tap", function() {
+				var self = this;
+				// 从相册中选择图片 
+				galleryImg();
+
+				function galleryImg() {
+					// 从相册中选择图片
+					//					console.log("从相册中选择图片:");
+					plus.gallery.pick(function(path) {
+						//						console.log(path);
+						//						console.log("文件名：" + path.substr(path.lastIndexOf("/") + 1));
+						wt = plus.nativeUI.showWaiting("图片压缩中");
+						compressImage(path);
+					}, function(e) {
+						console.log("取消选择图片");
+					}, {
+						filter: "image"
+					});
+				}
+				var time = null;
+				//压缩图片
+				function compressImage(path) {
+					//获取时间戳
+					time = new Date().getTime();
+					plus.zip.compressImage({
+							src: path,
+							dst: "_doc/taskImg/" + time + "_" + path.substr(path.lastIndexOf("/") + 1),
+							width: "70%", // 缩小到原来的一半
+							quality: 70
+						},
+						function(e) {
+							//console.log("反馈" + JSON.stringify(e));
+							//alert("Compress success!");
+							wt.close();
+							//判断网络连接
+							if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+								return mui.toast("连接网络失败，请稍后再试");
+							}
+							if(e.size > 10485760) { //10兆字节(mb)=10485760字节(b)
+								mui.toast("文件超过10M，不予上传");
+							} else {
+								wt = plus.nativeUI.showWaiting("图片上传中");
+								createUpload(e.target);
+							}
+
+						},
+						function(error) {
+							mui.toast("压缩失败");
+							//							alert("Compress error!");
+						});
+				}
+				// 创建上传任务
+				function createUpload(path) {
+					var task = plus.uploader.createUpload(myUrl + "Hunter/uploadImg.action", {
+							method: "POST"
+						},
+						function(t, status) {
+							// 上传完成
+							if(status == 200) {
+								wt.close();
+								console.log("图片：" + self.style.backgroundImage);
+								self.style.backgroundImage = "url('" + path + "')";
+								console.log("路径：" + path);
+								console.log("Upload success: " + t.responseText);
+							} else {
+								wt.close();
+								mui.toast("上传头像失败");
+							}
+						}
+					);
+					task.addData("isUser", "0"); //0表示图片做任务用
+					task.addFile(path, {
+						key: "file"
+					});
+					task.start();
+				}
+
+			});
+		</script>
+	</body>
+
+</html>
