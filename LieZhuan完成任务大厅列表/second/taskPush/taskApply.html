@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>猎赚</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
+		<style type="text/css">
+			.mui-input-row label,
+			.mui-input-row label~input,
+			.mui-input-row label~select {
+				color: #333;
+				/*border: 1px red solid;*/
+			}
+			
+			.mui-input-row label {
+				margin-right: 10px;
+				/*overflow: hidden;*/
+				white-space: nowrap;
+				/*width: 50%;*/
+				/*border: 1px red solid;*/
+			}
+			
+			.mui-input-row span {
+				font-size: 30px;
+				color: black;
+				overflow: hidden;
+				white-space: nowrap;
+			}
+			
+			.mui-input-row label~input {
+				margin-top: 5px;
+				padding: 0px;
+				float: left;
+				background-color: white;
+				color: black;
+				width: 150px;
+				height: 30px;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			
+			.mui-content {
+				margin-top: 20px;
+				margin-bottom: 20px;
+			}
+			
+			.mui-bar-nav .mui-title {
+				font-family: '微软雅黑';
+				font-weight: bold;
+			}
+			
+			.reg-img {
+				text-align: center;
+			}
+			
+			.reg-img img {
+				border-radius: 50px;
+			}
+			.mui-card{
+				background-color:  #F8F8F9;
+				padding: 5px;
+				margin-top: 5px;
+				
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-ui mui-pull-left" style="color: white;"></a>
+			<h1 class="mui-title">任务申请</h1>
+		</header>
+		<div class="mui-content">
+
+			<div class="mui-input-row">
+				<label>任务名称:</label>
+				<input type="text" value="给我p一张图片" readonly="readonly" />
+			</div>
+			<div class="mui-input-row">
+				<label>赏&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;金:&nbsp;&nbsp;&nbsp;￥</label>
+				<input type="number" id="outMoney" value="100" readonly="readonly" />
+			</div>
+			<div class="mui-input-row">
+				<label>任务说明：</label>
+			</div>
+			<div class="mui-input-row" style="margin:0px 10px;">
+				<textarea readonly="readonly" id="textarea" rows="5" placeholder="用户太懒，什么描述都未留下，如有疑问可以联系发布者"></textarea>
+			</div>
+			<div class="mui-input-row">
+				<label>任务完成时限：</label>
+				<input type="text" value="2016-07-29 18:40" readonly="readonly" />
+			</div>
+			<div class="mui-input-row">
+				<label>附加图片：</label>
+			</div>
+			<div class="mui-input-row" style="margin:0px 10px;">
+				<img src="../../image/renwu1.jpg" width="100%" style="border-radius:8px ;" />
+			</div>
+			
+			<div class="mui-input-row">
+				<label>申请者：<h6>(点击你中意的申请者，他便接受了你的任务)</h6></label>
+			</div>
+			
+			<div class="mui-card">
+				<div class="reg-img">
+					<a href="othersInfo.html">
+						<img src="../../image/header.jpg" width="50px" height="50px" />
+					</a>
+					
+				</div>
+				<div style="text-align: center;margin-top: 5px;">
+					<span >昵称昵称</span>
+				</div>
+				<div class="mui-input-row">
+					<label>申请理由：</label>
+				</div>
+				<div class="mui-content-padded">
+					<textarea rows="5" placeholder="请详细说明申请理由,不超过100字" maxlength="100"></textarea>
+
+				</div>
+			</div>
+			<div class="mui-card">
+				<div class="reg-img">
+					<a href="othersInfo.html">
+						<img src="../../image/header.jpg" width="50px" height="50px" />
+					</a>
+					
+				</div>
+				<div style="text-align: center;margin-top: 5px;">
+					<span >昵称昵称</span>
+				</div>
+				<div class="mui-input-row">
+					<label>申请理由：</label>
+				</div>
+				<div class="mui-content-padded">
+					<textarea rows="5" placeholder="请详细说明申请理由,不超过100字" maxlength="100"></textarea>
+
+				</div>
+			</div>
+			<div class="mui-card">
+				<div class="reg-img">
+					<a href="othersInfo.html">
+						<img src="../../image/header.jpg" width="50px" height="50px" />
+					</a>
+					
+				</div>
+				<div style="text-align: center;margin-top: 5px;">
+					<span >昵称昵称</span>
+				</div>
+				<div class="mui-input-row">
+					<label>申请理由：</label>
+				</div>
+				<div class="mui-content-padded">
+					<textarea rows="5" placeholder="请详细说明申请理由,不超过100字" maxlength="100"></textarea>
+
+				</div>
+			</div>
+
+			<!--<div class="mui-content-padded">
+				<button id='getTask' class="mui-btn mui-btn-block" style="background-color: #50D2C2;border: 0px;color: white;padding: 8px;font-size: 16px;border-radius:8px ;">提交申请</button>
+			</div>-->
+		</div>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+
+</html>

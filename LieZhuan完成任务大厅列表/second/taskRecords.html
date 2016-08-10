@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>猎赚</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../css/mui.css">
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<style>
+			/*.mui-control-content {
+				background-color: white;
+				min-height: 500px;
+			}*/
+			
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				z-index: 1;
+			}
+			
+			.mui-bar~.mui-pull-top-tips {
+				top: 24px;
+			}
+			
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden;
+			}
+			
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			
+			.mui-pull-top-tips .mui-pull-loading {
+				/*-webkit-backface-visibility: hidden;
+				-webkit-transition-duration: 400ms;
+				transition-duration: 400ms;*/
+				margin: 0;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 7px;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon.mui-reverse {
+				/*-webkit-transform: rotate(180deg) translateZ(0);*/
+			}
+			
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777;
+			}
+			
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto;
+			}
+			
+			.mui-pull-top-canvas canvas {
+				width: 40px;
+			}
+			
+			.mui-slider-indicator.mui-segmented-control {
+				background-color: #efeff4;
+			}
+			.mui-media img {
+				border-radius: 5px;
+			}
+			
+			.mui-media span {
+				font-size: 14px;
+				margin-top: 12px;
+			}
+			.mui-media-body {
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon iconfont icon-ui mui-pull-left" style="color: white;"></a>
+			<h1 class="mui-title" style="font-family: '微软雅黑' ;font-weight: bold;">任务日志</h1>
+		</header>
+		<div class="mui-content" style="margin-top: 3px;">
+			<!--图片轮播-->
+			<div id="imgSlider" class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../image/2242324_163256494905_2.jpg">
+						</a>
+					</div>
+					<!-- 第一张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../image/2242324_163256494905_2.jpg">
+						</a>
+					</div>
+					<!-- 第二张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../image/2242324_163256494905_2.jpg">
+						</a>
+					</div>
+					<!-- 第三张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../image/2242324_163256494905_2.jpg">
+						</a>
+					</div>
+					<!-- 第四张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../image/2242324_163256494905_2.jpg">
+						</a>
+					</div>
+					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../image/2242324_163256494905_2.jpg">
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
+			<!--END图片轮播-->
+			<div id="slider" class="mui-slider mui-fullscreen" style="margin-top: 30%;">
+
+				<!--选项卡-->
+				<div id="sliderSegmentedControl" class="mui-segmented-control mui-segmented-control-inverted">
+					<a class="mui-control-item" href="#item1mobile">
+						<span class="mui-icon iconfont icon-jinxingzhong" style="border: 0px;"></span>进行
+					</a>
+					<a class="mui-control-item" href="#item2mobile">
+						<span class="mui-icon iconfont icon-yiwancheng" style="border: 0px;"></span>完成
+					</a>
+					<a class="mui-control-item" href="#item3mobile">
+						<span class="mui-icon iconfont icon-shibai" style="border: 0px;"></span>失败
+					</a>
+				</div>
+				<!--END选项卡-->
+
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-4"></div>
+				<!--选项-->
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div id="personalTask" class="mui-scroll">
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="../image/yuantiao.jpg">
+											<div class="mui-media-body">
+												静静的看这个世界，最后终于疯了
+												<p class="mui-ellipsis">
+													<span class="mui-icon iconfont icon-chakan">1024</span> &nbsp;
+													<span class="mui-icon iconfont icon-huifu">526</span> &nbsp;
+													<span class="mui-icon iconfont icon-shizhong">2016.7.16</span>
+												</p>
+											</div>
+										</a>
+									</li>
+									<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="../image/shuijiao.jpg">
+											<div class="mui-media-body">
+												能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？
+												<p class="mui-ellipsis">
+													<span class="mui-icon iconfont icon-chakan">1024</span> &nbsp;
+													<span class="mui-icon iconfont icon-huifu">526</span> &nbsp;
+													<span class="mui-icon iconfont icon-shizhong">2016.7.16</span>
+												</p>
+											</div>
+										</a>
+									</li>
+									<li class="mui-table-view-cell mui-media">
+										<a href="javascript:;">
+											<img class="mui-media-object mui-pull-right" src="../image/muwu.jpg">
+											<div class="mui-media-body">
+												想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.
+												<p class="mui-ellipsis">
+													<span class="mui-icon iconfont icon-chakan">1024</span> &nbsp;
+													<span class="mui-icon iconfont icon-huifu">526</span> &nbsp;
+													<span class="mui-icon iconfont icon-shizhong">2016.7.16</span>
+												</p>
+											</div>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll2" class="mui-scroll-wrapper">
+							<div id="teamTask" class="mui-scroll">
+								<ul class="mui-table-view">
+								</ul>
+								<div class="mui-loading">
+									<div class="mui-spinner"></div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div id="scroll3" class="mui-scroll-wrapper">
+							<div id="specialTask" class="mui-scroll">
+								<ul class="mui-table-view">
+								</ul>
+								<div class="mui-loading">
+									<div class="mui-spinner"></div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+				<!--END选项-->
+			</div>
+
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/mui.pullToRefresh.js"></script>
+		<script src="../js/mui.pullToRefresh.material.js"></script>
+		<script src="../js/my/imgSlider.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			mui.init({
+				swipeBack: false
+			});
+
+			//下拉刷新，上拉加载
+			(function(mui) {
+				//阻尼系数
+				var deceleration = mui.os.ios ? 0.003 : 0.0009;
+				mui('.mui-scroll-wrapper').scroll({
+					bounce: false,
+					indicators: true, //是否显示滚动条
+					deceleration: deceleration
+				});
+				mui.ready(function() {
+					//循环初始化所有下拉刷新，上拉加载。
+					mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+						mui(pullRefreshEl).pullToRefresh({
+							down: {
+								callback: function() {
+									var self = this;
+									setTimeout(function() {
+										var ul = self.element.querySelector('.mui-table-view');
+										ul.insertBefore(createFragment(ul, index, 5, true), ul.firstChild);
+										self.endPullDownToRefresh();
+									}, 1000);
+								}
+							},
+							up: {
+								callback: function() {
+									var self = this;
+									setTimeout(function() {
+										var ul = self.element.querySelector('.mui-table-view');
+										ul.appendChild(createFragment(ul, index, 5));
+										self.endPullUpToRefresh();
+									}, 1000);
+								}
+							}
+						});
+					});
+					/**
+					 * 向document中添加大量数据是，
+					 * 如果直接添加这些新节点，
+					 * 这个过程非常缓慢，
+					 * 因为每添加一个节点都会调用父节点的appendChild()方法，
+					 * 为了解决这个问题，可以创建一个文档碎片，
+					 * 把所有的新节点附加其上，
+					 * 然后把文档碎片一次性添加到document中。
+					 * @param {Object} ul
+					 * @param {Object} index
+					 * @param {Object} count
+					 * @param {Object} reverse
+					 */
+					var createFragment = function(ul, index, count, reverse) {
+						var length = ul.querySelectorAll('li').length;
+						var fragment = document.createDocumentFragment(); //创建文档碎片节点
+						var li;
+						for(var i = 0; i < count; i++) {
+							li = document.createElement('li');
+							li.className = 'mui-table-view-cell mui-media';
+							//							li.innerHTML = '第' + (index + 1) + '个选项卡子项-' + (length + (reverse ? (count - i) : (i + 1)));
+							li.innerHTML = '<a href="javascript:;"><img class="mui-media-object mui-pull-right" src="../image/muwu.jpg"><div class="mui-media-body">想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.<p class="mui-ellipsis"><span class="mui-icon iconfont icon-chakan">1024</span> &nbsp; <span class="mui-icon iconfont icon-huifu">526</span> &nbsp; <span class="mui-icon iconfont icon-shizhong">2016.7.16</span></p></div></a>';
+							fragment.appendChild(li);
+						}
+						return fragment;
+					};
+				});
+			})(mui);
+
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true //是否显示滚动条
+			});
+			var html2 = '<li class="mui-table-view-cell mui-media"><a href="javascript:;"><img class="mui-media-object mui-pull-right" src="../image/muwu.jpg"><div class="mui-media-body">想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.<p class="mui-ellipsis"><span class="mui-icon iconfont icon-chakan">1024</span> &nbsp; <span class="mui-icon iconfont icon-huifu">526</span> &nbsp; <span class="mui-icon iconfont icon-shizhong">2016.7.16</span></p></div></a></li>';
+			var html3 = '<li class="mui-table-view-cell mui-media"><a href="javascript:;"><img class="mui-media-object mui-pull-right" src="../image/muwu.jpg"><div class="mui-media-body">想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.<p class="mui-ellipsis"><span class="mui-icon iconfont icon-chakan">1024</span> &nbsp; <span class="mui-icon iconfont icon-huifu">526</span> &nbsp; <span class="mui-icon iconfont icon-shizhong">2016.7.16</span></p></div></a></li>';
+			var item2 = document.getElementById('item2mobile');
+			var item3 = document.getElementById('item3mobile');
+			document.getElementById('slider').addEventListener('slide', function(e) {
+				if(e.detail.slideNumber === 1) {
+					if(item2.querySelector('.mui-loading')) {
+						setTimeout(function() {
+							item2.querySelector('.mui-table-view').innerHTML = html2;
+							item2.querySelector('.mui-loading').remove();
+						}, 500);
+					}
+				} else if(e.detail.slideNumber === 2) {
+					if(item3.querySelector('.mui-loading')) {
+						setTimeout(function() {
+							item3.querySelector('.mui-table-view').innerHTML = html3;
+							item3.querySelector('.mui-loading').remove();
+						}, 500);
+					}
+				}
+			});
+
+			//监听上划事件
+//			document.addEventListener("swipeup", function() {
+//				$("#imgSlider").slideUp("fast");
+//				$("#slider").css("margin-top", "0");
+//			});
+			//监听下划事件
+//			document.addEventListener("swipedown", function() {
+//				$("#imgSlider").slideDown("fast");
+//				$("#slider").css("margin-top", "30%");
+//			});
+		</script>
+	</body>
+
+</html>
