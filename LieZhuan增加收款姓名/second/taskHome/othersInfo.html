@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>猎赚</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.css">
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
+		<style>
+			.mui-content {
+				margin: 0px 10px;
+				margin-top: 30px;
+			}
+			
+			.mui-icon {
+				color: white;
+			}
+			
+			.mui-title {
+				font-family: "微软雅黑";
+				font-weight: bold;
+			}
+			
+			.reg-img {
+				text-align: center;
+			}
+			
+			.reg-img img {
+				border-radius: 50px;
+			}
+			
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+				margin: 0;
+				padding: 11px 15px;
+				vertical-align: middle;
+				border-right: 0px;
+				border-bottom: 0px;
+			}
+			
+			.mui-table-view.mui-grid-view .mui-col-xs-4 .mui-media-body {
+				color: white;
+				margin-bottom: 5px;
+				font-family: "幼圆";
+				white-space: nowrap;
+				overflow: visible;
+			}
+			
+			.mui-table-view.mui-grid-view .mui-col-xs-4 span {
+				color: white;
+				font-family: "微软雅黑";
+				font-size: 12px;
+			}
+			
+			.mui-col-xs-6 .mui-icon {
+				color: #333;
+			}
+			
+			.mui-col-xs-6 {
+				border: 1px gainsboro solid;
+			}
+			
+			.mui-table-view.mui-grid-view .mui-col-xs-6 .mui-media-body {
+				font-size: 12px;
+			}
+			
+			#myGrid-9 {
+				border: 3px;
+				border-style: inset;
+			}
+			
+			.mui-input-row label {
+				white-space: nowrap;
+			}
+			
+			#userSex {
+				color: black;
+			}
+		</style>
+	</head>
+
+	<body style="background-color: #4FD2C2;">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon iconfont icon-ui mui-pull-left" style="color: white;"></a>
+			<h1 class="mui-title">他人资料</h1>
+		</header>
+		<div class="mui-content" style="background-color: #4FD2C2;">
+			<div style="background-color: #4FD2C2;">
+				<div class="reg-img" style="background-color: #4FD2C2;">
+					<img src="../../image/header.jpg" width="100px" height="100px" />
+				</div>
+				<!--END头像-->
+				<div style="text-align: center;margin-top: 10px;color: white;">
+					<span id="nickname">昵称昵称</span>
+					<span id="userSex" class="mui-icon iconfont icon-xingbienan"></span>
+				</div>
+				<div style="margin:auto;margin-top: 10px;width: 70%;color: white;">
+					<p id="useSign" style="color: white;">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+					<ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: #4FD2C2;border: 0px;">
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+							<div>
+								<div class="mui-media-body">关注</div>
+								<span>0</span>
+
+							</div>
+						</li>
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+							<div>
+								<span class="mui-media-body mui-icon iconfont icon-dianzan" style="font-size: 20px;"></span>
+								<span>0</span>
+
+							</div>
+						</li>
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+							<div>
+								<div class="mui-media-body">粉丝</div>
+								<span>0</span>
+
+							</div>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+
+			<div class="mui-card" style="margin: 5px;">
+				<div class="mui-input-row">
+					<label>等&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;级：</label>
+					<input type="text" name="" id="powLevel" value="100" readonly="readonly" />
+				</div>
+
+				<div class="mui-input-row">
+					<label for="">标签：</label>
+				</div>
+				<div class="mui-input-row">
+					<label>信誉值：</label>
+					<input type="text" name="" id="powCredit" value="100" readonly="readonly" />
+				</div>
+				<div id="powCreditDiv" style="width: 100px;height: 10px;background-color: #A9A9A9;margin: 0px 15px;"></div>
+
+				<div class="mui-input-row">
+					<label>效率值：</label>
+					<input type="text" name="" id="powFast" value="145" readonly="readonly" />
+				</div>
+				<div id="powFastDiv" style="width: 145px;height: 10px;background-color: #A9A9A9;margin: 0px 15px;"></div>
+				<br />
+			</div>
+			<br />
+			<!--<button class="mui-btn-block" style="border-radius:12px ;font-size: 12px;">添加好友</button>-->
+
+		</div>
+
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/my/variable.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			mui.init();
+			var currentTask = null;
+			var taskPushUser = null;
+			mui.plusReady(function() {
+				//取出点击任务
+				currentTask = sessionStorage.getItem("currentTask");
+				currentTask = JSON.parse(currentTask);
+				//获取任务发布者信息
+				taskPushUser = sessionStorage.getItem("taskPushUser");
+//				console.log("taskPushUser==" + taskPushUser);
+				taskPushUser = JSON.parse(taskPushUser);
+
+				if(taskPushUser != null && taskPushUser != "") {
+					if(taskPushUser.useImg != "")
+						mui(".reg-img img")[0].src = myUrl + "Hunter/" + taskPushUser.useImg;
+					mui("#nickname")[0].innerText = taskPushUser.useNickname;
+					mui("#useSign")[0].innerText = taskPushUser.useSign;
+					if(taskPushUser.useSex == "女"){
+						mui("#userSex")[0].setAttribute("class","mui-icon iconfont icon-xingbienv");
+						
+					}
+					/*
+					 * 获取用户信誉相关值
+					 */
+					var wt = null;
+					mui.ajax(myUrl + 'Hunter/Power_givePowerByUseId.action', {
+						data: {
+							useId: taskPushUser.useId
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						beforeSend: function() {
+							wt = plus.nativeUI.showWaiting("拉取数据");
+						},
+						success: function(data) {
+							wt.close();
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							if(data.json.PowerList != null && data.json.PowerList != "") {
+
+								mui('#powCredit')[0].value = data.json.PowerList.powCredit;
+
+								mui("#powCreditDiv")[0].style.width = data.json.PowerList.powCredit + "px";
+
+								mui('#powFast')[0].value = data.json.PowerList.powFast;
+								mui("#powFastDiv")[0].style.width = data.json.PowerList.powFast + "px";
+								mui('#powLevel')[0].value = data.json.PowerList.powLevel;
+
+							} else {
+								plus.nativeUI.toast("标签数据拉取失败");
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							wt.close();
+							plus.nativeUI.toast("网络异常");
+						}
+					});
+				}
+			});
+
+			//返回上页
+			mui.back = function(event) {
+				goBack();
+			};
+			mui(".icon-ui")[0].addEventListener('tap', function() {
+				goBack();
+			});
+
+			function　 goBack() {
+				if(currentTask.tasType == "加急个人") {
+					window.location.href = "../taskHome/taskGet.html";
+				} else {
+					window.location.href = "../taskHome/applyTask.html";
+				}
+//				console.log("当前任务:" + currentTask.tasType);
+			}
+		</script>
+	</body>
+
+</html>
