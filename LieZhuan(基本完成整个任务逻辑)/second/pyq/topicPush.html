@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>猎赚</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/feedback.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/mui.picker.min.css" />
+
+		<style type="text/css">
+			.mui-content {
+				margin: 0px 5px;
+				margin-top: 20px;
+			}
+			
+			.mui-input-row a {
+				color: #8f8f94;
+			}
+			
+			.reg-img {
+				text-align: center;
+			}
+			
+			.reg-img img {
+				border-radius: 50px;
+			}
+			
+			.mui-btn {
+				background-color: #50D2C2;
+				border: 0px;
+				color: white;
+			}
+			
+			.mui-btn {
+				font-size: 18px;
+				padding: 5px;
+			}
+			
+			.ui-alert {
+				text-align: center;
+				padding: 20px 10px;
+				font-size: 16px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon iconfont icon-ui mui-pull-left" style="color: white;"></a>
+			<h1 class="mui-title" style="font-family: '微软雅黑' ;font-weight: bold;">话题发布</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-input-row">
+				<label>标题:</label>
+				<input class="mui-input-clear" type="text" id="taskName" value="给我p一张图片" maxlength="12" />
+			</div>
+			<div class="mui-input-row">
+				<label style="white-space: nowrap;">任务说明：</label>
+			</div>
+			<div class="mui-input-row" style="margin: 10px;">
+				<textarea id="textarea" rows="5" placeholder="为了让他猎人更好地完成你的任务，请详细说明！"></textarea>
+			</div>
+
+			<div class="mui-input-row">
+				<label style="white-space: nowrap;">附加图片：<h6>图片(选填,总大小10M以下)</h6></label>
+			</div>
+
+			<div class="feedback">
+				<div id='image-list' class="row image-list"></div>
+			</div>
+			<br />
+			<div class="mui-content-padded">
+				<button id='submit' class="mui-btn  mui-btn-block" style="padding: 10px;">确认发布</button>
+			</div>
+
+		</div>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/feedback.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			//mui初始化
+			mui.init({
+				swipeBack: true //启用右滑关闭功能
+			});
+		</script>
+	</body>
+
+</html>

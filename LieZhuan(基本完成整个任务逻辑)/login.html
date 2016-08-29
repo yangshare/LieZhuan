@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>猎赚</title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<style type="text/css">
+			.mui-content {
+				margin: 0px 10px;
+			}
+			
+			.login-logo {
+				text-align: center;
+			}
+			
+			.login-logo img {
+				margin: 25px;
+				width: 50%;
+			}
+			
+			.mui-input-row input {
+				border: 0px;
+				border-bottom: 1px #D6D6D7 solid;
+			}
+			
+			.mui-input-row a {
+				color: #8f8f94;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<br />
+			<div class="login-logo">
+				<img src="image/LOGO.png" />
+			</div>
+			<h5>账号USERNAME</h5>
+			<div class="mui-input-row">
+
+				<input type="tel" id="account" class="mui-input-clear" placeholder="手机号" maxlength="11" />
+			</div>
+			<h5>密码PASSWORD</h5>
+			<div class="mui-input-row">
+				<input type="password" id="password" class="mui-input-password" placeholder="初始密码为考号/学号后6位" />
+			</div>
+			<div class="mui-input-row mui-checkbox mui-left" style="margin-left: -20px;">
+				<label for="rememberPwd">记住密码</label>
+				<input id="rememberPwd" value="Item 1" type="checkbox">
+			</div>
+			<br />
+			<button id="login" type="button" class="mui-btn  mui-btn-block" style="background-color: #50D2C2;border: 0px;color: white;padding: 8px;font-size: 16px;">登录</button>
+			<br />
+			<div class="mui-input-row">
+				<a href="forget.html">忘记密码？</a>
+				<a href="reg.html" style="float: right;">激活注册</a>
+			</div>
+			<br />
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/my/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/my/variable.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			//初始化用户信息
+			var initLogin = null;
+			var initUser = null;
+			var rememberPwd = null;
+			//用户登录
+			var accountBox = document.getElementById("account"); //账号
+			var pwdBox = document.getElementById("password"); //密码
+			var login = document.getElementById("login"); //登录按钮
+			mui.plusReady(function() {
+
+				//初始化登录信息
+				if(localStorage.getItem('activateinfo') != null) {
+					initLogin = localStorage.getItem('activateinfo');
+					initUser = JSON.parse(initLogin);
+				}
+				if(initUser != null) { //自动填手机号
+					accountBox.value = initUser.usePhone;
+				}
+				if(localStorage.getItem("rememberPwd") != null) {
+					rememberPwd = localStorage.getItem("rememberPwd");
+					if(rememberPwd == "true"){
+						mui("#rememberPwd")[0].checked = true;
+						accountBox.value = JSON.parse(localStorage.getItem('loginInfo')).account;
+						pwdBox.value=JSON.parse(localStorage.getItem('loginInfo')).password;
+					}
+						
+					else
+						mui("#rememberPwd")[0].checked = false;
+
+				}
+
+				//返回键，退出应用
+				var backButtonPress = 0;
+				mui.back = function(event) {
+					backButtonPress++;
+					if(backButtonPress > 1) {
+						plus.runtime.quit();
+					} else {
+						plus.nativeUI.toast('再按一次退出应用');
+					}
+					setTimeout(function() {
+						backButtonPress = 0;
+					}, 1000);
+					return false;
+				};
+			});
+			//记住密码
+			mui(".mui-checkbox").on('change', "input", function() {
+				localStorage.setItem('rememberPwd', this.checked);
+				console.log(localStorage.getItem('rememberPwd'));
+			});
+
+			var wt = null; //实例化等待窗
+			login.addEventListener("tap", function(event) {
+				var loginInfo = {
+					account: accountBox.value,
+					password: pwdBox.value
+				};
+				app.login(loginInfo, function(err) {
+					if(err) {
+						plus.nativeUI.toast(err);
+						return;
+					} else {
+
+						mui.ajax(myUrl + 'Hunter/User_login.action', {
+							data: {
+								usePhone: accountBox.value,
+								usePwd: pwdBox.value,
+								useEmei: plus.device.imei
+
+							},
+							dataType: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							timeout: 10000, //超时时间设置为10秒；
+							beforeSend: function() {
+								wt = plus.nativeUI.showWaiting();
+							},
+							success: function(data) {
+//								console.log(JSON.stringify(data));
+								//关闭加载动画
+								wt.close();
+								//服务器返回响应，根据响应结果，分析是否登录成功；
+								if(data.code == 0) {
+									plus.nativeUI.toast("密码错误");
+									return;
+								}
+								if(data.code == 1) {
+									//用户信息存本地
+									localStorage.setItem('activateinfo',null);//废除注册信息
+									localStorage.setItem('loginInfo', JSON.stringify(loginInfo));
+									//登录成功跳转到主页
+									window.location.href = "menu.html";
+									return;
+								}
+								if(data.code == 8) {
+									plus.nativeUI.toast(codes[8]+",若更换手机请再次激活",{duration:"long"});
+									return;
+								}
+								if(data.code == 17) {
+									plus.nativeUI.toast(codes[17]);
+									return;
+								} else {
+									plus.nativeUI.toast("服务器维护中");
+								}
+
+							},
+							error: function(xhr, type, errorThrown) {
+								//关闭加载动画
+								wt.close();
+								plus.nativeUI.toast("网络异常");
+							}
+						});
+					}
+
+				});
+			});
+		</script>
+	</body>
+
+</html>
