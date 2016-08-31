@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>猎赚</title>
+		<link rel="stylesheet" type="text/css" href="css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+		<style type="text/css">
+			.mui-content {
+				margin: 0px 10px;
+				margin-top: 20px;
+			}
+			
+			.mui-input-row input {
+				border: 0px;
+				border-bottom: 1px #D6D6D7 solid;
+			}
+			
+			.mui-input-row a {
+				color: #8f8f94;
+			}
+			
+			.mui-btn-block {
+				/*background-color: #50D2C2;*/
+				border: 0px;
+				color: white;
+				font-size: 16px;
+				padding: 8px;
+			}
+			
+			.mui-table-view:before {
+				background-color: white;
+			}
+			
+			.mui-table-view:after {
+				background-color: white;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar-nav mui-bar">
+			<a class="mui-action-back mui-icon iconfont icon-ui mui-pull-left" style="color: white;"></a>
+			<h1 class="mui-title" style="font-weight: bold;font-family: '微软雅黑';">激活注册</h1>
+		</header>
+		<div class="mui-content">
+			<h5>学号/考号</h5>
+			<div class="mui-input-row">
+				<input type="number" id="stuNum" class="mui-input-clear" placeholder="新生填写考号" />
+			</div>
+			<h5>密码<span style="font-size: 12px;font-style: italic;">(首次激活密码为学号/考号后6位)</span></h5>
+			<div class="mui-input-row">
+				<input type="password" id="password" class="mui-input-password" placeholder="" />
+			</div>
+			<h5>手机号</h5>
+			<div class="mui-input-row">
+				<input type="tel" id="phoneNum" class="mui-input-clear" maxlength="11" />
+			</div>
+			<button id="validation_submit" class="mui-btn-block" style="margin-bottom: 25px;background-color: #50D2C2;">发送验证码</button>
+
+			<h5>验证码</h5>
+			<div class="mui-input-row">
+				<input type="number" id="validation_code" class="mui-input-clear" maxlength="6" />
+			</div>
+
+			<br />
+			<button id="reg" type="button" class="mui-btn  mui-btn-block" style="background-color: #50D2C2;">激活</button>
+			<div class="mui-input-row" style="padding: 5px;">
+				<a id="alertBtn" href="#" style="float: right;">无法激活？</a>
+			</div>
+			<br />
+		</div>
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/my/variable.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			mui.init();
+			//参数区
+			var phoneNumReg = /^1[3|4|5|8]\d{9}$/; //手机号正则表达式
+			//用户登录
+			var stuNum = document.getElementById("stuNum"); //学号
+			var passwordBox = document.getElementById("password"); //密码
+			var accountBox = document.getElementById("phoneNum"); //账号
+			var validation_submit = document.getElementById("validation_submit");
+			var validation_code = document.getElementById("validation_code"); //验证码
+			var reg = document.getElementById("reg"); //提交按钮
+			//发送验证码
+			validation_submit.addEventListener("tap", function() {
+
+				if(stuNum.value.length < 12) {
+					plus.nativeUI.toast('请正确输入学号或考号');
+					return;
+				}
+				if(passwordBox.value.length < 6) {
+					plus.nativeUI.toast('请正确输入密码');
+					return;
+				}
+				if(!(phoneNumReg.test(accountBox.value))) {
+					plus.nativeUI.toast('手机号输入不正确');
+				} else {
+					mui.ajax(myUrl + 'Hunter/User_sendPhone.action', {
+						data: {
+							useSno: stuNum.value,
+							usePwd:passwordBox.value,
+							usePhone: accountBox.value
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						beforeSend: function() {
+							wt = plus.nativeUI.showWaiting();
+						},
+						success: function(data) {
+							//重新发送验证码
+							validation_submit.disabled = "disabled";
+							validation_submit.innerText = "120s后重新发送";
+							//60s取消disabled
+							setTimeout(function() {
+								validation_submit.innerText = "发送验证码";
+								validation_submit.removeAttribute("disabled");
+							}, 12 * 1000);
+//							console.log(JSON.stringify(data));
+							//关闭加载动画
+							wt.close();
+							
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							if(data.code == 3) {
+								plus.nativeUI.toast(codes[3]);
+								return;
+							}
+							if(data.code == 4) {
+								plus.nativeUI.toast(codes[4]);
+								return;
+							}
+							if(data.code == 5) {
+								plus.nativeUI.toast(codes[5]);
+								validation_submit.disabled = "disabled";
+								return;
+							}
+							if(data.code == 6) {
+								plus.nativeUI.toast(codes[6] + "，请重发");
+							} else {
+								//未知错误
+								plus.nativeUI.toast("服务器维护中");
+								mui.alert('QQ：2178150737,你懂的！', '客服MM', function() {});
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//关闭加载动画
+							wt.close();
+							//异常处理；
+							plus.nativeUI.toast("网络异常");
+						}
+					});
+				}
+
+			});
+
+			var wt = null; //实例化等待窗
+			reg.addEventListener("tap", function(event) {
+				if(stuNum.value.length < 12) {
+					plus.nativeUI.toast('请正确输入学号或考号');
+					return;
+				}
+				if(!(phoneNumReg.test(accountBox.value))) {
+					plus.nativeUI.toast('手机号输入不正确');
+					return;
+				}
+				if(validation_code.value.length < 6) {
+					plus.nativeUI.toast('请正确输入验证码');
+				} else {
+					mui.ajax(myUrl + 'Hunter/User_activate.action', {
+						data: {
+							useSno: stuNum.value,
+							phoneCode: validation_code.value,
+							useEmei: plus.device.imei,
+							usePhone: accountBox.value
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						beforeSend: function() {
+							wt = plus.nativeUI.showWaiting();
+						},
+						success: function(data) {
+//							console.log(JSON.stringify(data));
+							//关闭加载动画
+							wt.close();
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							if(data.code == 1) {
+								var activateinfo = { //用户信息
+									useSno: stuNum.value,
+									phoneCode: validation_code.value,
+									useEmei: plus.device.imei,
+									usePhone: accountBox.value
+								};
+								//用户信息存本地
+								localStorage.setItem('activateinfo', JSON.stringify(activateinfo));
+								plus.nativeUI.toast(codes[1]);
+								window.location.href = "login.html";
+								return;
+							}
+							if(data.code == 4) {
+//								console.log(JSON.stringify(activateinfo));
+								plus.nativeUI.toast(codes[4]);
+								return;
+							}
+							if(data.code == 7) {
+								plus.nativeUI.toast(codes[7] + "，请重发");
+								return;
+							} else {
+								//未知错误
+								plus.nativeUI.toast("服务器维护中");
+								mui.alert('QQ：2178150737,你懂的！', '客服MM', function() {});
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//关闭加载动画
+							wt.close();
+							//异常处理；
+//							console.log(type);
+							plus.nativeUI.toast("网络异常");
+						}
+					});
+				}
+
+			});
+			//无法激活
+			document.getElementById("alertBtn").addEventListener('tap', function() {
+				mui.alert('QQ：2178150737,你懂的！', '客服MM', function() {});
+			});
+		</script>
+	</body>
+
+</html>

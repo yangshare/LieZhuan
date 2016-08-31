@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>猎赚</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.css">
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
+		<style>
+			.mui-content {
+				margin: 0px 10px;
+				margin-top: 30px;
+			}
+			
+			.mui-icon {
+				color: white;
+			}
+			
+			.mui-title {
+				font-family: "微软雅黑";
+				font-weight: bold;
+			}
+			
+			.reg-img {
+				text-align: center;
+			}
+			
+			.reg-img img {
+				border-radius: 50px;
+			}
+			
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+				margin: 0;
+				padding: 11px 15px;
+				vertical-align: middle;
+				border-right: 0px;
+				border-bottom: 0px;
+			}
+			
+			.mui-table-view.mui-grid-view .mui-col-xs-4 .mui-media-body {
+				color: white;
+				margin-bottom: 5px;
+				font-family: "幼圆";
+				white-space: nowrap;
+				overflow: visible;
+			}
+			
+			.mui-table-view.mui-grid-view .mui-col-xs-4 span {
+				color: white;
+				font-family: "微软雅黑";
+				font-size: 12px;
+			}
+			
+			.mui-col-xs-6 .mui-icon {
+				color: #333;
+			}
+			
+			.mui-col-xs-6 {
+				border: 1px gainsboro solid;
+			}
+			
+			.mui-table-view.mui-grid-view .mui-col-xs-6 .mui-media-body {
+				font-size: 12px;
+			}
+			
+			#myGrid-9 {
+				border: 3px;
+				border-style: inset;
+			}
+			
+			.mui-input-row label {
+				white-space: nowrap;
+			}
+			
+			#user-sex {
+				color: black;
+			}
+		</style>
+	</head>
+
+	<body style="background-color: #4FD2C2;">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon iconfont icon-ui mui-pull-left" style="color: white;"></a>
+			<h1 class="mui-title">他人资料</h1>
+		</header>
+		<div class="mui-content" style="background-color: #4FD2C2;">
+			<div style="background-color: #4FD2C2;">
+				<div class="reg-img" style="background-color: #4FD2C2;">
+					<img src="../../image/header.jpg" width="100px" height="100px" />
+				</div>
+				<!--END头像-->
+				<div style="text-align: center;margin-top: 10px;color: white;">
+					昵称昵称<span id="user-sex" class="mui-icon iconfont icon-xingbienan"></span>
+				</div>
+				<div style="margin:auto;margin-top: 10px;width: 70%;color: white;">
+					<p style="color: white;">能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？</p>
+					<ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: #4FD2C2;border: 0px;">
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+							<div>
+								<div class="mui-media-body">关注</div>
+								<span>1024</span>
+
+							</div>
+						</li>
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+							<div>
+								<span class="mui-media-body mui-icon iconfont icon-dianzan" style="font-size: 20px;"></span>
+								<span>1024</span>
+
+							</div>
+						</li>
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+							<div>
+								<div class="mui-media-body">粉丝</div>
+								<span>1024</span>
+
+							</div>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+
+			<div class="mui-content-padded">
+				<div class="mui-card" style="margin: 0px;">
+					<div class="mui-input-row">
+						<label for="">能力数值：</label>
+						<input type="text" name="" id="" value="1024" />
+					</div>
+
+					<div class="mui-input-row">
+						<label for="">标签：</label>
+					</div>
+					<div class="mui-input-row">
+						<label>信誉值：</label>
+						<input type="text" name="" id="" value="186" readonly="readonly" />
+					</div>
+					<div style="width: 150px;height: 10px;background-color: #A9A9A9;margin: 0px 15px;"></div>
+
+					<div class="mui-input-row">
+						<label>效率值：</label>
+						<input type="text" name="" id="" value="145" readonly="readonly" />
+					</div>
+					<div style="width: 145px;height: 10px;background-color: #A9A9A9;margin: 0px 15px;"></div>
+					<div class="mui-input-row">
+						<label>等级值：</label>
+						<input type="text" name="" id="" value="100" readonly="readonly" />
+					</div>
+					<div style="width: 100px;height: 10px;background-color: #A9A9A9;margin: 0px 15px;"></div>
+					<br />
+
+				</div>
+				<br />
+				<button class="mui-btn-block" style="border-radius:12px ;font-size: 12px;">添加好友</button>
+			</div>
+
+		</div>
+
+		<script src="../../js/mui.min.js"></script>
+		<script>
+			mui.init();
+			mui.plusReady(function() {
+				//返回上页
+				mui.back = function(event) {
+					goBack();
+				};
+
+			});
+			mui(".icon-ui")[0].addEventListener('tap', function() {
+				goBack();
+			});
+
+			function　 goBack() {
+				//取出点击任务
+				var currentTask = sessionStorage.getItem("currentTask");
+				console.log("当前任务:" + currentTask);
+				currentTask = JSON.parse(currentTask);
+				if(currentTask.tasType == "加急个人") {
+
+					window.location.href = "../task/taskGet.html";
+				} else {
+					window.location.href = "../task/applyTask.html";
+				}
+				console.log("当前任务:" + currentTask.tasType);
+			}
+		</script>
+	</body>
+
+</html>
