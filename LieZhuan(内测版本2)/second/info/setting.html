@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>猎赚</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.css">
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
+		<style>
+			.mui-input-row {
+				color: darkgray;
+			}
+			
+			.mui-input-row input {
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				color: darkgray;
+			}
+			
+			.mui-title {
+				font-family: "微软雅黑";
+				font-weight: bold;
+			}
+			
+			header a {
+				color: white;
+			}
+			
+			.mui-table-view:before {
+				background-color: white;
+			}
+			
+			.mui-table-view:after {
+				background-color: white;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-back mui-pull-left"></a>
+			<h1 class="mui-title">设置</h1>
+		</header>
+		<div class="mui-content">
+
+			<div class="mui-card">
+				<h6 style="font-style: italic;padding:5px 10px;">
+					点击可修改各项信息
+				</h6>
+				<div class="mui-input-row">
+					<label>原密码</label>
+					<input type="password" name="" id="usePwd" value="" class="mui-input-password" placeholder="您原来的密码" />
+				</div>
+				<div class="mui-input-row">
+					<label>新密码</label>
+					<input type="password" name="" id="newUsepassword" value="" class="mui-input-password" placeholder="您的新密码" />
+				</div>
+
+				
+				<div class="mui-input-row">
+					<label for="alipayAccount">收款账户</label>
+					<input type="text" name="" id="alipayAccount" value="" class="mui-input-clear" placeholder="暂时只支持支付宝账号" />
+				</div>
+				<div class="mui-input-row">
+					<label for="alipayRealName">收款姓名</label>
+					<input type="text" name="" id="alipayRealName" value="" class="mui-input-clear" placeholder="支付宝账号真实姓名" />
+				</div>
+			</div>
+			<br />
+			<div class="mui-card" style="padding: 20px;">
+				<ul class="mui-table-view" style="background-color: white;">
+					<li class="mui-table-view-cell" style="padding: 10px 0px;border: 0px;">
+						<h5>个人信息是否可见</h5>
+						<div class="mui-switch mui-active">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+				</ul>
+				<h6 style="font-style: italic;">
+					*开启后个人信息其他用户不可见
+				</h6>
+				<hr style="border: 1px gainsboro solid;" />
+				<ul class="mui-table-view" style="background-color: white;">
+					<li class="mui-table-view-cell" style="padding: 10px 0px;border: 0px;">
+						<h5>开启账户保护</h5>
+						<div class="mui-switch mui-active">
+							<div class="mui-switch-handle"></div>
+						</div>
+					</li>
+				</ul>
+				<h6 style="font-style: italic;">
+					*开启后就只能本机登录该账户
+				</h6>
+				<hr style="border: 1px gainsboro solid;" />
+				<ul class="mui-table-view" style="background-color: white;">
+					<li id="about" class="mui-table-view-cell" style="padding: 10px 0px;border: 0px;">
+						<h5>关于我们</h5>
+					</li>
+				</ul>
+				<h6 style="font-style: italic;">
+					*猎赚开发团队介绍及其联系方式
+				</h6>
+			</div>
+			<br />
+			<!--<div class="mui-content-padded">
+				<h6 style="font-style: italic;">
+					<font style="color: red;">*</font>如果你修改了上面栏目，请仔细核对正确才提交更改
+				</h6>
+
+				<br />
+				<button class="mui-btn  mui-btn-block" style="background-color: #50D2C2;border: 0px;color: white;padding: 8px;font-size: 16px;">
+					提交更改
+				</button>
+			</div>-->
+
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/my/variable.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			mui.init();
+			var wt = null; //等待动画
+			mui.plusReady(function() {
+				/*
+				 * 获取用户信息
+				 */
+				mui.ajax(myUrl + 'Hunter/User_giveCurrentUser.action', {
+					data: {},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					beforeSend: function() {
+						wt = plus.nativeUI.showWaiting("拉取数据");
+					},
+					success: function(data) {
+//						console.log(JSON.stringify(data));
+						//关闭加载动画
+						wt.close();
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						//						
+						if(data.json != null && data.json != "") {
+							mui("#alipayAccount")[0].value = data.json.User.useAlipay;
+							mui("#alipayRealName")[0].value = data.json.User.useName;
+							if(data.json.User.useShowsign != 1) {
+								mui('.mui-switch')[0].classList.remove("mui-active");
+							}
+							if(data.json.User.useIsprotect == 0) {
+								mui('.mui-switch')[1].classList.remove("mui-active");
+							}
+						} else {
+							plus.nativeUI.toast("数据拉取失败");
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//关闭加载动画
+						wt.close();
+						plus.nativeUI.toast("网络异常");
+					}
+				});
+
+			});
+			//返回上页
+			mui.back = function(event) {
+				goBack();
+			};
+			mui(".mui-icon-back")[0].addEventListener('tap', function() {
+					goBack();
+				});
+
+				function　 goBack() {
+					window.location.href = "../info.html";
+				}
+
+			//用户密码
+
+			mui("#newUsepassword")[0].onblur = function() {
+				//				//console.log(this.value);
+				if(mui("#usePwd")[0].value.length < 6) {
+					plus.nativeUI.toast("请正确输入原密码");
+					return;
+				}
+				if(this.value.length < 6) {
+					plus.nativeUI.toast("请正确输入新密码");
+				} else {
+					mui.ajax(myUrl + 'Hunter/User_updatePass.action', {
+						data: {
+							newUsepassword: this.value,
+							usePwd: mui("#usePwd")[0].value
+
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						beforeSend: function() {
+							wt = plus.nativeUI.showWaiting("提交修改");
+						},
+						success: function(data) {
+							//console.log(JSON.stringify(data));
+							//关闭加载动画
+							wt.close();
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							if(data.code == 1) {
+								plus.nativeUI.toast(codes[1]);
+								return;
+							}
+							if(data.code == 3) {
+								plus.nativeUI.toast(codes[3]);
+								return;
+							} else {
+								//console.log("服务器维护中");
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//关闭加载动画
+							wt.close();
+							plus.nativeUI.toast("网络异常");
+						}
+					});
+				}
+
+			};
+			//收款账户和姓名
+			mui("#alipayAccount")[0].onblur = alipayOnblur;
+			mui("#alipayRealName")[0].onblur = alipayOnblur;
+			function alipayOnblur() {
+				if(this.value.length < 1) {
+					//console.log("请输入正确账户");
+				} else {
+					mui.ajax(myUrl + 'Hunter/User_updateAlipay.action', {
+						data: {
+							useAlipay: mui("#alipayAccount")[0].value,
+							useName:mui("#alipayRealName")[0].value
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						beforeSend: function() {
+							wt = plus.nativeUI.showWaiting("提交修改");
+						},
+						success: function(data) {
+							//console.log(JSON.stringify(data));
+							//关闭加载动画
+							wt.close();
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							if(data.code == 0) {
+								plus.nativeUI.toast(codes[0]);
+								return;
+							}
+							if(data.code == 1) {
+								plus.nativeUI.toast(codes[1]);
+								return;
+							} else {
+								plus.nativeUI.toast("服务器维护中");
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//关闭加载动画
+							wt.close();
+							plus.nativeUI.toast("网络异常");
+						}
+					});
+				}
+
+			};
+			//个人信息是否可见
+			mui('.mui-switch')[0].addEventListener('toggle', function(event) {
+				//event.detail.isActive 可直接获取当前状态
+				//console.log('状态：' + event.detail.isActive);
+
+				mui.ajax(myUrl + 'Hunter/User_changeShowSign.action', {
+					data: {
+
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					beforeSend: function() {
+						wt = plus.nativeUI.showWaiting("提交修改");
+					},
+					success: function(data) {
+						//console.log(JSON.stringify(data));
+						//关闭加载动画
+						wt.close();
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						if(data.code == 0) {
+							plus.nativeUI.toast(codes[0]);
+							return;
+						}
+						if(data.code == 1) {
+							plus.nativeUI.toast(codes[1]);
+							return;
+						} else {
+							plus.nativeUI.toast("服务器维护中");
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//关闭加载动画
+						wt.close();
+						plus.nativeUI.toast("网络异常");
+					}
+				});
+
+			});
+			//开启账户保护按钮
+			mui('.mui-switch')[1].addEventListener('toggle', function(event) {
+				//event.detail.isActive 可直接获取当前状态
+				//console.log('状态：' + event.detail.isActive);
+
+				mui.ajax(myUrl + 'Hunter/User_changeProtect.action', {
+					data: {
+
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					beforeSend: function() {
+						wt = plus.nativeUI.showWaiting("提交修改");
+					},
+					success: function(data) {
+						//console.log(JSON.stringify(data));
+						//关闭加载动画
+						wt.close();
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						if(data.code == 0) {
+							plus.nativeUI.toast(codes[0]);
+							return;
+						}
+						if(data.code == 1) {
+							plus.nativeUI.toast(codes[1]);
+							return;
+						} else {
+							plus.nativeUI.toast("服务器维护中");
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//关闭加载动画
+						wt.close();
+						plus.nativeUI.toast("网络异常");
+					}
+				});
+
+			});
+			//关于我们（跳转到浏览器）
+			mui("#about")[0].addEventListener("tap", function() {
+				plus.runtime.openURL("http://www.7hunter.cn");
+			});
+		</script>
+	</body>
+
+</html>
