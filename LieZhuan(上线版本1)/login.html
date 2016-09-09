@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>猎赚</title>
+		<link href="css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+		<style type="text/css">
+			.mui-content {
+				margin: auto;
+			}
+			
+			.login-logo {
+				padding: 50px;
+				text-align: center;
+			}
+			
+			.myRow {
+				border-radius: 16px;
+				background-color: white;
+			}
+			
+			.mui-content-padded .myRow label {
+				width: 23%;
+			}
+			
+			.mui-content-padded .myRow input {
+				width: 77%;
+			}
+			
+			.mui-input-row button {
+				border: 0px;
+				color: #000000;
+				background-color: #4FD2C2;
+			}
+			
+			.icon-ui {
+				color: white;
+				font-size: 128px;
+			}
+			
+			.mui-content .iconBorder {
+				background-color: #4FD2C2;
+				padding: 15px;
+				margin: auto;
+				width: 150px;
+				height: 150px;
+				border-radius: 100px;
+				text-align: center;
+			}
+		</style>
+	</head>
+
+	<body style="background-color: #4FD2C2;">
+		<div class="mui-content">
+			<div class="login-logo">
+				<div class="iconBorder">
+					<span class="mui-icon iconfont icon-ui"></span>
+				</div>
+
+			</div>
+		</div>
+		<div class="mui-content-padded" style="background-color: #4FD2C2;">
+			<br />
+			<br />
+			<div class="mui-input-row myRow">
+				<label for="account">手机</label>
+				<input type="tel" id="account" class="mui-input-clear" placeholder="手机号" maxlength="11" />
+			</div>
+			<br />
+			<div class="mui-input-row myRow">
+				<label for="password">密码</label>
+				<input type="password" id="password" class="mui-input-password" placeholder="初始密码为考号/学号后6位" />
+			</div>
+			<br />
+			<div class="mui-input-row mui-checkbox mui-left">
+				<label for="rememberPwd">记住密码</label>
+				<input id="rememberPwd" value="Item 1" type="checkbox">
+			</div>
+			<br />
+
+			<button id="login" type="button" class="mui-btn  mui-btn-block" style="border-radius:12px;padding:10px;background-color: white;color: #4FD2C2;font-size: 20px;font-weight: bold;font-family: '微软雅黑';">登&nbsp;录</button>
+
+			<br />
+			<div class="mui-input-row" style="margin-top:-20px;border: 0px;">
+				<button id="Forget">忘记密码？</button>
+				<button id="Regist" style="float: right;">激活注册</button>
+			</div>
+			<br />
+		</div>
+		<script src="js/mui.min.js"></script>
+		<script src="js/my/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/my/variable.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			//初始化用户信息
+			var initLogin = null;
+			var initUser = null;
+			var rememberPwd = null;
+			//用户登录
+			var accountBox = document.getElementById("account"); //账号
+			var pwdBox = document.getElementById("password"); //密码
+			var login = document.getElementById("login"); //登录按钮
+			mui.plusReady(function() {
+				// 获取本地应用资源版本号
+				plus.runtime.getProperty(plus.runtime.appid, function(inf) {
+					wgtVer = inf.version;
+					localStorage.setItem("appVersion",wgtVer);
+				});
+				
+				//初始化登录信息
+				if(localStorage.getItem('activateinfo') != null) {
+					initLogin = localStorage.getItem('activateinfo');
+					initUser = JSON.parse(initLogin);
+				}
+				if(initUser != null) { //自动填手机号
+					accountBox.value = initUser.usePhone;
+				}
+				if(localStorage.getItem("rememberPwd") != null) {
+					rememberPwd = localStorage.getItem("rememberPwd");
+					if(rememberPwd == "true") {
+						mui("#rememberPwd")[0].checked = true;
+						accountBox.value = JSON.parse(localStorage.getItem('loginInfo')).account;
+						pwdBox.value = JSON.parse(localStorage.getItem('loginInfo')).password;
+					} else
+						mui("#rememberPwd")[0].checked = false;
+
+				}
+
+				//返回键，退出应用
+				var backButtonPress = 0;
+				mui.back = function(event) {
+					goback();
+				};
+
+				function goback() {
+					if(mui.os.ios) {
+						mui.toast("请按home键退出");
+					} else {
+						backButtonPress++;
+						if(backButtonPress > 1) {
+							//调用后台注销
+							var wt = null;
+							mui.ajax(myUrl + 'Hunter/User_quit.action', {
+								data: {},
+								dataType: 'json', //服务器返回json格式数据
+								type: 'post', //HTTP请求类型
+								timeout: 10000, //超时时间设置为10秒；
+								beforeSend: function() {
+									wt = plus.nativeUI.showWaiting();
+								},
+								success: function(data) {
+									console.log("注销登录");
+									//关闭加载动画
+									wt.close();
+								},
+								error: function(xhr, type, errorThrown) {
+									//关闭加载动画
+									wt.close();
+								}
+							});
+							plus.runtime.quit();
+						} else {
+
+							plus.nativeUI.toast('再按一次退出应用');
+						}
+						setTimeout(function() {
+							backButtonPress = 0;
+						}, 1000);
+						return false;
+					}
+
+				}
+			});
+			//记住密码
+			mui(".mui-checkbox").on('change', "input", function() {
+				localStorage.setItem('rememberPwd', this.checked);
+				console.log(localStorage.getItem('rememberPwd'));
+			});
+			//登录
+			login.addEventListener("tap", function(event) {
+				var loginInfo = {
+					account: accountBox.value,
+					password: pwdBox.value
+				};
+				app.login(loginInfo, function(err) {
+					if(err) {
+						plus.nativeUI.toast(err);
+						return;
+					} else {
+						//登录
+						login();
+
+						function login() {
+							var wt = null; //实例化等待窗
+							mui.ajax(myUrl + 'Hunter/User_login.action', {
+								data: {
+									usePhone: accountBox.value,
+									usePwd: pwdBox.value,
+									useEmei: plus.device.imei
+
+								},
+								dataType: 'json', //服务器返回json格式数据
+								type: 'post', //HTTP请求类型
+								timeout: 10000, //超时时间设置为10秒；
+								beforeSend: function() {
+									wt = plus.nativeUI.showWaiting();
+								},
+								success: function(data) {
+									//								console.log(JSON.stringify(data));
+									//关闭加载动画
+									wt.close();
+									//服务器返回响应，根据响应结果，分析是否登录成功；
+									if(data.code == 0) {
+										plus.nativeUI.toast("密码错误");
+										return;
+									}
+									if(data.code == 1) {
+										//用户信息存本地
+										localStorage.setItem('activateinfo', null); //废除注册信息
+										localStorage.setItem('loginInfo', JSON.stringify(loginInfo));
+										//登录成功跳转到主页
+										mui.openWindow({
+											url: "menu.html",
+											id: "menu.html",
+											show: {
+												aniShow: 'pop-in',
+												duration: 300
+											}
+
+										});
+										//									window.location.href = "menu.html";
+										return;
+									}
+									if(data.code == 8) {
+										plus.nativeUI.toast(codes[8] + ",若更换手机请再次激活", {
+											duration: "long"
+										});
+										return;
+									}
+									if(data.code == 17) {
+										plus.nativeUI.toast(codes[17]);
+										return;
+									} else {
+										plus.nativeUI.toast("服务器维护中");
+									}
+
+								},
+								error: function(xhr, type, errorThrown) {
+									//关闭加载动画
+									wt.close();
+									//type：错误描述，可取值："timeout", "error", "abort", "parsererror"、"null"
+									switch(type) {
+										case "timeout":
+											plus.nativeUI.toast("请求超时,检测网络");
+											break;
+										case "error":
+											plus.nativeUI.toast("连接异常,重新登录");
+											break;
+										case "abort":
+											plus.nativeUI.toast("检查网络连接,重新登录");
+											break;
+										case "parsererror":
+											plus.nativeUI.toast("服务器返回异常,重新登录");
+											break;
+										case "null":
+											plus.nativeUI.toast("空指针,重新登录");
+											break;
+										default:
+											plus.nativeUI.toast("网络异常,重新登录");
+											break;
+									}
+
+								}
+							});
+						}
+
+					}
+
+				});
+			});
+			//忘记密码
+			mui("#Forget")[0].addEventListener("tap", function() {
+
+				mui.openWindow({
+					url: "forget.html",
+					id: "forget.html",
+					show: {
+						aniShow: 'pop-in',
+						duration: 300
+					}
+				});
+				return;
+
+			});
+			//激活注册
+			mui("#Regist")[0].addEventListener("tap", function() {
+
+				mui.openWindow({
+					url: "reg.html",
+					id: "reg.html",
+					show: {
+						aniShow: 'pop-in',
+						duration: 300
+					}
+				});
+				return;
+
+			});
+		</script>
+	</body>
+
+</html>

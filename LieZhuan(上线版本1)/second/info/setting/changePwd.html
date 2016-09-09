@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>猎赚</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../../css/mui.css">
+		<link rel="stylesheet" type="text/css" href="../../../css/iconfont.css" />
+		<style>
+			.myRow {
+				margin-top: 15px;
+				border: 1px solid gainsboro;
+				border-radius: 16px;
+			}
+			
+			.mui-content-padded .myRow label {
+				width: 33%;
+			}
+			
+			.mui-content-padded .myRow input {
+				width: 67%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left" style="color: white;"></a>
+			<!--<h1 class="mui-title">设置</h1>-->
+		</header>
+		<div class="mui-content">
+			<br />
+			<div class="mui-content-padded">
+				<div class="mui-input-row myRow">
+					<label>原密码</label>
+					<input type="text" id="oldPwd" class="mui-input-clear" />
+				</div>
+				<div class="mui-input-row myRow">
+					<label>新密码</label>
+					<input type="password" id="newPwd" class="mui-input-password" />
+				</div>
+				<div class="mui-input-row myRow">
+					<label>确认密码</label>
+					<input type="password" id="confirmPwd" class="mui-input-password" />
+				</div>
+				<br />
+				<br />
+				<button id="changePwd" class="mui-btn-block" style="background-color: #4FD2C2;color: white;padding: 10px;">确认</button>
+			</div>
+
+		</div>
+		<script src="../../../js/mui.min.js"></script>
+		<script src="../../../js/my/variable.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			mui.init();
+			var wt = null; //等待动画
+			mui.plusReady(function() {
+				/*
+				 * 获取用户信息
+				 */
+				mui.ajax(myUrl + 'Hunter/User_giveCurrentUser.action', {
+					data: {},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					beforeSend: function() {
+						wt = plus.nativeUI.showWaiting("拉取数据");
+					},
+					success: function(data) {
+						//						console.log(JSON.stringify(data));
+						//关闭加载动画
+						wt.close();
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						//						
+						if(data.json != null && data.json != "") {
+							mui("#alipayAccount")[0].value = data.json.User.useAlipay;
+							mui("#alipayRealName")[0].value = data.json.User.useName;
+							if(data.json.User.useShowsign != 1) {
+								mui('.mui-switch')[0].classList.remove("mui-active");
+							}
+							if(data.json.User.useIsprotect == 0) {
+								mui('.mui-switch')[1].classList.remove("mui-active");
+							}
+						} else {
+							plus.nativeUI.toast("数据拉取失败");
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//关闭加载动画
+						wt.close();
+						plus.nativeUI.toast("网络异常");
+					}
+				});
+
+			});
+			//用户密码
+
+			mui("#changePwd")[0].onclick = function() {
+				//				//console.log(this.value);
+				if(mui("#oldPwd")[0].value.length < 6) {
+					plus.nativeUI.toast("请正确输入原密码");
+					return;
+				}
+				if(mui("#newPwd")[0].value.length < 6) {
+					mui.toast("请正确输入新密码");
+					return;
+				}
+				if(mui("#confirmPwd")[0].value.length < 6) {
+					mui.toast("请再次输入新密码");
+					return;
+				} 
+				if(mui("#confirmPwd")[0].value!=mui("#newPwd")[0].value) {
+					mui.toast("两次输入不一致");
+					return;
+				}else {
+					mui.ajax(myUrl + 'Hunter/User_updatePass.action', {
+						data: {
+							newUsepassword: mui("#confirmPwd")[0].value,
+							usePwd: mui("#oldPwd")[0].value
+
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						beforeSend: function() {
+							wt = plus.nativeUI.showWaiting("提交修改");
+						},
+						success: function(data) {
+							//console.log(JSON.stringify(data));
+							//关闭加载动画
+							wt.close();
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							if(data.code == 1) {
+								plus.nativeUI.toast(codes[1]);
+								mui.back();
+								return;
+							}
+							if(data.code == 3) {
+								plus.nativeUI.toast(codes[3]);
+								return;
+							} else {
+								//console.log("服务器维护中");
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//关闭加载动画
+							wt.close();
+							plus.nativeUI.toast("网络异常");
+						}
+					});
+				}
+			};
+		</script>
+	</body>
+
+</html>

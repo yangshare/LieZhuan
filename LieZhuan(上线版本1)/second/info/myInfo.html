@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>猎赚</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.css">
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
+		<link href="css/mui.picker.css" rel="stylesheet" />
+		<link href="css/mui.poppicker.css" rel="stylesheet" />
+		<style>
+			.mui-content {
+				font-size: 14px;
+				margin-top: 15px;
+			}
+			
+			.mui-title {
+				font-family: "微软雅黑";
+				font-weight: bold;
+			}
+			
+			.reg-img {
+				text-align: center;
+			}
+			
+			.reg-img span {
+				font-size: 128px;
+			}
+			
+			.mui-input-row {
+				background-color: white;
+				border: 1px solid gainsboro;
+				padding: 10px 0px;
+			}
+			
+			.mui-input-row input {
+				font-size: 14px;
+			}
+			
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+				border-right: 0px solid #eee;
+				border-bottom: 0px solid #eee;
+			}
+			
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell.mui-active {
+				background-color: white;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left" style="color: white;"></a>
+			<a class="mui-icon mui-icon-checkmarkempty mui-pull-right" style="color: white;font-size:42px;line-height: 24px;"></a>
+			<!--<h1 class="mui-title">个人资料</h1>-->
+		</header>
+
+		<div class="mui-content">
+			<div class="myhead">
+				<div>
+					<div class="reg-img">
+						<span class="mui-icon iconfont icon-icon00112"></span>
+					</div>
+
+				</div>
+				<!--END头像-->
+				<div id="powLevel" style="text-align: center;">
+					E级猎手2段
+				</div>
+				<div style="margin:auto;">
+					<ul class="mui-table-view mui-grid-view mui-grid-9" style="border: 0px;background-color: white;border: 0px;">
+						<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
+							<span>信誉值</span>
+							<div id="creditNum" style="min-width: 100px; height: 120px; max-width: 180px; margin: 0 auto"></div>
+						</li>
+
+						<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
+							<span>效率值</span>
+							<div id="fastNum" style="min-width: 100px; height: 120px; max-width: 180px; margin: 0 auto"></div>
+
+						</li>
+					</ul>
+				</div>
+
+			</div>
+			<!--END头部-->
+			<!--正文-->
+			<div class="myContent">
+				<div style="background-color: gainsboro;margin-top: -10px;">
+					<br />
+					<div class="mui-input-row" style="padding-left:5px;padding-right: 5px;">
+						<textarea id="useSign" maxlength="50" placeholder="编辑个性签名，字数上限50" style="font-size: 14px"></textarea>
+					</div>
+					<span style="position: relative;float: right;top: -60px;color: red;left: -20px;">*</span>
+					<div class="mui-input-row">
+						<label>昵称</label>
+						<input type="text" id="nickname" value="" placeholder="7字以内" class="mui-input-clear" maxlength="7" />
+					</div>
+					<span style="position: relative;float: right;top: -38px;color: red;left: -20px;">*</span>
+
+					<div class="mui-input-row">
+						<label>年龄</label>
+						<input type="number" maxlength="3" id="age" value="" placeholder="请填写" class="mui-input-clear" />
+					</div>
+					<span style="position: relative;float: right;top: -38px;color: red;left: -20px;">*</span>
+
+					<br />
+				</div>
+				<div style="background-color: gainsboro;margin-top: -33px;">
+					<br />
+					<div class="mui-input-row">
+						<label>所在学校</label>
+						<input type="text" id="useCollege" value="四川文理学院" readonly="readonly" />
+					</div>
+					<span style="position: relative;float: right;top: -38px;color: red;left: -20px;">*</span>
+					<div class="mui-input-row">
+						<label>所在院系</label>
+						<input type="text" id="useDepart" value="" placeholder="请填写" readonly="readonly" />
+					</div>
+
+					<span style="position: relative;float: right;top: -38px;color: red;left: -20px;">*</span>
+					<div class="mui-input-row">
+						<label for="">所在专业</label>
+						<input type="text" id="useMajor" value="" placeholder="请填写" readonly="readonly" />
+					</div>
+					<span style="position: relative;float: right;top: -38px;color: red;left: -20px;">*</span>
+					<div class="mui-content-padded">
+						<h5>如果没有找到你所在院系，请联系我QQ717449318</h5>
+					</div>
+					<br />
+
+				</div>
+
+			</div>
+
+		</div>
+		<script src="../../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/highcharts.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/my/variable.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.picker.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mui.poppicker.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/school.data.js" type="text/javascript" charset="utf-8"></script>
+
+		<script>
+			mui.init();
+			var useId = null; //用户id
+			var powCredit = 0; //信誉值
+			var powFast = 0; //效率值
+			mui.plusReady(function() {
+				/*
+				 * 获取用户信息
+				 */
+				var userwt = null;
+				mui.ajax(myUrl + 'Hunter/User_giveCurrentUser.action', {
+					data: {},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					beforeSend: function() {
+						userwt = plus.nativeUI.showWaiting("拉取数据");
+					},
+					success: function(data) {
+						console.log(JSON.stringify(data));
+						//关闭加载动画
+						userwt.close();
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						//						
+						if(data.json.User != null && data.json.User != "") {
+							if(data.json.User.useAge != "") {
+								mui('#age')[0].value = data.json.User.useAge;
+							}
+							if(data.json.User.useNickname != "") {
+								mui('#nickname')[0].value = data.json.User.useNickname;
+							}
+							if(data.json.User.useCollege != "") {
+								mui('#useCollege')[0].value = data.json.User.useCollege;
+							}
+							if(data.json.User.useDepart != "") {
+								mui('#useDepart')[0].value = data.json.User.useDepart;
+							}
+							if(data.json.User.useMajor != "") {
+								mui('#useMajor')[0].value = data.json.User.useMajor;
+							}
+							if(data.json.User.useSign != "") {
+								mui('#useSign')[0].value = data.json.User.useSign;
+							}
+						} else {
+							plus.nativeUI.toast("网络异常，拉取失败");
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//关闭加载动画
+						userwt.close();
+						plus.nativeUI.toast("网络异常");
+					}
+				});
+				/*
+				 * 获取用户信誉相关值
+				 */
+				var wt = null;
+				mui.ajax(myUrl + 'Hunter/Power_givePower.action', {
+					data: {},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					beforeSend: function() {
+						wt = plus.nativeUI.showWaiting("拉取数据");
+					},
+					success: function(data) {
+						console.log("data" + JSON.stringify(data));
+						wt.close();
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						if(data.json.PowerList != null && data.json.PowerList != "") {
+							powCredit = data.json.PowerList.powCredit; //信誉值
+							powFast = data.json.PowerList.powFast; //效率值
+							//绘制方法
+							drawGraph(powCredit, powFast);
+							mui('#powLevel')[0].innerText = data.json.PowerList.powLevel;
+							var lolLevel = (data.json.PowerList.powLevel).substr(0, 1);
+							switch(lolLevel) {
+								case "F":
+									mui(".reg-img span")[0].setAttribute("class", "mui-icon iconfont icon-icon0011");
+									break;
+									//E为默认段位
+								case "D":
+									mui(".reg-img span")[0].setAttribute("class", "mui-icon iconfont icon-icon00113");
+									break;
+								case "C":
+									mui(".reg-img span")[0].setAttribute("class", "mui-icon iconfont icon-icon00114");
+									break;
+								case "B":
+									mui(".reg-img span")[0].setAttribute("class", "mui-icon iconfont icon-icon00115");
+									break;
+								case "A":
+									mui(".reg-img span")[0].setAttribute("class", "mui-icon iconfont icon-dengji66666");
+									break;
+								case "S":
+									mui(".reg-img span")[0].setAttribute("class", "mui-icon iconfont icon-dengji7777");
+									break;
+								default:
+									break;
+							}
+						} else {
+							plus.nativeUI.toast("标签数据拉取失败");
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						wt.close();
+						plus.nativeUI.toast("网络异常");
+					}
+				});
+				//保存修改
+				var saveWt = null;
+				mui(".mui-icon-checkmarkempty")[0].addEventListener("tap", function() {
+					var re = /^[0-9]+.?[0-9]*$/; //判断字符串是否为数字    
+					if(!re.test(mui("#age")[0].value)) {
+						mui.toast('请输入数字');
+						mui("#age")[0].value = 0;
+						return;
+					}
+					if(mui("#age")[0].value > 100) {
+						mui.toast('年事已高，重新填写');
+						mui("#age")[0].value = 0;
+						return;
+					}
+					//上传修改
+					mui.ajax(myUrl + 'Hunter/User_updateInfo.action', {
+						data: {
+							useNickname: mui("#nickname")[0].value, //昵称
+							useAge: mui("#age")[0].value, //年龄
+							useCollege: mui("#useCollege")[0].value, //学校
+							useDepart: mui("#useDepart")[0].value, //院系
+							useMajor: mui("#useMajor")[0].value, //专业
+							useSign: mui("#useSign")[0].value //签名
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						beforeSend: function() {
+							saveWt = plus.nativeUI.showWaiting();
+						},
+						success: function(data) {
+							console.log(JSON.stringify(data));
+							//关闭加载动画
+							saveWt.close();
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							if(data.code == 0) {
+								plus.nativeUI.toast(codes[0]);
+								return;
+							}
+							if(data.code == 1) {
+								plus.nativeUI.toast(codes[1]);
+								localStorage.setItem("interval", "40");
+								localStorage.setItem("userSign", mui("#useSign")[0].value);
+								localStorage.setItem("nickname", mui("#nickname")[0].value);
+
+								return;
+							}
+							if(data.code == 2) {
+								plus.nativeUI.toast("昵称已经存在，请更换");
+								return;
+							} else {
+								plus.nativeUI.toast("服务器维护中");
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//关闭加载动画
+							saveWt.close();
+							plus.nativeUI.toast("网络异常");
+						}
+					});
+
+				});
+
+			});
+			//			drawGraph(powCredit, powFast);
+			//绘制信誉值和效率值
+			function drawGraph(powCredit, powFast) {
+				//				powCredit = 15;
+				//				powFast = 100;
+				$('#creditNum').highcharts({
+					chart: {
+						plotBackgroundColor: null,
+						plotBorderWidth: 0,
+						plotShadow: true,
+
+					},
+					title: {
+						text: '790',
+						align: 'center',
+						verticalAlign: 'middle',
+						y: 10
+					},
+					tooltip: {
+						// pointFormat: '<b>{point.percentage:.1f}%</b>'//鼠标移上去显示的文字
+						pointFormat: '当前信誉值',
+						enabled: false
+					},
+					plotOptions: {
+						pie: {
+							dataLabels: {
+								enabled: true, //环上是否显示字
+								distance: -1, //环上的字距离环的距离
+								style: {
+									fontWeight: 'bold',
+									color: 'black',
+									//									textShadow: '0px 1px 2px blue'
+								}
+							},
+							startAngle: -90,
+							endAngle: 280, //全圆
+
+						}
+					},
+					series: [{
+						type: 'pie',
+						// name: '信誉',
+						innerSize: '65%', //距内边距
+						data: [
+							["" + powCredit, (powCredit / 790) * 100 + 3], //所占比例
+							['', (100 - (powCredit / 790) * 100) + 3], {
+								name: '',
+								y: 0.0, //剩余多少出来
+								dataLabels: {
+									enabled: false
+								}
+							}
+						]
+					}]
+				});
+				$('#fastNum').highcharts({
+					chart: {
+						plotBackgroundColor: null,
+						plotBorderWidth: 0,
+						plotShadow: true,
+
+					},
+					title: {
+						text: '100',
+						align: 'center',
+						verticalAlign: 'middle',
+						y: 10
+					},
+					tooltip: {
+						// pointFormat: '<b>{point.percentage:.1f}%</b>'//鼠标移上去显示的文字
+						pointFormat: '当前信誉值',
+						enabled: false
+					},
+					plotOptions: {
+						pie: {
+							dataLabels: {
+								enabled: true, //环上是否显示字
+								distance: -1, //环上的字距离环的距离
+								style: {
+									fontWeight: 'bold',
+									color: 'black',
+									//									textShadow: '0px 1px 2px black'
+								}
+							},
+							startAngle: -90,
+							endAngle: 280, //全圆
+
+						}
+					},
+					series: [{
+						type: 'pie',
+						// name: '信誉',
+						innerSize: '65%', //距内边距
+						data: [
+							["" + powFast, powFast + 3], //所占比例
+							['', 100 - powFast + 3], {
+								name: '',
+								y: 0.0, //剩余多少出来
+								dataLabels: {
+									enabled: false
+								}
+							}
+						]
+					}]
+				});
+			}
+			//改变计时器
+			mui(".mui-icon-back")[0].addEventListener("tap", function() {
+				localStorage.setItem("interval", "40");
+			});
+			//-----------------------------------------
+			//级联示例
+			var cityPicker = new mui.PopPicker({
+				layer: 2
+			});
+			//获取院系json库
+			cityPicker.setData(schoolData);
+			var useDepartButton = document.getElementById('useDepart');
+			var useMajorButton = document.getElementById('useMajor');
+			useDepartButton.addEventListener('tap', function(event) {
+				schoolPicker();
+			}, false);
+			useMajorButton.addEventListener('tap', function(event) {
+				schoolPicker();
+			}, false);
+			//打开选择器
+			function schoolPicker() {
+				cityPicker.show(function(items) {
+					useDepartButton.value = items[0].text;
+					if(items[1].text != undefined)
+						useMajorButton.value = items[1].text;
+					else
+						useMajorButton.value = "暂无";
+					//返回 false 可以阻止选择框的关闭
+					//return false;
+				});
+
+			}
+			//-----------------------------------------
+			mui("#useSign")[0].onblur=function() {
+				
+				var reg=/[^\a-\z\A-\Z0-9\u4E00-\u9FA5]/g;
+				if (reg.test(this.value)) {
+					mui.toast("输入非法");
+					this.value="";
+				} else{
+					
+				}
+				
+			}
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>猎赚</title>
+		<link rel="stylesheet" type="text/css" href="../../../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/iconfont.css" />
+		<style type="text/css">
+			body {
+				font-size: 14px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 70px;
+			}
+			
+			.login-logo {
+				padding: 50px;
+				text-align: center;
+			}
+			
+			.myRow {
+				border: 1px solid gainsboro;
+				border-radius: 16px;
+				background-color: white;
+			}
+			
+			.mui-input-row a {
+				color: #8f8f94;
+			}
+			
+			.mui-btn-block {
+				/*background-color: #50D2C2;*/
+				border: 0px;
+				color: white;
+				font-size: 16px;
+				padding: 8px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar-nav mui-bar">
+			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left" style="color: white;"></a>
+			<!--<h1 class="mui-title" style="font-weight: bold;font-family: '微软雅黑';">激活注册</h1>-->
+		</header>
+
+		<div class="mui-content-padded">
+			<div class="mui-input-row myRow2">
+				<label style="white-space: nowrap;">支付宝账户名</label>
+				<input type="text" id="alipayRealName" placeholder="支付宝账户名" readonly="readonly" />
+			</div>
+			<div class="mui-input-row myRow2">
+				<label>支付宝账号</label>
+				<input type="text" id="alipayAccount" placeholder="支付宝账号" readonly="readonly" />
+			</div>
+
+			<div class="mui-input-row myRow2">
+				<label>可用余额</label>
+				<input type="text" id="totalMoney" value="0" readonly="readonly" />
+				<label style="float: right;position: relative;top: -35px;left: 230px;">元</label>
+			</div>
+			<div class="mui-input-row myRow" style="margin-top: -20px;">
+				<label>金&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;额</label>
+				<input type="number" id="moneyNum" class="mui-input-clear" placeholder="请输入提取金额" />
+			</div>
+			<br />
+			<h6 style="float: right;">24小时内到账</h6>
+			<br />
+			<br />
+			<button id="confirm" type="button" class="mui-btn  mui-btn-block" style="border-radius:12px;padding:10px;background-color: #4FD2C2;color: white;font-size: 20px;font-weight: bold;font-family: '微软雅黑';">确认</button>
+			<div class="mui-content-padded">
+				<p><font style="color: red;">*</font>注:</p>
+				<p>1、请仔细核对<font color="red">支付宝账户名</font>和<font color="red">支付宝账号</font>是否正确。</p>
+				<p>2、可用金额如果少于<font color="red">10</font>元仍要提现，支付宝扣取的<font color="red">1</font>元转账服务费由您自行承担。</p>
+			</div>
+		</div>
+		<script src="../../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/my/variable.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			mui.init();
+			var alipayAccount = document.getElementById("alipayAccount"); //支付宝账户
+			var alipayRealName = document.getElementById("alipayRealName"); //支付宝账户名
+			var totalMoney = document.getElementById("totalMoney"); //可提总额
+
+			var moneyNum = document.getElementById("moneyNum"); //提现金额
+
+			var confirm = document.getElementById("confirm"); //提交按钮
+			mui.plusReady(function() {
+				totalMoney.value = plus.webview.currentWebview().totalMoney;
+				console.log("可用金额：" + totalMoney);
+
+				//提交
+				var wt = null; //实例化等待窗
+				confirm.addEventListener("tap", function(event) {
+
+					var re = /^[0-9]+.?[0-9]*$/; //判断字符串是否为数字    
+					if(!re.test(moneyNum.value)) {
+						mui.toast('请输入提现金额');
+						moneyNum.value = 0;
+						return;
+					}
+					if(moneyNum.value > totalMoney.value) {
+						mui.toast('输入金额不能大于可用金额');
+						return;
+					}
+					if(moneyNum.value <2) {
+						mui.toast('提取金额不能小于2');
+						return;
+					} else {
+						//提交提现金额
+						mui.ajax(myUrl + 'Hunter/User_giveMoney.action', {
+							data: {
+								PayNum: moneyNum.value
+							},
+							dataType: 'json', //服务器返回json格式数据
+							type: 'post', //HTTP请求类型
+							timeout: 10000, //超时时间设置为10秒；
+							beforeSend: function() {
+								wt = plus.nativeUI.showWaiting();
+							},
+							success: function(data) {
+								//关闭加载动画
+								wt.close();
+								//服务器返回响应，根据响应结果，分析是否登录成功；
+								if(data.code == 1) {
+									localStorage.setItem("TOTALMONEY",totalMoney.value-moneyNum.value);
+									localStorage.setItem("getMyMoneyInterval", "40");
+									mui.alert('提现成功,24小时内到账,注意查收！', '猎赚平台', function() {
+										mui.back();
+									});
+									return;
+								}
+								if(data.code == 0) {
+									plus.nativeUI.toast(codes[0]);
+									return;
+								} else {
+									//未知错误
+									plus.nativeUI.toast("服务器维护中");
+									mui.alert('QQ：2178150737,你懂的！', '客服MM', function() {});
+								}
+
+							},
+							error: function(xhr, type, errorThrown) {
+								//关闭加载动画
+								wt.close();
+								//异常处理；
+								plus.nativeUI.toast("检测网络,重启app");
+							}
+						});
+					}
+
+				});
+				//拉取支付宝信息
+				var moneyWt = null;
+				mui.ajax(myUrl + 'Hunter/User_giveCurrentUserAlipay.action', {
+					data: {},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					beforeSend: function() {
+						moneyWt = plus.nativeUI.showWaiting("拉取数据");
+					},
+					success: function(data) {
+						moneyWt.close();
+						console.log("拉取支付宝信息：" + JSON.stringify(data));
+						if(data.json.Alipay != null || data.json.Alipay != "")
+							alipayAccount.value = data.json.Alipay;
+						if(data.json.Name != null || data.json.Name != "")
+							alipayRealName.value = data.json.Name;
+
+					},
+					error: function(xhr, type, errorThrown) {
+						moneyWt.close();
+						plus.nativeUI.toast("网络异常");
+					}
+
+				});
+			});
+			mui(".mui-icon-back")[0].addEventListener("tap",function(){
+				localStorage.setItem("getMyMoneyInterval", "40");
+			});
+		</script>
+	</body>
+
+</html>

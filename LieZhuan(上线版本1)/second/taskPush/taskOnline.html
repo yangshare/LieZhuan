@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>猎赚</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
+		<style type="text/css">
+			.mui-input-row label,
+			.mui-input-row label~input,
+			.mui-input-row label~select {
+				color: #333;
+				/*border: 1px red solid;*/
+			}
+			
+			.mui-input-row label {
+				margin-right: 10px;
+				/*overflow: hidden;*/
+				white-space: nowrap;
+				/*width: 50%;*/
+				/*border: 1px red solid;*/
+			}
+			
+			.mui-input-row span {
+				font-size: 30px;
+				color: black;
+				overflow: hidden;
+				white-space: nowrap;
+			}
+			
+			.mui-input-row label~input {
+				margin-top: 5px;
+				padding: 0px;
+				float: left;
+				background-color: white;
+				color: black;
+				width: 150px;
+				height: 30px;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			
+			.mui-content {
+				margin-top: 20px;
+				margin-bottom: 20px;
+			}
+			
+			.mui-bar-nav .mui-title {
+				font-family: '微软雅黑';
+				font-weight: bold;
+			}
+			
+			.reg-img {
+				text-align: center;
+			}
+			
+			.reg-img img {
+				border-radius: 50px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon iconfont icon-ui mui-pull-left" style="color: white;"></a>
+			<h1 class="mui-title">任务详细</h1>
+		</header>
+		<div class="mui-content">
+			<div class="reg-img">
+				<a href="../taskRecords/othersInfo.html">
+					<img src="../../image/header.jpg" width="100px" height="100px" />
+				</a>
+			</div>
+			<div id="nickname" style="text-align: center;margin-top: 10px;color: #333;">
+				昵称昵称
+			</div>
+			<div class="mui-input-row">
+				<label>任务名称:</label>
+				<input id="taskTitle" type="text" value="给我p一张图片" readonly="readonly" />
+			</div>
+			<div class="mui-input-row">
+				<label>赏&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;金:&nbsp;&nbsp;&nbsp;￥</label>
+				<input type="number" id="taskMoney" value="100" readonly="readonly" />
+			</div>
+			<div class="mui-input-row">
+				<label>任务说明：</label>
+			</div>
+			<div class="mui-input-row" style="margin:0px 10px;">
+				<textarea readonly="readonly" id="taskContent" rows="5" placeholder="用户太懒，什么描述都未留下，如有疑问可以联系发布者"></textarea>
+			</div>
+			<div class="mui-input-row">
+				<label style="white-space: nowrap;">详细联系方式：</label>
+			</div>
+			<div class="mui-input-row" style="margin: 10px;">
+				<textarea id="tasContact" rows="5" placeholder="为了让他猎人更好地完成你的任务，请详细说明！" readonly="readonly"></textarea>
+			</div>
+			<div class="mui-input-row">
+				<label>附加图片：</label>
+			</div>
+			<div class="mui-input-row" style="margin:0px 10px;">
+				<img id="taskImg" src="../../image/header.jpg" width="100%" style="border-radius:8px ;" />
+			</div>
+			<div class="mui-content-padded">
+				<button id='finishTask' class="mui-btn mui-btn-block" style="background-color: #50D2C2;border: 0px;color: white;padding: 8px;font-size: 16px;border-radius:8px ;">完成任务</button>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/my/variable.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function() {
+				//加载动画
+				var wt = null;
+				//取出点击任务
+				var currentTask = sessionStorage.getItem("currentTask");
+				currentTask = JSON.parse(currentTask);
+				//展示任务信息
+				if(currentTask.tasImg != "") {
+					mui("#taskImg")[0].src = myUrl + "Hunter/" + currentTask.tasImg;
+				}
+				mui("#taskTitle")[0].value = currentTask.tasTitle;
+				mui("#taskMoney")[0].value = currentTask.tasPrice;
+				mui("#taskContent")[0].value = currentTask.tasContent;
+
+				/**
+				 * 获取发布者
+				 */
+				mui.ajax(myUrl + 'Hunter/Task_giveTasUserByTasId.action', {
+					data: {
+						tasId: currentTask.tasId
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					beforeSend: function() {
+						wt = plus.nativeUI.showWaiting("拉取数据");
+					},
+					success: function(data) {
+						wt.close();
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						//						console.log(JSON.stringify(data));
+						var userInfo = data.json.User;
+						if(userInfo != null)
+							sessionStorage.setItem("taskPushUser", JSON.stringify(userInfo));
+						if(userInfo.useImg != "") {
+							mui(".reg-img img")[0].src = myUrl + "Hunter/" + userInfo.useImg;
+						}
+						mui("#nickname")[0].innerText = userInfo.useNickname;
+
+					},
+					error: function(xhr, type, errorThrown) {
+						wt.close();
+						plus.nativeUI.toast("网络异常");
+
+					}
+				});
+
+				/**
+				 * 完成任务
+				 */
+				mui("#finishTask")[0].addEventListener("tap", function() {
+
+					mui.ajax(myUrl + 'Hunter/Task_finishTask.action', {
+						data: {
+							tasId: currentTask.tasId
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						beforeSend: function() {
+							wt = plus.nativeUI.showWaiting("提交数据");
+						},
+						success: function(data) {
+							wt.close();
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							console.log(JSON.stringify(data));
+							if(data.code == 1) {
+								mui.toast(codes[1]);
+							}
+							if(data.code == 9) {
+								mui.toast(codes[9]);
+							}
+							if(data.code == 14) {
+								mui.toast(codes[14]);
+							}
+							if(data.code == 15) {
+								mui.toast(codes[15]);
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							wt.close();
+							plus.nativeUI.toast("网络异常");
+
+						}
+					});
+
+				});
+
+			});
+			//返回上页
+			mui.back = function(event) {
+				goBack();
+			};
+			mui(".icon-ui")[0].addEventListener('tap', function() {
+				goBack();
+			});
+
+			function　 goBack() {
+				window.location.href = "../taskRecords.html";
+			}
+		</script>
+	</body>
+
+</html>

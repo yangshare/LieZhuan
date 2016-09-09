@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>猎赚</title>
+		<link rel="stylesheet" type="text/css" href="../../../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/iconfont.css" />
+		<style type="text/css">
+			body {
+				font-size: 14px;
+			}
+			
+			.mui-content-padded {
+				margin-top: 70px;
+			}
+			
+			.login-logo {
+				padding: 50px;
+				text-align: center;
+			}
+			
+			.myRow {
+				border: 1px solid gainsboro;
+				border-radius: 16px;
+				background-color: white;
+			}
+			
+			.mui-content-padded .myRow label {
+				display: none;
+			}
+			
+			.mui-content-padded .myRow input {
+				width: 90%;
+			}
+			
+			.mui-input-row a {
+				color: #8f8f94;
+			}
+			
+			.mui-btn-block {
+				/*background-color: #50D2C2;*/
+				border: 0px;
+				color: white;
+				font-size: 16px;
+				padding: 8px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar-nav mui-bar">
+			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left" style="color: white;"></a>
+			<!--<h1 class="mui-title" style="font-weight: bold;font-family: '微软雅黑';">激活注册</h1>-->
+		</header>
+
+		<div class="mui-content-padded">
+			<p style="font-style: italic;">注：由于支付安全等原因，平台暂时只允许绑定支付宝账户，其他支付接口将在后续跟进。
+				<font style="color: red;">*</font>
+			</p>
+			<br />
+			<div class="mui-input-row myRow">
+				<label></label>
+				<input type="text" id="alipayAccount" class="mui-input-clear" placeholder="请输入支付宝账号" />
+			</div>
+			<br />
+			<div class="mui-input-row myRow">
+				<label></label>
+				<input type="text" id="alipayRealName" class="mui-input-clear"  placeholder="请输入支付宝账户名" />
+			</div>
+			<br />
+			<div style="white-space: nowrap;">
+				<div class="mui-input-row myRow" style="text-align: center;width: 45%;padding: 0px;float: left;">
+					<label style="width: 0px;display: none;"></label>
+					<input type="tel" id="validation_code" class="mui-input-clear" maxlength="6" placeholder="请输入验证码" style="width:90%;padding: 5px;" />
+				</div>
+				<button id="validation_submit" class="mui-btn-block" style="border:1px solid gainsboro;margin-bottom: 25px;color: #4FD2C2;width: 45%;float: right;border-radius:12px ;font-weight: bold;font-family: '微软雅黑';">发送验证码</button>
+			</div>
+			<br />
+			<br />
+			<button id="bindAlipay" type="button" class="mui-btn  mui-btn-block" style="border-radius:12px;padding:10px;background-color: #4FD2C2;color: white;font-size: 20px;font-weight: bold;font-family: '微软雅黑';">确认绑定</button>
+			<div class="mui-input-row" style="padding: 5px;">
+				<a id="alertBtn" href="#" style="float: right;">无法绑定？</a>
+			</div>
+		</div>
+		<script src="../../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../../js/my/variable.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			mui.init();
+			var alipayAccount = document.getElementById("alipayAccount"); //支付宝账户
+			var alipayRealName = document.getElementById("alipayRealName"); //支付宝账户名
+			var validation_submit = document.getElementById("validation_submit"); //发送验证码按钮
+			var validation_code = document.getElementById("validation_code"); //验证码
+			var bindAlipay = document.getElementById("bindAlipay"); //提交按钮
+			//发送验证码
+			validation_submit.addEventListener("tap", function() {
+				var wt1 = null; //实例化等待窗
+				mui.ajax(myUrl + 'Hunter/User_sendPhone.action', {
+					data: {
+						mode: "server"
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					beforeSend: function() {
+						wt1 = plus.nativeUI.showWaiting();
+					},
+					success: function(data) {
+						//重新发送验证码
+						validation_submit.disabled = "disabled";
+						validation_submit.innerText = "120s后重新发送";
+						//60s取消disabled
+						setTimeout(function() {
+							validation_submit.innerText = "发送验证码";
+							validation_submit.removeAttribute("disabled");
+						}, 12 * 1000);
+						//							console.log(JSON.stringify(data));
+						//关闭加载动画
+						wt1.close();
+
+						if(data.code == 5) {
+							plus.nativeUI.toast(codes[5]);
+							validation_submit.disabled = "disabled";
+							return;
+						}
+						if(data.code == 6) {
+							plus.nativeUI.toast(codes[6] + "，请重发");
+						} else {
+							//未知错误
+							plus.nativeUI.toast("服务器维护中");
+							mui.alert('QQ：3433455401,你懂的！', '客服MM', function() {});
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//关闭加载动画
+						wt1.close();
+						//异常处理；
+						plus.nativeUI.toast("网络异常");
+					}
+				});
+
+			});
+			//提交绑定
+			var wt = null; //实例化等待窗
+			bindAlipay.addEventListener("tap", function(event) {
+				if(alipayAccount.value.length < 6) {
+					plus.nativeUI.toast('请正确输入支付宝账号');
+					return;
+				}
+				if(alipayRealName.value.length < 1) {
+					plus.nativeUI.toast('请正确输入支付宝账户名');
+					return;
+				}
+				if(validation_code.value.length < 6) {
+					plus.nativeUI.toast('请正确输入验证码');
+				} else {
+					mui.ajax(myUrl + 'Hunter/User_updateAlipay.action', {
+						data: {
+							phoneCode: validation_code.value,
+							useAlipay: alipayAccount.value,
+							useName: alipayRealName.value
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						beforeSend: function() {
+							wt = plus.nativeUI.showWaiting();
+						},
+						success: function(data) {
+							//							console.log(JSON.stringify(data));
+							//关闭加载动画
+							wt.close();
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							if(data.code == 1) {
+								plus.nativeUI.toast(codes[1]);
+								mui.back();
+								return;
+							}
+							if(data.code == 0) {
+								plus.nativeUI.toast(codes[0]);
+								return;
+							}
+							if(data.code == 7) {
+								plus.nativeUI.toast(codes[7] + "，请重发");
+								return;
+							} else {
+								//未知错误
+								plus.nativeUI.toast("服务器维护中");
+								mui.alert('QQ：2178150737,你懂的！', '客服MM', function() {});
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//关闭加载动画
+							wt.close();
+							//异常处理；
+							plus.nativeUI.toast("检测网络,重启app");
+						}
+					});
+				}
+
+			});
+			//无法激活
+			document.getElementById("alertBtn").addEventListener('tap', function() {
+				mui.alert('QQ：2178150737,你懂的！', '客服MM', function() {});
+			});
+		</script>
+	</body>
+
+</html>

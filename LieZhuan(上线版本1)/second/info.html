@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>猎赚</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../css/mui.css">
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<style>
+			.mui-content {
+				margin: 0px 10px;
+				margin-top: 30px;
+			}
+			
+			.mui-icon {
+				color: white;
+			}
+			
+			.mui-title {
+				font-family: "微软雅黑";
+				font-weight: bold;
+			}
+			
+			.reg-img {
+				text-align: center;
+			}
+			
+			.reg-img img {
+				border-radius: 50px;
+			}
+			
+			.mui-grid-view.mui-grid-9 .mui-col-xs-4 {
+				margin: 0;
+				padding: 11px 15px;
+				vertical-align: middle;
+				border-right: 0px;
+				border-bottom: 0px;
+			}
+			
+			.mui-table-view.mui-grid-view .mui-col-xs-4 .mui-media-body {
+				color: white;
+				margin-bottom: 5px;
+				font-family: "幼圆";
+				white-space: nowrap;
+				overflow: visible;
+			}
+			
+			.mui-table-view.mui-grid-view .mui-col-xs-4 span {
+				color: white;
+				font-family: "微软雅黑";
+				font-size: 12px;
+			}
+			
+			.mui-col-xs-6 .mui-icon {
+				color: #333;
+			}
+			
+			.mui-grid-view.mui-grid-9 .mui-col-xs-6 {
+				border-right: 1px solid gainsboro;
+				border-bottom: 1px solid gainsboro;
+			}
+			
+			.mui-table-view.mui-grid-view .mui-col-xs-6 .mui-media-body {
+				font-size: 12px;
+			}
+			
+			.mui-grid-view.mui-grid-9 {
+				border-top: 1px solid #eee;
+				border-left: 1px solid #eee;
+				border-right: 1px solid #eee;
+				border-bottom: 1px solid #eee;
+				border-radius: 12px;
+			}
+			
+			.mui-tab-item span {
+				color: #333;
+				font-size: 42px;
+			}
+			
+			.mui-bar-nav {
+				box-shadow: 0 1px 6px #4FD2C2;
+			}
+			
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell.mui-active {
+				background-color: #4FD2C2;
+			}
+		</style>
+	</head>
+
+	<body style="background-color: #4FD2C2;">
+		<header class="mui-bar mui-bar-nav">
+			<a class=" mui-icon iconfont icon-ui mui-pull-left" style="color: white;"></a>
+			<!--<h1 class="mui-title">个人中心</h1>-->
+		</header>
+		<div class="mui-content" style="background-color: #4FD2C2;">
+			<div style="background-color: #4FD2C2;">
+				<div style="background-color: #4FD2C2;margin: -28px -10px;padding: 20px 0px;">
+					<div class="reg-img">
+						<a href="#">
+							<img src="../image/myHead.jpg" width="100px" height="100px" />
+						</a>
+					</div>
+
+				</div>
+				<!--END头像-->
+				<div id="nickname" style="text-align: center;margin-top: 10px;color: white;">
+					昵称
+				</div>
+				<div style="margin:auto;margin-top: 10px;width: 70%;color: white;">
+					<p id="useSign" style="color: white;">请到个人资料，编辑个性签名！</p>
+					<ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: #4FD2C2;border: 0px;">
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+							<div>
+								<div class="mui-media-body">关注</div>
+								<span id="look">0</span>
+
+							</div>
+						</li>
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+							<div>
+								<span class="mui-media-body mui-icon iconfont icon-dianzan" style="font-size: 20px;"></span>
+								<span id="good">0</span>
+
+							</div>
+						</li>
+						<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
+							<div>
+								<div class="mui-media-body">粉丝</div>
+								<span id="fans">0</span>
+
+							</div>
+						</li>
+					</ul>
+				</div>
+
+			</div>
+
+			<div style="margin:0px -10px;background-color: white;padding: 20px;">
+				<ul id="myGrid-9" class="mui-table-view mui-grid-view mui-grid-9" style="background-color: #F8F8F9;border: 1px solid gainsboro;">
+					<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
+						<!--<a href="info/myInfo.html">-->
+						<a id="myInfo" href="javascript:void(0);">
+							<span class="mui-icon iconfont icon-gerenziliao"></span>
+							<div class="mui-media-body">个人资料</div>
+
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="border-right:0px;">
+						<!--<a href="info/myMoney.html">-->
+						<a id="myMoney" href="javascript:void(0);">
+							<span class="mui-icon iconfont icon-shangjinkoudai"></span>
+							<div class="mui-media-body">赏金口袋</div>
+
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
+						<!--<a href="info/setting.html">-->
+						<a id="setting" href="javascript:void(0);">
+							<span class="mui-icon iconfont icon-shezhi"></span>
+							<div class="mui-media-body">设置</div>
+
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="border-right:0px;">
+						<!--<a href="info/myTaskPush.html">-->
+						<a id="aboutUs" href="javascript:void(0);">
+							<span class="mui-icon iconfont icon-guanyuwomen"></span>
+							<div class="mui-media-body">关于我们</div>
+
+						</a>
+					</li>
+
+					<!--下面两个-->
+					<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="border-bottom:0px;">
+						<!--<a href="info/setting.html">-->
+						<a id="share" href="javascript:void(0);">
+							<span class="mui-icon mui-icon-redo" style="font-weight: bold;"></span>
+							<div class="mui-media-body">分享</div>
+
+						</a>
+					</li>
+					<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="border-bottom:0px;border-right:0px;">
+						<a id="update" href="javascript:void(0);">
+							<span class="mui-icon iconfont icon-jianchagengxin"></span>
+							<div class="mui-media-body">更新</div>
+						</a>
+					</li>
+
+				</ul>
+				<br />
+				<button id="cancel" class="mui-btn-block" style="border-radius:12px ;font-size: 12px;background-color: #F8F8F9;">注销登录</button>
+			</div>
+
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/my/variable.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init({
+				swipeBack: false
+
+			});
+			mui.plusReady(function() {
+
+				mui("#cancel")[0].addEventListener("tap", function() {
+					//调用后台注销
+					//关闭加载动画
+					plus.webview.open("../login.html"); // 显示窗口
+					//打开新页面关闭当前页面栈webview
+					var wss = plus.webview.all();
+					for(var i = 0; i < wss.length; i++) {
+						plus.webview.close(wss[i]);
+
+					}
+				});
+
+				/*
+				 * 获取用户信息
+				 */
+
+				var infoWt = null;
+				mui.ajax(myUrl + 'Hunter/User_giveCurrentUser.action', {
+					data: {},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					beforeSend: function() {
+						infoWt = plus.nativeUI.showWaiting("拉取数据");
+					},
+					success: function(data) {
+						//关闭加载动画
+						infoWt.close();
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						if(data.json.User != null && data.json.User != "") {
+							if(localStorage.getItem("headImg") != "" && localStorage.getItem("headImg") != null) {
+								mui(".reg-img img")[0].src = localStorage.getItem("headImg");
+							} else {
+								if(data.json.User.useImg != "") {
+									mui(".reg-img img")[0].src = myUrl + "Hunter/" + data.json.User.useImg;
+								}
+							}
+
+							if(data.json.User.useNickname != "") {
+								mui('#nickname')[0].innerText = data.json.User.useNickname;
+							}
+
+							if(data.json.User.useSign != "") {
+								mui('#useSign')[0].innerText = data.json.User.useSign;
+							}
+						} else {
+							plus.nativeUI.toast("个人信息数据拉取失败");
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//关闭加载动画
+						infoWt.close();
+						plus.nativeUI.toast("网络异常");
+					}
+				});
+
+				/******************************************************************************
+				 * 调用系统分享
+				 * 调用
+				 */
+
+				var shares = null,
+					bhref = false;
+				var Intent = null,
+					File = null,
+					Uri = null,
+					main = null;
+				// H5 plus事件处理
+				function plusReady() {
+					updateSerivces();
+					if(plus.os.name == "Android") {
+						main = plus.android.runtimeMainActivity();
+						Intent = plus.android.importClass("android.content.Intent");
+					}
+				}
+				if(window.plus) {
+					plusReady();
+				} else {
+					document.addEventListener("plusready", plusReady, false);
+				}
+				/**
+				 * 更新分享服务
+				 */
+				function updateSerivces() {
+					plus.share.getServices(function(s) {
+						shares = {};
+						for(var i in s) {
+							var t = s[i];
+							shares[t.id] = t;
+						}
+					}, function(e) {
+						outSet("获取分享服务列表失败：" + e.message);
+					});
+				}
+
+				shareSystem = function() {
+						if(plus.os.name !== "Android") {
+							plus.nativeUI.alert("此平台暂不支持系统分享功能!");
+							return;
+						}
+						var intent = new Intent(Intent.ACTION_SEND);
+						var sharecontent = "我正在使用猎赚APP，赶紧跟我一起来体验！http://www.7hunter.cn";
+						intent.setType("text/plain");
+						intent.putExtra(Intent.EXTRA_SUBJECT, "猎赚APP");
+						intent.putExtra(Intent.EXTRA_TEXT, sharecontent);
+						intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+						main.startActivity(Intent.createChooser(intent, "系统分享"));
+					}
+					/**END调用系统分享***********************************************************/
+			});
+
+			//跳转个人资料
+			mui("#myInfo")[0].addEventListener("tap", function() {
+				localStorage.setItem("interval", "20");
+				var iCount = setInterval(function() {
+					if(localStorage.getItem("interval") == 40) {
+						clearInterval(iCount);
+						mui("#useSign")[0].innerText = localStorage.getItem("userSign");
+						mui("#nickname")[0].innerText = localStorage.getItem("nickname");
+					}
+
+				}, 500);
+
+				mui.openWindow({
+					url: "info/myInfo.html",
+					id: "info/myInfo.html",
+					show: {
+						aniShow: 'pop-in',
+						duration: 300
+					}
+				});
+				return;
+
+			});
+
+			//跳转赏金口袋
+			mui("#myMoney")[0].addEventListener("tap", function() {
+
+				mui.openWindow({
+					url: "info/myMoney.html",
+					id: "info/myMoney.html",
+					show: {
+						aniShow: 'pop-in',
+						duration: 300
+					}
+				});
+				return;
+
+			});
+
+			//跳转设置页面
+			mui("#setting")[0].addEventListener("tap", function() {
+
+				mui.openWindow({
+					url: "info/setting.html",
+					id: "info/setting.html",
+					show: {
+						aniShow: 'pop-in',
+						duration: 300
+					}
+				});
+				return;
+
+			});
+			//跳转关于我们
+			mui("#aboutUs")[0].addEventListener("tap", function() {
+
+				//关于我们（跳转到浏览器）
+				plus.runtime.openURL("http://n.maka.im/pcviewer/F2GTV47A");
+
+			});
+			//跳转分享
+			mui("#share")[0].addEventListener("tap", function() {
+				shareSystem();
+			});
+			//更新版本
+			mui("#update")[0].addEventListener("tap", function() {
+				if(mui.os.ios) {
+					//（跳转到浏览器）
+					window.location.href = "itms-services://?action=download-manifest&url=https%3A%2F%2Fwww.pgyer.com%2Fapiv1%2Fapp%2Fplist%3FaId%3Dc1e4df3ec42283f01f59a2c7decc80a0%26_api_key%3D7aadc341c816e501597d3744ca15c4c5";
+				} else { //（跳转到浏览器）
+					window.location.href = "https://www.pgyer.com/apiv1/app/install?aId=6397935f4454cde2dbc92e8ed93fa3db&_api_key=7aadc341c816e501597d3744ca15c4c5";
+
+				}
+
+			});
+			/**
+			 * 上传头像
+			 */
+
+			mui(".reg-img a")[0].addEventListener("tap", function() {
+				//				console.log("点击头像");
+				// 从相册中选择图片 
+				galleryImg();
+
+				function galleryImg() {
+					// 从相册中选择图片
+					//					console.log("从相册中选择图片:");
+					plus.gallery.pick(function(path) {
+						//						console.log(path);
+						//						console.log("文件名：" + path.substr(path.lastIndexOf("/") + 1));
+						wt = plus.nativeUI.showWaiting("图片压缩中");
+						compressImage(path);
+					}, function(e) {
+						console.log("取消选择图片");
+					}, {
+						filter: "image"
+					});
+				}
+				var time = null;
+				//压缩图片
+				function compressImage(path) {
+					//获取时间戳
+					time = new Date().getTime();
+					plus.zip.compressImage({
+							src: path,
+							dst: "_doc/head/" + time + "_" + path.substr(path.lastIndexOf("/") + 1),
+							overwrite: true,
+							height: "100px", // 缩小到100px
+							quality: 100
+						},
+						function(e) {
+							//console.log("反馈" + JSON.stringify(e));
+							//alert("Compress success!");
+							wt.close();
+							//判断网络连接
+							if(plus.networkinfo.getCurrentType() == plus.networkinfo.CONNECTION_NONE) {
+								return mui.toast("连接网络失败，请稍后再试");
+							}
+							if(e.size > 1048576) { //1兆字节(mb)=1048576字节(b)
+								mui.toast("文件大小超过1M，不予上传");
+							} else {
+								wt = plus.nativeUI.showWaiting("头像上传中");
+								createUpload(e.target);
+							}
+
+						},
+						function(error) {
+							mui.toast("压缩失败");
+							//							alert("Compress error!");
+						});
+				}
+				// 创建上传任务
+				function createUpload(path) {
+					var task = plus.uploader.createUpload(myUrl + "Hunter/uploadImg.action", {
+							method: "POST",
+							blocksize: 102400,
+							priority: 100
+						},
+						function(t, status) {
+							// 上传完成
+							if(status == 200) {
+								wt.close();
+								//								console.log("头像图片路径" + mui(".reg-img img")[0].src);
+								mui(".reg-img img")[0].src = path;
+								localStorage.setItem("headImg", path);
+								//								console.log(path);
+								//								console.log(path);
+								//								console.log("Upload success: " + t.url);
+								//								console.log("Upload success: " + t.responseText);
+							} else {
+								wt.close();
+								mui.toast("上传头像失败");
+								//								console.log("Upload failed: " + status);
+							}
+						}
+					);
+					task.addData("isUser", "1"); //0表示图片做任务用
+					task.addFile(path, {
+						key: "file"
+					});
+					task.start();
+				}
+
+			});
+		</script>
+	</body>
+
+</html>

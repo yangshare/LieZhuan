@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>猎赚</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../../css/mui.css">
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
+		<style>
+			.mui-title {
+				font-family: "微软雅黑";
+				font-weight: bold;
+			}
+			
+			header a {
+				color: white;
+			}
+			
+			.mui-table-view:before {
+				background-color: #EFEFEF;
+			}
+			
+			.mui-table-view:after {
+				background-color: #EFEFEF;
+			}
+			
+			div {
+				color: gray;
+			}
+			
+			.mui-switch.mui-active {
+				border-color: #4FD2C2;
+				background-color: #4FD2C2 ;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left"></a>
+			<!--<h1 class="mui-title">设置</h1>-->
+		</header>
+		<div class="mui-content" style="margin-top: 10px;">
+
+			<div class="mui-content-padded">
+				<h5 style="margin-left: 5px;font-size: 16px;">
+					我的设置：
+				</h5>
+				<div id="changePwd" style="background-color: #EFEFEF;padding: 15px 20px;border: 1px solid gainsboro;">
+					<label>密码</label>
+					<a href="#" style="float: right;color: #50D2C2;">更改</a>
+				</div>
+
+			</div>
+			<br />
+			<div class="mui-content-padded" style="padding: 0px;">
+				<div style="background-color: #EFEFEF;padding: 15px 10px;border: 1px solid gainsboro;padding: 5px 20px;">
+					<ul class="mui-table-view" style="background-color: #EFEFEF;">
+						<li class="mui-table-view-cell" style="padding: 10px 0px;">
+							<h5 style="font-size: 17px;">个人信息是否可见</h5>
+							<div class="mui-switch mui-active">
+								<div class="mui-switch-handle"></div>
+							</div>
+						</li>
+					</ul>
+					<h6 style="font-style: italic;">
+					*开启后个人信息其他用户不可见
+				</h6>
+				</div>
+				<div style="background-color: #EFEFEF;padding: 15px 10px;border: 1px solid gainsboro;padding: 5px 20px">
+					<ul class="mui-table-view" style="background-color: #EFEFEF;">
+						<li class="mui-table-view-cell" style="padding: 10px 0px;border: 0px;">
+							<h5 style="font-size: 17px;">开启账户保护</h5>
+							<div class="mui-switch mui-active">
+								<div class="mui-switch-handle"></div>
+							</div>
+						</li>
+					</ul>
+					<h6 style="font-style: italic;">
+						*开启后就只能本机登录该账户
+					</h6>
+				</div>
+				<div id="contactUs" style="background-color: #EFEFEF;padding: 15px 20px;border: 1px solid gainsboro;">
+					<label>联系我们</label>
+				</div>
+				<div id="clearPhone" style="background-color: #EFEFEF;padding: 15px 20px;border: 1px solid gainsboro;">
+					<label>清除缓存（36M）</label>
+				</div>
+			</div>
+			<br />
+
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/my/variable.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			mui.init();
+			var wt = null; //等待动画
+			mui.plusReady(function() {
+				/*
+				 * 获取用户信息
+				 */
+				mui.ajax(myUrl + 'Hunter/User_giveCurrentUser.action', {
+					data: {},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					beforeSend: function() {
+						wt = plus.nativeUI.showWaiting("拉取数据");
+					},
+					success: function(data) {
+						//						console.log(JSON.stringify(data));
+						//关闭加载动画
+						wt.close();
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						//						
+						if(data.json != null && data.json != "") {
+							if(data.json.User.useShowsign != 1) {
+								mui('.mui-switch')[0].classList.remove("mui-active");
+							}
+							if(data.json.User.useIsprotect == 0) {
+								mui('.mui-switch')[1].classList.remove("mui-active");
+							}
+						} else {
+							plus.nativeUI.toast("数据拉取失败");
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//关闭加载动画
+						wt.close();
+						plus.nativeUI.toast("网络异常");
+					}
+				});
+
+			});
+
+			//个人信息是否可见
+			mui('.mui-switch')[0].addEventListener('toggle', function(event) {
+				//event.detail.isActive 可直接获取当前状态
+				//console.log('状态：' + event.detail.isActive);
+
+				mui.ajax(myUrl + 'Hunter/User_changeShowSign.action', {
+					data: {
+
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					beforeSend: function() {
+						wt = plus.nativeUI.showWaiting("提交修改");
+					},
+					success: function(data) {
+						//console.log(JSON.stringify(data));
+						//关闭加载动画
+						wt.close();
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						if(data.code == 0) {
+							plus.nativeUI.toast(codes[0]);
+							return;
+						}
+						if(data.code == 1) {
+							plus.nativeUI.toast(codes[1]);
+							return;
+						} else {
+							plus.nativeUI.toast("服务器维护中");
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//关闭加载动画
+						wt.close();
+						plus.nativeUI.toast("网络异常");
+					}
+				});
+
+			});
+			//开启账户保护按钮
+			mui('.mui-switch')[1].addEventListener('toggle', function(event) {
+				//event.detail.isActive 可直接获取当前状态
+				//console.log('状态：' + event.detail.isActive);
+
+				mui.ajax(myUrl + 'Hunter/User_changeProtect.action', {
+					data: {
+
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					beforeSend: function() {
+						wt = plus.nativeUI.showWaiting("提交修改");
+					},
+					success: function(data) {
+						//console.log(JSON.stringify(data));
+						//关闭加载动画
+						wt.close();
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						if(data.code == 0) {
+							plus.nativeUI.toast(codes[0]);
+							return;
+						}
+						if(data.code == 1) {
+							plus.nativeUI.toast(codes[1]);
+							return;
+						} else {
+							plus.nativeUI.toast("服务器维护中");
+						}
+
+					},
+					error: function(xhr, type, errorThrown) {
+						//关闭加载动画
+						wt.close();
+						plus.nativeUI.toast("网络异常");
+					}
+				});
+
+			});
+			//修改密码按钮
+			mui("#changePwd")[0].addEventListener('tap', function() {
+				mui.openWindow({
+					url: "setting/changePwd.html",
+					id: "changePwd.html",
+					show: {
+						aniShow: 'pop-in',
+						duration: 300
+					}
+				});
+				return;
+			});
+			//联系我们
+			mui("#contactUs")[0].addEventListener('tap', function() {
+				mui.alert('QQ：2178150737,你懂的！', '客服MM', function() {});
+			});
+			//清理缓冲
+			mui("#clearPhone")[0].addEventListener("tap", function() {
+				//				window.location.reload();
+				this.innerText = "清除缓冲（0M）";
+			});
+		</script>
+	</body>
+
+</html>

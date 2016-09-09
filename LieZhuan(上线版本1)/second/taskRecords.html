@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>猎赚</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../css/mui.css">
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+
+		<style>
+			.mui-control-content .mui-loading {
+				margin-top: 50px;
+			}
+			
+			.mui-bar~.mui-content .mui-fullscreen {
+				top: 44px;
+				height: auto;
+			}
+			
+			.mui-pull-top-tips {
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				margin-left: -25px;
+				width: 40px;
+				height: 40px;
+				border-radius: 100%;
+				z-index: 1;
+			}
+			
+			.mui-bar~.mui-pull-top-tips {
+				top: 24px;
+			}
+			
+			.mui-pull-top-wrapper {
+				width: 42px;
+				height: 42px;
+				display: block;
+				text-align: center;
+				background-color: #efeff4;
+				border: 1px solid #ddd;
+				border-radius: 25px;
+				background-clip: padding-box;
+				box-shadow: 0 4px 10px #bbb;
+				overflow: hidden;
+			}
+			
+			.mui-pull-top-tips.mui-transitioning {
+				-webkit-transition-duration: 200ms;
+				transition-duration: 200ms;
+			}
+			
+			.mui-pull-top-tips .mui-pull-loading {
+				/*-webkit-backface-visibility: hidden;
+				-webkit-transition-duration: 400ms;
+				transition-duration: 400ms;*/
+				margin: 0;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon,
+			.mui-pull-top-wrapper .mui-spinner {
+				margin-top: 7px;
+			}
+			
+			.mui-pull-top-wrapper .mui-icon.mui-reverse {
+				/*-webkit-transform: rotate(180deg) translateZ(0);*/
+			}
+			
+			.mui-pull-bottom-tips {
+				text-align: center;
+				background-color: #efeff4;
+				font-size: 15px;
+				line-height: 40px;
+				color: #777;
+			}
+			
+			.mui-pull-top-canvas {
+				overflow: hidden;
+				background-color: #fafafa;
+				border-radius: 40px;
+				box-shadow: 0 4px 10px #bbb;
+				width: 40px;
+				height: 40px;
+				margin: 0 auto;
+			}
+			
+			.mui-pull-top-canvas canvas {
+				width: 40px;
+			}
+			
+			.mui-slider-indicator.mui-segmented-control {
+				background-color: #efeff4;
+			}
+			
+			.mui-media img {
+				border-radius: 50px;
+			}
+			
+			.mui-media span {
+				font-size: 14px;
+				margin-top: 12px;
+			}
+			
+			.mui-media-body {
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+			
+			.mui-bar-nav .mui-title {
+				font-family: '微软雅黑';
+				font-weight: bold;
+			}
+			
+			#headDiv {
+				background-color: #4FD2C2;
+				border: 0px solid whitesmoke;
+				width: 36%;
+				margin: auto;
+				margin-top: 5px;
+			}
+			
+			#headDiv button {
+				margin-top: 5px;
+				line-height: 10px;
+				width: 50%;
+				height: 25px;
+				border: 1px solid whitesmoke;
+			}
+		</style>
+
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<a class=" mui-icon iconfont icon-ui mui-pull-left" style="color: white;"></a>
+			<a class=" mui-icon iconfont icon-shuaxin mui-pull-right" style="color: white;"></a>
+			<div id="headDiv">
+				<button style="float: left;background-color: #4FD2C2;border-radius:5px 0px 0px 5px;">已发</button>
+				<button style="float: right;border-radius:0px 5px 5px 0px;">已接</button>
+			</div>
+
+		</header>
+		<div class="mui-content">
+			<!--图片轮播-->
+			<div id="imgSlider" class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../image/ad4.png">
+						</a>
+					</div>
+					<!-- 第一张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../image/ad1.png">
+						</a>
+					</div>
+					<!-- 第二张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../image/ad2.png">
+						</a>
+					</div>
+					<!-- 第三张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../image/ad3.png">
+						</a>
+					</div>
+					<!-- 第四张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../image/ad4.png">
+						</a>
+					</div>
+					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../image/ad1.png">
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
+			<!--END图片轮播==============================================================================-->
+			<div id="slider" class="mui-slider mui-fullscreen" style="margin-top: 45%;">
+
+				<!--选项卡==============================================================================-->
+				<div id="sliderSegmentedControl" class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+					<div class="mui-scroll">
+						<!--申请中/进行中/被拒绝/成功/失败/审核中-->
+						<a class="mui-control-item mui-active" href="#item1mobile">
+							申请中
+						</a>
+						<a class="mui-control-item" href="#item2mobile">
+							进行中
+						</a>
+						<a class="mui-control-item" href="#item3mobile">
+							被拒绝
+						</a>
+						<a class="mui-control-item" href="#item4mobile">
+							成功
+						</a>
+						<a class="mui-control-item" href="#item5mobile">
+							失败
+						</a>
+						<a class="mui-control-item" href="#item6mobile">
+							审核中
+						</a>
+					</div>
+				</div>
+
+				<!--选项==============================================================================-->
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+						<div id="scroll1" class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell">
+										<!--第1个选项卡子项-1-->
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell">
+										<!--第2个选项卡子项-1-->
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell">
+										<!--第3个选项卡子项-1-->
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item4mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell">
+										<!--第4个选项卡子项-1-->
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item5mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell">
+										<!--第5个选项卡子项-1-->
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div id="item6mobile" class="mui-slider-item mui-control-content">
+						<div class="mui-scroll-wrapper">
+							<div class="mui-scroll">
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell">
+										<!--第6个选项卡子项-1-->
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<!--<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="../js/mui.pullToRefresh.js"></script>
+		<script src="../js/mui.pullToRefresh.material.js"></script>
+		<script src="../js/my/imgSlider.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/my/variable.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			mui.init({
+				swipeBack: false
+			});
+			var curPage = 0; //当前页
+			var maxPage = 0; //总页数
+			var curPage1 = 0;
+			var maxPage1 = 0;
+			var curPage2 = 0;
+			var maxPage2 = 0;
+			var curPage3 = 0;
+			var maxPage3 = 0;
+			var curPage4 = 0;
+			var maxPage4 = 0;
+			var curPage5 = 0;
+			var maxPage5 = 0;
+
+			var tasState = [0, 1, 2, 3, 4, 5]; //tasState：0/1/2/3/4/5 申请中/进行中/被拒绝/成功/失败/审核中
+			//			var tasStateReturn=[0, 1, 2, 3, 4, 5];//tasState:0/1/2/3/4/5 已发布/申请中/进行中/审核中/成功/失败
+
+			mui.plusReady(function() {
+				//初始化session中任務集合
+				sessionStorage.setItem("TaskRecordList", null);
+				mui('.mui-scroll-wrapper').scroll({
+					indicators: true //是否显示滚动条
+				});
+
+				initPage(tasState[0], maxPage, mui(".mui-table-view")[0]);
+
+				//加载初始化页面
+				function initPage(tasState, maxPage, ul) {
+					var wt = null;
+					mui.ajax(myUrl + 'Hunter/Task_giveBeTaskByState.action', {
+						data: {
+							curPage: 0,
+							tasState: tasState
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						beforeSend: function() {
+							wt = plus.nativeUI.showWaiting("拉取数据");
+						},
+						success: function(data) {
+//							console.log("任务日志任务集合："+JSON.stringify(data));
+							
+							wt.close();
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							var TaskRecordList = data.json.TaskList;
+							//将任务集合存入session
+							var taskObjects = [];
+							if(sessionStorage.getItem("TaskRecordList") != null && sessionStorage.getItem("TaskRecordList") != "null") {
+								taskObjects = JSON.parse(sessionStorage.getItem("TaskRecordList"));
+							}
+
+							for(var i = 0; i < TaskRecordList.length; i++) {
+								taskObjects.push(TaskRecordList[i]);
+							}
+
+							sessionStorage.setItem("TaskRecordList", JSON.stringify(taskObjects));
+							if(TaskRecordList.length > 0) {
+
+								//获取集合长度				
+								if(data.json.size != 0 && data.json.size != null) {
+									maxPage = data.json.size / 3;
+								}
+								var fragment = document.createDocumentFragment(); //创建文档碎片节点
+								var li;
+								ul.innerHTML = "";
+								for(var i = 0; i < TaskRecordList.length; i++) {
+									var imgSrc = null;
+									if(TaskRecordList[i].tasImg != "" && TaskRecordList[i].tasImg != null)
+										imgSrc = myUrl + "Hunter/upload/small" + TaskRecordList[i].tasImg.substr((TaskRecordList[i].tasImg).lastIndexOf("/"));
+									else
+										imgSrc = "";
+									li = document.createElement('li');
+									li.className = 'mui-table-view-cell mui-media';
+									li.innerHTML = '<a href="javascript:;" taskid="' + TaskRecordList[i].tasId + '" tasState="' + TaskRecordList[i].tasState + '"><img class="mui-media-object mui-pull-left" src="' + imgSrc + '"><div class="mui-media-body">' +
+										TaskRecordList[i].tasTitle + '<p class="mui-ellipsis"><span class="mui-icon iconfont icon-yewuyeicon10">&nbsp;&nbsp;&nbsp;' +
+										TaskRecordList[i].tasTimeout + '</span></p></div><span style="float: right;margin-top: -35px;background-color:#E1F8F6;border-radius: 8px;">￥ ' +
+										TaskRecordList[i].tasPrice + '</span></a>';
+									fragment.appendChild(li);
+								}
+								ul.appendChild(fragment);
+
+							} else {
+								ul.innerHTML = "";
+								//								plus.nativeUI.toast("没有更多数据");
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							wt.close();
+							plus.nativeUI.toast("网络异常");
+						}
+					});
+				}
+
+				//剩余页面加载
+				function getPages(page, tasState, ul) {
+					//					var wt = null;
+					mui.ajax(myUrl + 'Hunter/Task_giveBeTaskByState.action', {
+						data: {
+							curPage: page,
+							tasState: tasState
+						},
+						dataType: 'json', //服务器返回json格式数据
+						type: 'post', //HTTP请求类型
+						timeout: 10000, //超时时间设置为10秒；
+						//						beforeSend: function() {
+						//							wt = plus.nativeUI.showWaiting("拉取数据");
+						//						},
+						success: function(data) {
+							//							wt.close();
+//							console.log(JSON.stringify(data));
+							//服务器返回响应，根据响应结果，分析是否登录成功；
+							var TaskRecordList = data.json.TaskList;
+							//将任务集合存入session
+							var taskObjects = JSON.parse(sessionStorage.getItem("TaskRecordList"));
+							for(var i = 0; i < TaskRecordList.length; i++) {
+								taskObjects.push(TaskRecordList[i]);
+							}
+
+							sessionStorage.setItem("TaskRecordList", JSON.stringify(taskObjects));
+							if(TaskRecordList.length > 0) {
+
+								var fragment = document.createDocumentFragment(); //创建文档碎片节点
+								var li;
+								for(var i = 0; i < TaskRecordList.length; i++) {
+									var imgSrc = null;
+									if(TaskRecordList[i].tasImg != "" && TaskRecordList[i].tasImg != null)
+										imgSrc = myUrl + "Hunter/" + TaskRecordList[i].tasImg;
+									else
+										imgSrc = "../image/defaultImg.png";
+									li = document.createElement('li');
+									li.className = 'mui-table-view-cell mui-media';
+									li.innerHTML = '<a href="javascript:;" taskid="' + TaskRecordList[i].tasId + '" tasState="' + TaskRecordList[i].tasState + '"><img class="mui-media-object mui-pull-left" src="' + imgSrc + '"><div class="mui-media-body">' +
+										TaskRecordList[i].tasTitle + '<p class="mui-ellipsis"><span class="mui-icon iconfont icon-yewuyeicon10">&nbsp;&nbsp;&nbsp;' +
+										TaskRecordList[i].tasTimeout + '</span></p></div><span style="float: right;margin-top: -35px;background-color:#E1F8F6;border-radius: 8px;">￥ ' +
+										TaskRecordList[i].tasPrice + '</span></a>';
+									fragment.appendChild(li);
+								}
+								ul.appendChild(fragment);
+							} else {
+								//								plus.nativeUI.toast("没有更多数据");
+							}
+
+						},
+						error: function(xhr, type, errorThrown) {
+							//							wt.close();
+							plus.nativeUI.toast("网络异常");
+						}
+					});
+				}
+
+				//阻尼系数
+				var deceleration = mui.os.ios ? 0.003 : 0.0009;
+				mui('.mui-scroll-wrapper').scroll({
+					bounce: false,
+					indicators: true, //是否显示滚动条
+					deceleration: deceleration
+				});
+
+				//循环初始化所有下拉刷新，上拉加载。
+				mui.each(document.querySelectorAll('.mui-slider-group .mui-scroll'), function(index, pullRefreshEl) {
+					mui(pullRefreshEl).pullToRefresh({
+						down: {
+							callback: function() {
+								setTimeout(function() {
+									//重新加载页面
+									window.location.reload();
+								}, 1000);
+							}
+						},
+						up: {
+							callback: function() {
+
+								var self = this;
+								setTimeout(function() {
+									var ul = self.element.querySelector('.mui-table-view');
+									if(index == 0) {
+										curPage++;
+										getPages(curPage, tasState[0], ul);
+										self.endPullUpToRefresh(curPage > maxPage - 1);
+									}
+									if(index == 1) {
+										curPage1++;
+										getPages(curPage1, tasState[1], ul);
+										self.endPullUpToRefresh(curPage1 > maxPage1 - 1);
+									}
+									if(index == 2) {
+										curPage2++;
+										getPages(curPage2, tasState[2], ul);
+										self.endPullUpToRefresh(curPage2 > maxPage2 - 1);
+									}
+									if(index == 3) {
+										curPage3++;
+										getPages(curPage3, tasState[3], ul);
+										self.endPullUpToRefresh(curPage3 > maxPage3 - 1);
+									}
+									if(index == 4) {
+										curPage4++;
+										getPages(curPage4, tasState[4], ul);
+										self.endPullUpToRefresh(curPage4 > maxPage4 - 1);
+									}
+									if(index == 5) {
+										curPage5++;
+										getPages(curPage5, tasState[5], ul);
+										self.endPullUpToRefresh(curPage5 > maxPage5 - 1);
+									}
+
+								}, 1000);
+							}
+						}
+					});
+				});
+				//选项卡切换
+				var item1 = document.getElementById('item1mobile');
+				var item2 = document.getElementById('item2mobile');
+				var item3 = document.getElementById('item3mobile');
+				var item4 = document.getElementById('item4mobile');
+				var item5 = document.getElementById('item5mobile');
+				var item6 = document.getElementById('item6mobile');
+				mui('#sliderSegmentedControl').on('tap', 'a', function() {
+					//申请中/进行中/被拒绝/成功/失败/审核中
+					if(this.innerText == "申请中") {
+						initPage(tasState[0], maxPage, item1.querySelector('.mui-table-view'));
+					}
+					if(this.innerText == "进行中") {
+						initPage(tasState[1], maxPage1, item2.querySelector('.mui-table-view'));
+					}
+					if(this.innerText == "被拒绝") {
+						initPage(tasState[2], maxPage2, item3.querySelector('.mui-table-view'));
+					}
+					if(this.innerText == "成功") {
+						initPage(tasState[3], maxPage3, item4.querySelector('.mui-table-view'));
+					}
+					if(this.innerText == "失败") {
+						initPage(tasState[4], maxPage4, item5.querySelector('.mui-table-view'));
+					}
+					if(this.innerText == "审核中") {
+						initPage(tasState[5], maxPage5, item6.querySelector('.mui-table-view'));
+					}
+				});
+
+			});
+
+			//当前任务
+			var currentTask = null;
+			//点击每个任务
+			mui(".mui-table-view").on("tap", ".mui-table-view-cell a", function() {
+				var taskID = this.getAttribute("taskid");
+				var tasState = this.parentElement.parentElement.parentElement.parentElement.parentElement.id;
+
+				var taskObject = JSON.parse(sessionStorage.getItem("TaskRecordList"));
+				for(var i = 0; i < taskObject.length; i++) {
+					if(taskID == taskObject[i].tasId) {
+						//取出任务对象
+						currentTask = taskObject[i];
+					}
+				}
+				//页面url,tasState：0/1/2/3/4/5 申请中/进行中/被拒绝/成功/失败/审核中
+				var urlName = null;
+				if(tasState == "item1mobile") {
+					urlName = "taskRecords/taskApplying.html";
+				}
+				if(tasState == "item2mobile") {
+					urlName = "taskRecords/taskFinishing.html";
+				}
+				if(tasState == "item3mobile") {
+					urlName = "taskRecords/taskNoPass.html";
+				}
+				if(tasState == "item4mobile") {
+					urlName = "taskRecords/taskSuccess.html";
+				}
+				if(tasState == "item5mobile") {
+					urlName = "taskRecords/taskFail.html";
+				}
+				if(tasState == "item6mobile") {
+					urlName = "taskRecords/taskAuditing.html";
+				}
+
+				if(urlName != null) {
+					console.log("当前任务" + JSON.stringify(currentTask));
+					//跳转页面和传参数
+					mui.openWindow({
+						url: urlName,
+						id: urlName,
+						show: {
+							aniShow: 'pop-in',
+							duration: 300
+						},
+						extras: {
+							currentTask: JSON.stringify(currentTask) //扩展参数
+						}
+					});
+					return;
+				}
+
+			});
+
+			//刷新按钮
+			mui(".icon-shuaxin")[0].addEventListener("tap", function() {
+				window.location.reload();
+			});
+			//切换到已接
+			mui("#headDiv button")[0].addEventListener("tap", function() {
+				window.location.href = "myTaskPush.html";
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>猎赚</title>
+		<link rel="stylesheet" type="text/css" href="css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+		<style type="text/css">
+			.mui-bar-tab .mui-tab-item.mui-active {
+				color: #3a665e;
+			}
+			
+			.mui-bar-tab .mui-tab-item {
+				color: white;
+			}
+			
+			.mui-bar-tab .mui-tab-item .mui-icon {
+				width: auto;
+				margin-top: 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--底部选项卡-->
+
+		<nav class="mui-bar mui-bar-tab">
+
+			<a id="defaultTab" class="mui-tab-item mui-active" href="second/taskHome.html">
+				<span class="mui-icon iconfont icon-renwudating">
+					<!--任务大厅-->
+				</span>
+				<span class="mui-tab-label">大厅</span>
+			</a>
+			<a class="mui-tab-item" href="second/pyq.html">
+				<span class="mui-icon iconfont icon-pyq">
+					<!--猎圈-->
+				</span>
+				<span class="mui-tab-label">猎圈</span>
+			</a>
+
+			<a class="mui-tab-item " href="second/taskPush.html" style="padding-bottom: 12px;">
+				<span class="mui-icon iconfont icon-tianjia" style="font-size: 36px;">
+					<!--任务发布-->
+				</span>
+			</a>
+			<a class="mui-tab-item " href="second/taskRecords.html">
+				<span class="mui-icon iconfont icon-renwurizhi">
+					<!--任务日志-->
+				</span>
+				<span class="mui-tab-label">日志</span>
+			</a>
+			<a class="mui-tab-item " href="second/info.html">
+				<span class="mui-icon iconfont icon-gerenzhongxin">
+					<!--个人中心-->
+				</span>
+				<span class="mui-tab-label">个人</span>
+			</a>
+		</nav>
+		<!--即使是底部工具条和底部选项卡，也要放在.mui-content之前，否则固定栏会遮住部分主内容-->
+
+		<script src="js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/my/variable.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			//设置默认打开首页显示的子页序号；
+			var Index = 0;
+			//把子页的路径写在数组里面
+			var subpages = ['second/taskHome.html', 'second/pyq.html', 'second/taskPush.html', 'second/taskRecords.html', 'second/info.html'];
+			//等待窗口
+			var wt = null;
+			var wgtVer = null; //版本号
+			//所有的plus-*方法写在mui.plusReady中或者后面。
+			mui.plusReady(function() {
+
+				wt = plus.nativeUI.showWaiting();
+				setTimeout(function() {
+					wt.close();
+				}, 1000);
+				//获取当前页面所属的Webview窗口对象
+				var self = plus.webview.currentWebview();
+				for(var i = 0; i < 5; i++) {
+					//创建webview子页
+					var sub = plus.webview.create(
+						subpages[i], //子页url
+						subpages[i], //子页id
+						{
+							top: '0px', //设置距离顶部的距离
+							bottom: '50px' //设置距离底部的距离
+						}
+					);
+					//如不是我们设置的默认的子页则隐藏，否则添加到窗口中
+					if(i != Index) {
+						sub.hide();
+					}
+					//将webview对象填充到窗口
+					self.append(sub);
+
+				}
+			});
+			//当前激活选项
+			var activeTab = subpages[Index];
+			var lastActiveTabs = new Array();
+			//选项卡点击事件
+			mui('.mui-bar-tab').on('tap', 'a', function(e) {
+				//获取目标子页的id
+				var targetTab = this.getAttribute('href');
+				if(targetTab == activeTab) {
+					return;
+				}
+				//显示目标选项卡
+				plus.webview.show(targetTab);
+				//隐藏当前选项卡
+				plus.webview.hide(activeTab);
+				//记录上次活跃的选项卡
+				lastActiveTabs.push(activeTab);
+				//更改当前活跃的选项卡
+				activeTab = targetTab;
+			});
+			//返回键，退出应用
+			var backButtonPress = 0;
+			mui.back = function(event) {
+				goBack();
+			};
+
+			function　 goBack() {
+				backButtonPress++;
+				if(backButtonPress > 1) {
+					plus.runtime.quit();
+				} else {
+
+					plus.nativeUI.toast('再按一次退出应用');
+				}
+				setTimeout(function() {
+					backButtonPress = 0;
+				}, 1000);
+				return false;
+			}
+		</script>
+		<script type="text/javascript">
+			var Chat = {};
+
+			Chat.socket = null;
+
+			Chat.connect = (function(host) {
+				if('WebSocket' in window) {
+					Chat.socket = new WebSocket(host);
+				} else if('MozWebSocket' in window) {
+					Chat.socket = new MozWebSocket(host);
+				} else {
+					console.log('Error: WebSocket is not supported by this browser.');
+					return;
+				}
+
+				Chat.socket.onopen = function() {
+					console.log('Info: WebSocket connection opened.');
+				};
+
+				Chat.socket.onclose = function() {
+					var btnArray = ['否', '是'];
+					mui.confirm('app网络断线，是否重连？', '猎赚平台', btnArray, function(e) {
+						if(e.index == 1) {
+							Chat.initialize();
+						} else {
+							mui.openWindow({
+								url: "login.html",
+								id: "login.html",
+								show: {
+									aniShow: 'pop-in',
+									duration: 300
+								}
+							});
+							return;
+						}
+					});
+
+					console.log('Info: WebSocket closed.');
+				};
+
+				Chat.socket.onmessage = function(message) {
+
+					if(message.data == "更新") {
+						var btnArray = ['否', '是'];
+						mui.confirm('版本有重大更新，是否马上安装？', '猎赚平台', btnArray, function(e) {
+							if(e.index == 1) {
+								if(mui.os.ios) {
+									//（跳转到浏览器）
+									window.location.href = "itms-services://?action=download-manifest&url=https%3A%2F%2Fwww.pgyer.com%2Fapiv1%2Fapp%2Fplist%3FaId%3Dc1e4df3ec42283f01f59a2c7decc80a0%26_api_key%3D7aadc341c816e501597d3744ca15c4c5";
+								} else { //（跳转到浏览器）
+									window.location.href = "https://www.pgyer.com/apiv1/app/install?aId=6397935f4454cde2dbc92e8ed93fa3db&_api_key=7aadc341c816e501597d3744ca15c4c5";
+
+								}
+							} else {
+								mui.toast('为了你的使用安全，请尽快到【个人】点击【更新】', '猎赚平台', function() {});
+							}
+						});
+					} else {
+						var allStr = null; //导航字符
+						var str1 = (message.data).substr(0, 1); //判断是接还是发日志
+						console.log("发还是接：" + str1);
+						var str2 = (message.data).substr(1, 1); //任务状态码
+						console.log("任务状态码：" + str2);
+						var str3 = (message.data).substr(2); //任务名称
+						console.log("任务名称：" + str3);
+
+						if(str1 == "0") {
+							allStr = "任务更新，请到：日志→已发→";
+							switch(str2) {
+								case "0":
+									allStr += "申请→";
+									break;
+								case "1":
+									allStr += "进行→";
+									break;
+								case "2":
+									allStr += "审核→";
+									break
+								case "3":
+									allStr += "完成→";
+									break;
+								case "4":
+									allStr += "失败→";
+									break;
+								default:
+									mui.alert(message.data, '猎赚平台', function() {});
+									break;
+							}
+							allStr += str3 + "，查看";
+						}
+						if(str1 == "1") {
+							allStr = "任务更新，请到：日志→已接→";
+							switch(str2) {
+								case "0":
+									allStr += "申请→";
+									break;
+								case "1":
+									allStr += "被拒绝→";
+									break;
+								case "2":
+									allStr += "进行→";
+									break
+								case "3":
+									allStr += "审核→";
+									break;
+								case "4":
+									allStr += "完成→";
+									break;
+								case "5":
+									allStr += "失败→";
+									break;
+								default:
+									mui.alert(message.data, '猎赚平台', function() {});
+									break;
+							}
+							allStr += str3 + "，查看";
+						}
+
+						mui.alert(allStr, '猎赚平台', function() {});
+					}
+
+				};
+			});
+
+			Chat.initialize = function() {
+				//				mui.toast("当前应用版本为：" + localStorage.getItem("appVersion"));
+				var loginInfo = JSON.parse(localStorage.getItem('loginInfo'));
+				Chat.connect('ws://' + websocketUrl + 'Hunter/websocket/' + loginInfo.account + "/" + localStorage.getItem("appVersion"));
+			};
+			Chat.initialize();
+		</script>
+	</body>
+
+</html>

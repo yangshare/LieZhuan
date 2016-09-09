@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>猎赚</title>
+		<link rel="stylesheet" type="text/css" href="../../css/mui.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/iconfont.css" />
+		<style type="text/css">
+			.mui-input-row label,
+			.mui-input-row label~input,
+			.mui-input-row label~select {
+				color: #333;
+				/*border: 1px red solid;*/
+			}
+			
+			.mui-input-row label {
+				margin-right: 10px;
+				/*overflow: hidden;*/
+				white-space: nowrap;
+				/*width: 50%;*/
+				/*border: 1px red solid;*/
+			}
+			
+			.mui-input-row span {
+				font-size: 30px;
+				color: black;
+				overflow: hidden;
+				white-space: nowrap;
+			}
+			
+			.mui-input-row label~input {
+				margin-top: 5px;
+				padding: 0px;
+				float: left;
+				background-color: white;
+				color: black;
+				width: 150px;
+				height: 30px;
+			}
+			
+			.mui-checkbox input[type=checkbox],
+			.mui-radio input[type=radio] {
+				top: 6px;
+			}
+			
+			.mui-btn {
+				padding: 10px;
+			}
+			
+			.mui-bar-nav .mui-title {
+				font-family: '微软雅黑';
+				font-weight: bold;
+			}
+			
+			.reg-img {
+				text-align: center;
+			}
+			
+			.reg-img img {
+				border-radius: 50px;
+			}
+			
+			.mui-preview-image.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+			}
+			
+			.mui-preview-header,
+			.mui-preview-footer {
+				position: absolute;
+				width: 100%;
+				left: 0;
+				z-index: 10;
+			}
+			
+			.mui-preview-header {
+				height: 44px;
+				top: 0;
+			}
+			
+			.mui-preview-footer {
+				height: 50px;
+				bottom: 0px;
+			}
+			
+			.mui-preview-header .mui-preview-indicator {
+				display: block;
+				line-height: 25px;
+				color: #fff;
+				text-align: center;
+				margin: 15px auto 4;
+				width: 70px;
+				background-color: rgba(0, 0, 0, 0.4);
+				border-radius: 12px;
+				font-size: 16px;
+			}
+			
+			.mui-preview-image {
+				display: none;
+				-webkit-animation-duration: 0.5s;
+				animation-duration: 0.5s;
+				-webkit-animation-fill-mode: both;
+				animation-fill-mode: both;
+			}
+			
+			.mui-preview-image.mui-preview-in {
+				-webkit-animation-name: fadeIn;
+				animation-name: fadeIn;
+			}
+			
+			.mui-preview-image.mui-preview-out {
+				background: none;
+				-webkit-animation-name: fadeOut;
+				animation-name: fadeOut;
+			}
+			
+			.mui-preview-image.mui-preview-out .mui-preview-header,
+			.mui-preview-image.mui-preview-out .mui-preview-footer {
+				display: none;
+			}
+			
+			.mui-zoom-scroller {
+				position: absolute;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				-webkit-backface-visibility: hidden;
+			}
+			
+			.mui-zoom {
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+			}
+			
+			.mui-slider .mui-slider-group .mui-slider-item img {
+				width: auto;
+				height: auto;
+				max-width: 100%;
+				max-height: 100%;
+			}
+			
+			.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+				width: 100%;
+			}
+			
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+				display: inline-table;
+			}
+			
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+				display: table-cell;
+				vertical-align: middle;
+			}
+			
+			.mui-preview-loading {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+			
+			.mui-preview-loading.mui-active {
+				display: block;
+			}
+			
+			.mui-preview-loading .mui-spinner-white {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -25px;
+				margin-top: -25px;
+				height: 50px;
+				width: 50px;
+			}
+			
+			.mui-preview-image img.mui-transitioning {
+				-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+				transition: transform 0.5s ease, opacity 0.5s ease;
+			}
+			
+			@-webkit-keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			
+			@keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			
+			@-webkit-keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			
+			@keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+				color: white;
+				background-color: #4FD2C2;
+				border-right: 1px solid gainsboro;
+				border-bottom: 0px solid #eee;
+			}
+			
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell.mui-active {
+				background-color: #4FD2C2;
+			}
+			
+			.mui-bar-nav {
+				top: 0;
+				-webkit-box-shadow: 0 1px 6px #4FD2C2;
+				box-shadow: 0 1px 6px #4FD2C2;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-back mui-pull-left" style="color: white;"></a>
+			<!--<h1 class="mui-title">接受任务</h1>-->
+		</header>
+		<div class="mui-content">
+			<!--上半部分-->
+			<div style="background-color: #4FD2C2;">
+				<br />
+				<div class="reg-img">
+					<a href="#">
+						<img src="../../image/myHead.jpg" width="100px" height="100px" />
+					</a>
+				</div>
+				<div id="nickname" style="text-align: center;margin-top: 10px;color: white;">
+					昵称
+				</div>
+				<br />
+				<div style="margin:auto;">
+					<ul class="mui-table-view mui-grid-view mui-grid-9" style="border: 1px;background-color: white;border: 0px;">
+						<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
+							<span style="padding-bottom: 15px;">任务类型</span>
+							<p id="myTaskType" style="color: white;margin-top: 5px;">个人</p>
+						</li>
+
+						<li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6">
+							<span style="margin-bottom: 5px;">任务赏金</span>
+							<p style="color: white;margin-top: 5px;"><span id="taskMoney">30</span>￥</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!--下半部分-->
+			<br />
+			<div class="mui-input-row">
+				<label>任务名称:</label>
+				<input id="taskTitle" type="text" value="给我p一张图片" readonly="readonly" />
+			</div>
+			<div hidden="hidden" id="teamTaskNum" class="mui-input-row">
+				<label>剩余名额:</label>
+				<input id="tasReceivenum" type="text" value="0" readonly="readonly" />
+			</div>
+			<!---->
+			<div class="mui-input-row">
+				<label>任务说明：</label>
+			</div>
+			<div class="mui-card" style="padding: 5px;background-color: #F8F8F9;">
+				<br />
+				<div class="mui-input-row" style="margin:0px 10px;">
+					<textarea style="border: 0px;background-color: #F8F8F9;padding: 0px;" readonly="readonly" id="taskContent" placeholder="用户太懒，什么描述都未留下，如有疑问可以联系发布者"></textarea>
+				</div>
+
+				<div class="mui-input-row" style="margin:0px 10px;text-align: center;">
+					<img id="taskImg" width="100px" height="100px" src="../../image/defaultImg.png" style="border-radius:8px ;" data-preview-src="" data-preview-group="1" />
+				</div>
+			</div>
+			<!-------------------------------------------->
+			<div class="mui-input-row" style="margin: 15px;">
+				<textarea id="tasContact" rows="2" placeholder="您的详细联系方式" readonly="readonly"></textarea>
+				<span class="mui-icon mui-icon-chatboxes" style="font-size:20px;float: right;margin-top: -55px;margin-right:10px;position: relative;"></span>
+			</div>
+			
+			<div hidden="hidden" id="finishTimeDiv">
+				<div id="dieTime" class="mui-input-row" style="white-space: nowrap;">
+					<label>任务完成时限：<h6>超过时限，任务下架，任务失败</h6></label>
+				</div>
+				<div class="mui-input-row" style="margin-top: -10px;">
+					<label id="tasTimeout">2012-7-2 12:30</label>
+				</div>
+			</div>
+			<br />
+			<br />
+
+		</div>
+		<script src="../../js/mui.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/my/variable.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.previewimage.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../js/mui.zoom.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.previewImage();
+			var taskPushUser = null;
+			mui.plusReady(function() {
+				//加载动画
+				var wt = null;
+				//取出点击任务
+				var currentTask = plus.webview.currentWebview().currentTask;
+				currentTask = JSON.parse(currentTask);
+				//展示任务信息
+				if(currentTask.tasImg != "") {
+					mui("#taskImg")[0].src = myUrl + "Hunter/" + currentTask.tasImg;
+				}
+				mui("#taskTitle")[0].value = currentTask.tasTitle;
+				mui("#taskMoney")[0].innerText = currentTask.tasPrice;
+				mui("#taskContent")[0].value = currentTask.tasContent;
+				mui("#tasContact")[0].value = currentTask.tasContact;
+				mui("#myTaskType")[0].innerText = currentTask.tasType;
+				mui("#tasTimeout")[0].innerText = currentTask.tasTimeout;
+				mui("#tasReceivenum")[0].value = currentTask.tasRulenum - currentTask.tasReceivenum;
+				if(currentTask.tasType == "团队") {
+					mui("#teamTaskNum")[0].removeAttribute("hidden");
+				}
+				if(currentTask.tasType == "加急个人") {
+					mui("#finishTimeDiv")[0].removeAttribute("hidden");
+				}
+
+				//获取发布者
+				mui.ajax(myUrl + 'Hunter/Task_giveTasUserByTasId.action', {
+					data: {
+						tasId: currentTask.tasId
+					},
+					dataType: 'json', //服务器返回json格式数据
+					type: 'post', //HTTP请求类型
+					timeout: 10000, //超时时间设置为10秒；
+					beforeSend: function() {
+						wt = plus.nativeUI.showWaiting("拉取数据");
+					},
+					success: function(data) {
+						wt.close();
+						//服务器返回响应，根据响应结果，分析是否登录成功；
+						console.log(JSON.stringify(data));
+						var userInfo = data.json.User;
+						if(userInfo != null) {
+							taskPushUser = userInfo;
+							if(userInfo.useImg != "") {
+								mui(".reg-img img")[0].src = myUrl + "Hunter/" + userInfo.useImg;
+							}
+							mui("#nickname")[0].innerText = userInfo.useNickname;
+						}
+					},
+					error: function(xhr, type, errorThrown) {
+						wt.close();
+						plus.nativeUI.toast("网络异常");
+
+					}
+				});
+
+				
+				//查看发布者信息
+				mui(".reg-img img")[0].addEventListener("tap", function() {
+					//跳转页面和传参数
+					mui.openWindow({
+						url: "../othersInfo.html",
+						id: "othersInfo.html",
+						show: {
+							aniShow: 'pop-in',
+							duration: 300
+						},
+						extras: {
+							taskPushUser: JSON.stringify(taskPushUser) //扩展参数
+						}
+					});
+					return;
+				});
+
+			});
+		</script>
+	</body>
+
+</html>

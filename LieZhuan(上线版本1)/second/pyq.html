@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>猎赚</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<link rel="stylesheet" href="../css/mui.css">
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<style>
+			.title {
+				margin: 20px 15px 10px;
+				color: #333;
+				font-size: 15px;
+				font-weight: bold;
+			}
+			
+			.mui-media img {
+				border-radius: 5px;
+			}
+			
+			.mui-media span {
+				font-size: 14px;
+				margin-top: 12px;
+			}
+			
+			.mui-media-body {
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+			
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+				border-right: 0px;
+				border-bottom: 0px;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<header class="mui-bar mui-bar-nav">
+			<a class=" mui-icon iconfont icon-ui mui-pull-left" style="color: white;"></a>
+			<!--<a href="pyq/search.html" class="mui-icon iconfont icon-tianjiahaoyou mui-pull-right" style="color: white;"></a>
+			<a href="pyq/myTopics.html" class="mui-icon iconfont icon-at mui-pull-right" style="color: white;margin-right: 2px;"></a>-->
+
+			<a href="#" class="mui-icon iconfont icon-tianjiahaoyou mui-pull-right" style="color: white;"></a>
+			<a href="#" class="mui-icon iconfont icon-at mui-pull-right" style="color: white;margin-right: 2px;"></a>
+
+			<h1 class="mui-title" style="font-family: '微软雅黑' ;font-weight: bold;">猎圈</h1>
+		</header>
+		<div class="mui-content" style="margin-top: 3px;">
+			<!--图片轮播-->
+			<div id="imgSlider" class="mui-slider">
+				<div class="mui-slider-group mui-slider-loop">
+					<!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../image/ad4.png">
+						</a>
+					</div>
+					<!-- 第一张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../image/ad1.png">
+						</a>
+					</div>
+					<!-- 第二张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../image/ad2.png">
+						</a>
+					</div>
+					<!-- 第三张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../image/ad3.png">
+						</a>
+					</div>
+					<!-- 第四张 -->
+					<div class="mui-slider-item">
+						<a href="#">
+							<img src="../image/ad4.png">
+						</a>
+					</div>
+					<!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+					<div class="mui-slider-item mui-slider-item-duplicate">
+						<a href="#">
+							<img src="../image/ad1.png">
+						</a>
+					</div>
+				</div>
+				<div class="mui-slider-indicator">
+					<div class="mui-indicator mui-active"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+					<div class="mui-indicator"></div>
+				</div>
+			</div>
+			<!--END图片轮播-->
+			<div class="title">
+				<span>热门话题</span>
+				<span style="float: right;">
+					<!--<a href="pyq/topics.html" style="color: gray;">more</a>-->
+					<a href="#" style="color: gray;">more</a>
+				</span>
+			</div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="../image/shuijiao.jpg">
+						<div class="mui-media-body">
+							能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？
+							<p class='mui-ellipsis'>
+								<span class="mui-icon iconfont icon-chakan">1024</span> &nbsp;
+								<span class="mui-icon iconfont icon-huifu">526</span> &nbsp;
+								<span class="mui-icon iconfont icon-shizhong">2016.7.16</span>
+							</p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="../image/muwu.jpg">
+						<div class="mui-media-body">
+							想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.
+							<p class='mui-ellipsis'>
+								<span class="mui-icon iconfont icon-chakan">1024</span> &nbsp;
+								<span class="mui-icon iconfont icon-huifu">526</span> &nbsp;
+								<span class="mui-icon iconfont icon-shizhong">2016.7.16</span>
+							</p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-left" src="../image/cbd.jpg">
+						<div class="mui-media-body">
+							烤炉模式的城，到黄昏，如同打翻的调色盘一般.
+							<p class='mui-ellipsis'>
+								<span class="mui-icon iconfont icon-chakan">1024</span> &nbsp;
+								<span class="mui-icon iconfont icon-huifu">526</span> &nbsp;
+								<span class="mui-icon iconfont icon-shizhong">2016.7.16</span>
+							</p>
+						</div>
+					</a>
+				</li>
+
+			</ul>
+			<div class="title">
+				校园头条
+			</div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-right" src="../image/yuantiao.jpg">
+						<div class="mui-media-body">
+							静静的看这个世界，最后终于疯了
+							<p class='mui-ellipsis'>
+								<span class="mui-icon iconfont icon-chakan">1024</span> &nbsp;
+								<span class="mui-icon iconfont icon-huifu">526</span> &nbsp;
+								<span class="mui-icon iconfont icon-shizhong">2016.7.16</span>
+							</p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-right" src="../image/shuijiao.jpg">
+						<div class="mui-media-body">
+							能和心爱的人一起睡觉，是件幸福的事情；可是，打呼噜怎么办？
+							<p class='mui-ellipsis'>
+								<span class="mui-icon iconfont icon-chakan">1024</span> &nbsp;
+								<span class="mui-icon iconfont icon-huifu">526</span> &nbsp;
+								<span class="mui-icon iconfont icon-shizhong">2016.7.16</span>
+							</p>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media">
+					<a href="javascript:;">
+						<img class="mui-media-object mui-pull-right" src="../image/muwu.jpg">
+						<div class="mui-media-body">
+							想要这样一间小木屋，夏天挫冰吃瓜，冬天围炉取暖.
+							<p class='mui-ellipsis'>
+								<span class="mui-icon iconfont icon-chakan">1024</span> &nbsp;
+								<span class="mui-icon iconfont icon-huifu">526</span> &nbsp;
+								<span class="mui-icon iconfont icon-shizhong">2016.7.16</span>
+							</p>
+						</div>
+					</a>
+				</li>
+			</ul>
+
+			<div class="title">
+				校园网红
+			</div>
+			<ul class="mui-table-view mui-grid-view mui-grid-9" style="background-color: white;">
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<img class="mui-media-object" src="../image/header.jpg" style="border-radius:100px ;">
+						<div class="mui-media-body">昵称昵称</div>
+						<span class="mui-icon iconfont icon-renqi" style="font-size: 16px;margin-top: 12px;">1024</span>
+
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<img class="mui-media-object" src="../image/header.jpg" style="border-radius:100px ;">
+						<div class="mui-media-body">昵称昵称</div>
+						<span class="mui-icon iconfont icon-renqi" style="font-size: 16px;margin-top: 12px;">1024</span>
+
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<img class="mui-media-object" src="../image/header.jpg" style="border-radius:100px ;">
+						<div class="mui-media-body">昵称昵称</div>
+						<span class="mui-icon iconfont icon-renqi" style="font-size: 16px;margin-top: 12px;">1024</span>
+
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<img class="mui-media-object" src="../image/header.jpg" style="border-radius:100px ;">
+						<div class="mui-media-body">昵称昵称</div>
+						<span class="mui-icon iconfont icon-renqi" style="font-size: 16px;margin-top: 12px;">1024</span>
+
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<img class="mui-media-object" src="../image/header.jpg" style="border-radius:100px ;">
+						<div class="mui-media-body">昵称昵称</div>
+						<span class="mui-icon iconfont icon-renqi" style="font-size: 16px;margin-top: 12px;">1024</span>
+
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<img class="mui-media-object" src="../image/header.jpg" style="border-radius:100px ;">
+						<div class="mui-media-body">昵称昵称</div>
+						<span class="mui-icon iconfont icon-renqi" style="font-size: 16px;margin-top: 12px;">1024</span>
+
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<img class="mui-media-object" src="../image/header.jpg" style="border-radius:100px ;">
+						<div class="mui-media-body">昵称昵称</div>
+						<span class="mui-icon iconfont icon-renqi" style="font-size: 16px;margin-top: 12px;">1024</span>
+
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<img class="mui-media-object" src="../image/header.jpg" style="border-radius:100px ;">
+						<div class="mui-media-body">昵称昵称</div>
+						<span class="mui-icon iconfont icon-renqi" style="font-size: 16px;margin-top: 12px;">1024</span>
+
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<a href="#">
+						<img class="mui-media-object" src="../image/header.jpg" style="border-radius:100px ;">
+						<div class="mui-media-body">昵称昵称</div>
+						<span class="mui-icon iconfont icon-renqi" style="font-size: 16px;margin-top: 12px;">1024</span>
+
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-3">
+					<!--<a href="pyq/search.html">-->
+					<a href="#">
+						<span class="mui-icon mui-icon-more"></span>
+						<div class="mui-media-body">more</div>
+					</a>
+				</li>
+
+			</ul>
+			<br />
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../js/my/imgSlider.js" type="text/javascript" charset="utf-8"></script>
+		<script>
+			mui.init({
+				swipeBack: false
+			});
+			mui.plusReady(function() {
+				//正在建设中
+				mui(".mui-content")[0].addEventListener("tap", function() {
+					mui.alert('猎圈正在努力建设中，敬请期待！', '猎赚开发组', function() {});
+				});
+			});
+			mui('.mui-scroll-wrapper').scroll({
+				indicators: true //是否显示滚动条
+			});
+		</script>
+	</body>
+
+</html>
